@@ -23,7 +23,7 @@ contains
 
         ! Etapa triangulación
         do i = 1, m-1
-            if (abs(Ab(i,i))<epsilon(1.d0)) stop "Cero en la diagonal"  !!!!!CAMBIAR PARA EL MARTES
+            if (abs(Ab(i,i))<epsilon(1.d0)) stop "Cero en la diagonal"  !!!!!PIVOTE PARCIAL
             do k = i+1, m                       ! Filas por debajo 
                 h = Ab(k,i)/Ab(i,i)             ! Factor que multiplica la fila i
                 Ab(k,:) = Ab(k,:) - h*Ab(i,:)
