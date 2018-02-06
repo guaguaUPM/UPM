@@ -1,0 +1,14 @@
+{
+    "files.exclude": {
+    "**/._*": true,
+    "**/*.obj": true,
+    "**/*.o": true,
+    "**/*.so": true,
+    "**/*.mod": true,
+    "**/*.exe": true,
+    "**/*.app": true,
+    "**/*.out": true,
+    ".vscode": true,
+    ".gitignore": true
+    }
+}
