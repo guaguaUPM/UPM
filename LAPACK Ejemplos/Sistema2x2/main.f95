@@ -25,5 +25,4 @@ write(*,*) IPIV(2,:)
 
 write(*,*) info
 
-
 end program pruebas
