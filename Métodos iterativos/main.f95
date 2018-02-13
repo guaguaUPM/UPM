@@ -1,15 +1,17 @@
 program main
+use metodos_iterativos
 implicit none
-use iterativos
+
 
 integer ::  i, j, N ! i y j son contadores de bucles, INFO es 1 si se resolvió satisfactoriamente
-real*8, allocatable :: A(:,:), B(:)
+real*8, allocatable :: A(:,:), B(:), X(:)
 
 write(*,*) "Por favor, introduzca el valor de N:"
 
 read(*,*) N
 allocate(A(N,N))
 allocate(B(N))
+allocate(X(N))
 
 write(*,*) "Esciba el valor de las matrices, en doble precisión (0.d0)"
 
@@ -31,6 +33,8 @@ do i=1, N
     write(*,*) A(i,:), "|", B(i)
 end do
 
+call jacobi (A, X, b, 0.00001d0)
 
+write (*,*) X
 
 end program main
