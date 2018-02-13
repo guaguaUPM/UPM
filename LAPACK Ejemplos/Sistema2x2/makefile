@@ -5,7 +5,7 @@ FC = gfortran
 LD = gfortran
 
 # COMPILER FLAGS GIVEN BELOW
-FFLAGS  = -fbounds-check -L/usr/lib -llapack -L/usr/lib -lblas
+FFLAGS  = -fbounds-check  -L/usr/lib -llapack -L/usr/lib -lblas
 
 # COMMAND TO DELETE (Windows=del, MacOS=rm)
 RM = rm
