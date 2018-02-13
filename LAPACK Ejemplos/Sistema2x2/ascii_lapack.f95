@@ -1,5 +1,5 @@
 module ascii_art
-    ! http://http://patorjk.com/software/taag/#p=display&f=Georgi16
+    ! http://patorjk.com/software/taag/#p=display&f=Georgi16
 contains
     subroutine ascii_lapack
         write(*,*) "____                                        ___       "
