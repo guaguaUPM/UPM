@@ -8,7 +8,7 @@ LD = gfortran
 FFLAGS  = -fbounds-check -L/usr/lib -llapack -L/usr/lib -lblas
 
 # COMMAND TO DELETE (Windows=del, MacOS=rm)
-RM = del
+RM = rm
 
 SRC  = ascii_lapack.f95 main.f95 
 
