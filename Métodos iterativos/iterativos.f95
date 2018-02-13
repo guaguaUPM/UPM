@@ -1,6 +1,9 @@
 module metodos_iterativos
 use invertir
 
+!REQUIERE QUE EL SISTEMA CONVERJA
+!REQUIERE QUE NO EXISTAN CEROS EN LA DIAGONAL (PREVIO PIVOTAMIENTO)
+
 contains
 
     subroutine jacobi (A, Xfinal, b, tol)
@@ -63,6 +66,8 @@ contains
         end do
 
     end subroutine
+
+    subroutine gauss_seidel
 
     function norma2 (vector,n)
         real(8), intent(in) :: vector(:)
