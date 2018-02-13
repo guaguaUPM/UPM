@@ -1,5 +1,6 @@
 module algebra_lineal 
 implicit none
+! PIPO MUERE
 contains
     subroutine Gauss(A,b,x)
 
