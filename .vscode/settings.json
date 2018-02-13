@@ -9,6 +9,7 @@
     "**/*.app": true,
     "**/*.out": true,
     ".vscode": true,
-    ".gitignore": true
+    ".gitignore": true,
+    "Transparencias": true
     }
 }
