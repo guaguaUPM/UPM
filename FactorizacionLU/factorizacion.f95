@@ -6,7 +6,7 @@ implicit none
 
 
 integer::n
-real,allocatable::A(:,:),L(:,:),U(:,:)
+real(8),allocatable:: A(:,:),L(:,:),U(:,:)
 integer::i,j 
 
 write(*,*) "Introduce el tamaño de la matriz:"
