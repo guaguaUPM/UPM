@@ -110,7 +110,8 @@ contains
         end do
             
         !Segun nos indica la formula reducida del método de Jacobi calculamos las matrices c y T
-
+        c = matmul(inversa(D+L), b)
+        T = matmul((-1)*inversa(D+L), U)
     
         !Primera semilla (primer valor establecido de x para iniciar la iteración)
         x0 = 0.d0
