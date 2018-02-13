@@ -68,6 +68,8 @@ contains
     end subroutine
 
     subroutine gauss_seidel
+    
+    end subroutine
 
     function norma2 (vector,n)
         real(8), intent(in) :: vector(:)
