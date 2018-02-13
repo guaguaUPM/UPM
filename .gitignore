@@ -6,6 +6,7 @@
 *.lo
 *.o
 *.obj
+*.mod
 
 # Precompiled Headers
 *.gch
@@ -59,3 +60,5 @@ Icon
 Network Trash Folder
 Temporary Items
 .apdis
+
+~*
