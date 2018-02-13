@@ -3,12 +3,13 @@ use invertir
 
 contains
 
-    subroutine jacobi (A, Xfinal, b)
+    subroutine jacobi (A, Xfinal, b, tol)
 
         ! Argumentos de la subrutina
         real(8), intent(in) :: A(:,:)          !
         real(8), intent(in) :: b(:)            ! DIMENSIONES ASUMIDAS
         real(8), intent(inout) :: Xfinal(:)    !
+        real(8), intent(in) :: tol             !
 
         ! Variables locales
         integer :: n                     ! Dimensión del problema A(n,n) b(n) X(n)
@@ -49,10 +50,16 @@ contains
 
         !Primera semilla (primer valor establecido de x para iniciar la iteración)
         x0 = 0.d0
+        maxiter = 999999
 
         do iter = 1, maxiter
-        
-
+            x = matmul(T, x0) + c
+            if (norma2((x-x0), n)/norma2(x, n) <= tol) then
+                Xfinal = x
+                stop
+            else 
+                x0 = x
+            end if
         end do
 
     end subroutine

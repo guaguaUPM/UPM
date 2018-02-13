@@ -5,9 +5,12 @@ implicit none
 
 
 
-integer::n=3
+integer::n
 real,allocatable::A(:,:),L(:,:),U(:,:)
 integer::i,j 
+
+write(*,*) "Introduce el tamaño de la matriz:"
+read(*,*) n
 
 allocate (A(n,n))
 call ascii
