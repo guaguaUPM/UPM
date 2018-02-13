@@ -19,7 +19,7 @@ contains
         real(8), allocatable :: x0(:)
         real(8), allocatable :: x(:)
         real(8), allocatable :: L(:,:)
-        real(8), allocatable :: D(:,:), inverseD(:,:)
+        real(8), allocatable :: D(:,:)
         real(8), allocatable :: U(:,:)
         real(8), allocatable :: c(:,:)
         real(8), allocatable :: T(:,:)
@@ -33,7 +33,6 @@ contains
         allocate (U(n,n))
         allocate (c(n,n))
         allocate (T(n,n))
-        allocate(inverseD(n,n))
 
         !Establecemos las matrices L, D y U para el algoritmo de la iteración
         do j= 1, n
@@ -49,8 +48,7 @@ contains
         end do
         
         !Segun nos indica la formula reducida del método de Jacobi calculamos las matrices c y T
-        inverseD = inversa(D)
-        c = matmul(inverseD, b)
+        c = matmul(b, inversa(D)) !CAMBIO DE ORDEN
         T = matmul((-1)*inversa(D),(U+L))
 
         !Primera semilla (primer valor establecido de x para iniciar la iteración)
@@ -58,7 +56,7 @@ contains
         maxiter = 999999
 
         do iter = 1, maxiter
-            x = matmul(T, x0) + c
+            x = matmul(x0, T) !CAMBIO DE ORDEN
             if (norma2((x-x0), n)/norma2(x, n) <= tol) then
                 Xfinal = x
                 stop
@@ -110,15 +108,15 @@ contains
         end do
             
         !Segun nos indica la formula reducida del método de Jacobi calculamos las matrices c y T
-        c = matmul(inversa(D+L), b)
-        T = matmul((-1)*inversa(D+L), U)
+        !c = matmul(inversa(D+L), b)
+        !T = matmul((-1)*inversa(D+L), U)
     
         !Primera semilla (primer valor establecido de x para iniciar la iteración)
         x0 = 0.d0
         maxiter = 999999
     
         do iter = 1, maxiter
-            x = matmul(T, x0) + c
+            !x = matmul(T, x0) + c
             if (norma2((x-x0), n)/norma2(x, n) <= tol) then
                 Xfinal = x
                 stop

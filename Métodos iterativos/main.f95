@@ -1,15 +1,16 @@
 program main
-implicit none
 use iterativos
+implicit none
+
 
 integer ::  i, j, N ! i y j son contadores de bucles, INFO es 1 si se resolvió satisfactoriamente
-real*8, allocatable :: A(:,:), B(1,:), X(:)
+real*8, allocatable :: A(:,:), B(:), X(:)
 
 write(*,*) "Por favor, introduzca el valor de N:"
 
 read(*,*) N
 allocate(A(N,N))
-allocate(B(1,N))
+allocate(B(N))
 allocate(X(N))
 
 write(*,*) "Esciba el valor de las matrices, en doble precisión (0.d0)"
@@ -23,13 +24,13 @@ end do
 
 do i = 1, N
     write(*,fmt='(a13,1x,i0)') "B, componente", i
-    read(*,*) B(1,i)
+    read(*,*) B(i)
 end do
 
 write(*,*)
 write(*,*) "Tu sistema AX=B es:"
 do i=1, N
-    write(*,*) A(i,:), "|", B(1,i)
+    write(*,*) A(i,:), "|", B(i)
 end do
 
 call jacobi (A, X, b, 0.00001d0)
