@@ -17,6 +17,8 @@ contains
         real(8), allocatable :: L(:,:)
         real(8), allocatable :: D(:,:)
         real(8), allocatable :: U(:,:)
+        real(8), allocatable :: c(:,:)
+        real(8), allocatable :: T(:,:)
         integer :: iter, j, k, maxiter
 
         n = size(A,1)
@@ -25,10 +27,8 @@ contains
         allocate (L(n,n))
         allocate (D(n,n))
         allocate (U(n,n))
-
-        !Primera semilla (primer valor establecido de x para iniciar la iteración)
-        x0 = 0.d0
-
+        allocate (c(n,n))
+        allocate (T(n,n))
 
         !Establecemos las matrices L, D y U para el algoritmo de la iteración
         do j= 1, n
@@ -43,6 +43,13 @@ contains
             end do
         end do
         
+        !Segun nos indica la formula reducida del método de Jacobi calculamos las matrices c y T
+        c = matmul(inversa(D), b)
+        T = matmul((-1)*inversa(D),(U+L))
+
+        !Primera semilla (primer valor establecido de x para iniciar la iteración)
+        x0 = 0.d0
+
         do iter = 1, maxiter
         
 
