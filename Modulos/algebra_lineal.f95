@@ -1,6 +1,5 @@
 module algebra_lineal 
 implicit none
-
 contains
     subroutine Gauss(A,b,x)
 
