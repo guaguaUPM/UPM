@@ -30,7 +30,7 @@ do i=1,n
             x=i-2
             y=i-1
         endif
-        L(i,j)=(A(i,j)-(L(i,x)*U(x,j))-(L(i,y)*U(y,j)))/U(j,j)
+        L(i,j)=(A(i,j)-(L(i,x)*U(x,j))-(L(i,y)*U(y,j)))
         U(i,j)=(A(i,j)-(L(i,x)*U(x,j)))/L(i,1)
         if(j>i)then 
             L(i,j)=0.d0
