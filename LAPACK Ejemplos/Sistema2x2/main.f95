@@ -1,5 +1,5 @@
 program pruebas
-use ascii_art
+use subroutines
 implicit none
 
 integer :: INFO, i, j, IPIV(2,2)
