@@ -10,7 +10,7 @@ FFLAGS  = -fbounds-check  -L/usr/lib -llapack -L/usr/lib -lblas
 # COMMAND TO DELETE (Windows=del, MacOS=rm)
 RM = rm
 
-SRC  = invertir.f95 jacobi.f95 
+SRC  = invertir.f95 iterativos.f95 
 
 OBJ  = $(SRC:.f95=.o)
 EXE  = run.out
