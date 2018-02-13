@@ -10,10 +10,10 @@ FFLAGS  = -fbounds-check
 # COMMAND TO DELETE (Windows=del, MacOS=rm)
 RM = rm
 
-SRC  = subrutinas.f95 main.f95 
+SRC  = ascii_lu.f95 mod_alg.f95 factorizacion.f95 
 
 OBJ  = $(SRC:.f95=.o)
-EXE  = run.out
+EXE  = fact.exe
 
 .SUFFIXES: .f95 .o
 

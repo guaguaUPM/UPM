@@ -1,6 +1,6 @@
 module ascii_art
 contains
-    subroutine ascii_lu
+    subroutine ascii
                                                           
 write(*,*) "________                                   ____   ____     ___"
 write(*,*) "`MMMMMMM                                   `MM'   `MM'     `M'"
@@ -15,6 +15,6 @@ write(*,*) " MM     MM.  ,MM YM.   d9 YM.  , 68b        MM    / 8b     d8 "
 write(*,*) "_MM_    `YMMM9'Yb.YMMMM9   YMMM9 Y89       _MMMMMMM  YMMMMM9  "
 write(*,*)
 
-    end subroutine ascii_lu
+    end subroutine ascii
 end module ascii_art
                                                               

@@ -30,12 +30,12 @@ do i=1,n
             x=i-2
             y=i-1
         endif
-        L(i,j)=(A(i,j)-(L(i,x)*U(x,j))-(L(i,y)*U(y,j)))/U(j,j)
-        U(i,j)=(A(i,j)-(L(i,x)*U(x,j)))/L(i,1)
+        L(i,j)=(A(i,j)-(L(i,x)*U(x,j))-(L(i,y)*U(y,j)))
+        U(i,j)=(A(i,j)-(L(i,x)*U(x,j)))/L(i,i)
         if(j>i)then 
-            L(i,j)=0
+            L(i,j)=0.d0
         elseif(i>j)then
-            U(i,j)=0
+            U(i,j)=0.d0
         endif
     enddo
     U(i,i)=1
