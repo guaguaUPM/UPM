@@ -68,7 +68,62 @@ contains
     end subroutine
 
     subroutine gauss_seidel
+        ! Argumentos de la subrutina
+        real(8), intent(in) :: A(:,:)          !
+        real(8), intent(in) :: b(:)            ! DIMENSIONES ASUMIDAS
+            real(8), intent(inout) :: Xfinal(:)    !
+            real(8), intent(in) :: tol             !
     
+            ! Variables locales
+            integer :: n                     ! Dimensión del problema A(n,n) b(n) X(n)
+            real(8), allocatable :: x0(:)
+            real(8), allocatable :: x(:)
+            real(8), allocatable :: L(:,:)
+            real(8), allocatable :: D(:,:)
+            real(8), allocatable :: U(:,:)
+            real(8), allocatable :: c(:,:)
+            real(8), allocatable :: T(:,:)
+            integer :: iter, j, k, maxiter
+    
+            n = size(A,1)
+            allocate (x0(n))
+            allocate (x(n))
+            allocate (L(n,n))
+            allocate (D(n,n))
+            allocate (U(n,n))
+            allocate (c(n,n))
+            allocate (T(n,n))
+    
+            !Establecemos las matrices L, D y U para el algoritmo de la iteración
+            do j= 1, n
+                do k=1, n
+                    if (k > j) then
+                        U(j,k) = A(j,k)
+                    else if (k == j)
+                        D(j,k) = A(j,k)
+                    else 
+                        L(j,k) = A(j,k)
+                    end if
+                end do
+            end do
+            
+            !Segun nos indica la formula reducida del método de Jacobi calculamos las matrices c y T
+            c = matmul(inversa(D), b)
+            T = matmul((-1)*inversa(D),(U+L))
+    
+            !Primera semilla (primer valor establecido de x para iniciar la iteración)
+            x0 = 0.d0
+            maxiter = 999999
+    
+            do iter = 1, maxiter
+                x = matmul(T, x0) + c
+                if (norma2((x-x0), n)/norma2(x, n) <= tol) then
+                    Xfinal = x
+                    stop
+                else 
+                    x0 = x
+                end if
+            end do
     end subroutine
 
     function norma2 (vector,n)
