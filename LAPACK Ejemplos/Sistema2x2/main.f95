@@ -9,9 +9,6 @@ call ascii_lapack
 
 IPIV = 0 
 
-
-
-
 write(*,*) "Ejemplo de resolución de sistema de dos variables con dos incógnitas"
 write(*,*) "Matricialmente AX=B"
 write(*,*) "Introduzca los valores de las filas y columnas de A y B"
