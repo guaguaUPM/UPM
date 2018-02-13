@@ -3,7 +3,8 @@ contains
     function inversa(ENTRADA)
         real*8, intent(in) :: ENTRADA(:,:)
         real*8, allocatable :: inversa(:,:)
-        integer :: tamano, IPIV(:,:), i
+        integer :: tamano, i
+        integer, allocatable :: IPIV(:,:)
         tamano = size(ENTRADA(1,:))
         allocate(inversa(tamano, tamano))
         allocate(IPIV(tamano, tamano))
