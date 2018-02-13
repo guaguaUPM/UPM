@@ -10,7 +10,7 @@ contains
 
         ! Argumentos de la subrutina
         real(8), intent(in) :: A(:,:)          !
-        real(8), intent(in) :: b(:)            ! DIMENSIONES ASUMIDAS
+        real(8), intent(in) :: b(:,:)            ! DIMENSIONES ASUMIDAS
         real(8), intent(inout) :: Xfinal(:)    !
         real(8), intent(in) :: tol             !
 
@@ -19,7 +19,7 @@ contains
         real(8), allocatable :: x0(:)
         real(8), allocatable :: x(:)
         real(8), allocatable :: L(:,:)
-        real(8), allocatable :: D(:,:)
+        real(8), allocatable :: D(:,:), inverseD(:,:)
         real(8), allocatable :: U(:,:)
         real(8), allocatable :: c(:,:)
         real(8), allocatable :: T(:,:)
@@ -33,6 +33,7 @@ contains
         allocate (U(n,n))
         allocate (c(n,n))
         allocate (T(n,n))
+        allocate(inverseD(n,n))
 
         !Establecemos las matrices L, D y U para el algoritmo de la iteración
         do j= 1, n
@@ -48,7 +49,8 @@ contains
         end do
         
         !Segun nos indica la formula reducida del método de Jacobi calculamos las matrices c y T
-        c = matmul(inversa(D), b)
+        inverseD = inversa(D)
+        c = matmul(inverseD, b)
         T = matmul((-1)*inversa(D),(U+L))
 
         !Primera semilla (primer valor establecido de x para iniciar la iteración)
