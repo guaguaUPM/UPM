@@ -1,5 +1,5 @@
 program main
-use iterativos
+use metodos_iterativos
 implicit none
 
 

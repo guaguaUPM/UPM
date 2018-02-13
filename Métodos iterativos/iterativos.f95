@@ -10,7 +10,7 @@ contains
 
         ! Argumentos de la subrutina
         real(8), intent(in) :: A(:,:)          !
-        real(8), intent(in) :: b(:,:)            ! DIMENSIONES ASUMIDAS
+        real(8), intent(in) :: b(:)            ! DIMENSIONES ASUMIDAS
         real(8), intent(inout) :: Xfinal(:)    !
         real(8), intent(in) :: tol             !
 
@@ -26,13 +26,13 @@ contains
         integer :: iter, j, k, maxiter
 
         n = size(A,1)
-        allocate (x0(n))
-        allocate (x(n))
-        allocate (L(n,n))
-        allocate (D(n,n))
-        allocate (U(n,n))
-        allocate (c(n,n))
-        allocate (T(n,n))
+        allocate(x0(n))
+        allocate(x(n))
+        allocate(L(n,n))
+        allocate(D(n,n))
+        allocate(U(n,n))
+        allocate(c(n,n))
+        allocate(T(n,n))
 
         !Establecemos las matrices L, D y U para el algoritmo de la iteración
         do j= 1, n
@@ -48,7 +48,7 @@ contains
         end do
         
         !Segun nos indica la formula reducida del método de Jacobi calculamos las matrices c y T
-        c = matmul(b, inversa(D)) !CAMBIO DE ORDEN
+        c = matmul(inversa(D), b)
         T = matmul((-1)*inversa(D),(U+L))
 
         !Primera semilla (primer valor establecido de x para iniciar la iteración)
@@ -56,7 +56,7 @@ contains
         maxiter = 999999
 
         do iter = 1, maxiter
-            x = matmul(x0, T) !CAMBIO DE ORDEN
+            x = matmul(T, x0) + c
             if (norma2((x-x0), n)/norma2(x, n) <= tol) then
                 Xfinal = x
                 stop
