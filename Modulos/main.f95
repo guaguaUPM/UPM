@@ -1,5 +1,5 @@
 program main
-contains algebra_lineal
+use algebra_lineal
 implicit none
 real(8),allocatable :: MA(:,:)     
 real(8),allocatable :: Vb(:)       
