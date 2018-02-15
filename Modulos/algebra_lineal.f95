@@ -23,10 +23,10 @@ contains
 
         ! Etapa triangulación
         do i = 1, m-1
-            if (abs(Ab(i,i))<epsilon(1.d0))  "Cero en la diagonal"  !!!!!PIVOTE PARCIAL
+            !if (abs(Ab(i,i))<epsilon(1.d0))   "Cero en la diagonal"  !!!!!PIVOTE PARCIAL
 
             !tenemos la fila y la columna donde hay un cero, comparamos numeros para hallar el maximo en la misma columna
-            
+            if (AB(i,i)==0) then 
             do l=i+1,m
                 Ab(i,i) = max(Ab(l,i),Ab(i,i))
             enddo
@@ -35,7 +35,7 @@ contains
                 h = Ab(k,i)/Ab(i,i)             ! Factor que multiplica la fila i
                 Ab(k,:) = Ab(k,:) - h*Ab(i,:)
             enddo
-            endif 
+            endif
         enddo
         ! Fin Triangulación
 
