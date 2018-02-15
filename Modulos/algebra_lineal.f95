@@ -13,7 +13,7 @@ contains
         integer :: m                     ! Dimensión del problema A(m,m) b(m) X(m)
         real(8), allocatable :: Ab(:,:)  ! Matriz ampliada. Dimension depende de m 
         real(8) :: h
-        integer :: i,j,k
+        integer :: i,j,k,l
 
         m = size(A,1) 
         allocate(Ab(m,m+1))
@@ -24,6 +24,12 @@ contains
         ! Etapa triangulación
         do i = 1, m-1
             if (abs(Ab(i,i))<epsilon(1.d0)) stop "Cero en la diagonal"  !!!!!PIVOTE PARCIAL
+
+            !tenemos la fila y la columna donde hay un cero, comparamos numeros para hallar el maximo en la misma columna
+            do l=i+1,m
+                max(A(l,i)) 
+            enddo
+                write(*,*) max(A(l,i)) 
             do k = i+1, m                       ! Filas por debajo 
                 h = Ab(k,i)/Ab(i,i)             ! Factor que multiplica la fila i
                 Ab(k,:) = Ab(k,:) - h*Ab(i,:)
