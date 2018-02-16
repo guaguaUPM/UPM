@@ -22,7 +22,7 @@ do i=1,n
 enddo
 
 call factorizacion (A,L,U,n)
-
+                                      !Debug que muestra L y U
 do i=1,n
     write(*,*) L(i,:)
 enddo
@@ -30,5 +30,16 @@ enddo
 do i=1,n
     write(*,*) U(i,:)
 enddo
+
+                                      !Solucion
+
+
+
+
+
+
+
+
+
 
 end program mates
