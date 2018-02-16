@@ -13,11 +13,13 @@ contains
         integer :: m                     ! Dimensión del problema A(m,m) b(m) X(m)
         real(8), allocatable :: Ab(:,:)  ! Matriz ampliada. Dimension depende de m 
         real(8) :: h
-        integer :: i,j,k,l
+        real(8):: gua
+        real(8),allocatable:: guagua(:)
+        integer :: i,j,k,l,y
 
         m = size(A,1) 
         allocate(Ab(m,m+1))
-
+        allocate(guagua(m-1))
         Ab(1:m,1:m) = A
         Ab(1:m,m+1) = b
 
@@ -26,11 +28,21 @@ contains
             !if (abs(Ab(i,i))<epsilon(1.d0))   "Cero en la diagonal"  !!!!!PIVOTE PARCIAL
 
             !tenemos la fila y la columna donde hay un cero, comparamos numeros para hallar el maximo en la misma columna
+            gua=0
+            guagua=0
             if (AB(i,i)==0) then 
             do l=i+1,m
-                Ab(i,i) = max(Ab(l,i),Ab(i,i))
+                gua = max(Ab(l,i),gua)
+                if (gua==Ab(l,i)) then 
+                    y=l
+                    guagua=Ab(l,m)
+                endif
             enddo
-                write(*,*) Ab(i,i)
+                Ab(l,:)=Ab(i,:)
+                Ab(i,:)=guagua(:)
+                write(*,*) gua 
+                write(*,*) Ab
+
             do k = i+1, m                       ! Filas por debajo 
                 h = Ab(k,i)/Ab(i,i)             ! Factor que multiplica la fila i
                 Ab(k,:) = Ab(k,:) - h*Ab(i,:)
