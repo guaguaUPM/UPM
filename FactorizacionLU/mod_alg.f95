@@ -52,12 +52,5 @@ do k=1,n-1                                       !Es importante el orden de los 
 enddo                                           
 
 
-
-
-
-
-
-
-
 endsubroutine
 endmodule
