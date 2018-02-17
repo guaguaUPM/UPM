@@ -4,7 +4,7 @@ use factorizacion_lu
 implicit none
 
 integer::n
-real(8),allocatable:: A(:,:),L(:,:),U(:,:), LU(:,:), X(:), B(:)
+real(8),allocatable:: A(:,:), LU(:,:), B(:), X(:)
 integer::i,j 
 
 call ascii
@@ -17,6 +17,7 @@ allocate(LU(n,n))
 allocate(X(n))
 allocate(B(n))
 
+! --------- SE PIDEN DATOS AL USUARIO
 do i = 1, N
     do j = 1, N
         write(*,fmt='(a7,1x,i0,1x,a7,1x,i0)') "A, fila", i, "columna", j
@@ -32,11 +33,12 @@ write(*,*) "Su sistema es:"
 do i=1, N
     write(*,*) A(i,:), "|", B(i)
 end do
+! -----------------------------
 
 
 call factorizar(A, LU, N)
 
-!Debug que muestra L y U
+! Debug que muestra L y U
 write(*,*)
 write(*,*) "Descomposición LU:"
 do i=1, N

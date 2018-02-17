@@ -4,17 +4,19 @@ contains
 subroutine factorizar(ENTRADA, LU, TAMANO)
     implicit none
 
-    ! La matriz entrada no debe tener ceros en la diagonal
+    ! La matriz entrada ya ha pasado por el pivote, no tiene ceros en la diagonal
 
-    real*8, intent(in)   ::  ENTRADA(:,:)
+    real*8, intent(in)                ::  ENTRADA(:,:)
     real*8, allocatable, intent(out)  ::  LU(:,:)
-    integer, intent(in)  ::  TAMANO
+    integer, intent(in)               ::  TAMANO
+
     integer              ::  i, j, k, s
     real*8               ::  suma
 
     allocate(LU(tamano, tamano))
     LU = ENTRADA
 
+    ! Algoritmo de factorización
     do j = 1, tamano
         do i = 1, j
           if (i == 1) then
@@ -42,21 +44,21 @@ subroutine factorizar(ENTRADA, LU, TAMANO)
           end do
         end if
        end do
-
 end subroutine factorizar
 
 subroutine resolver(B, LU, X, TAMANO)
     implicit none
-    real*8, intent(in) :: LU(:,:), B(:)
+
+    real*8, intent(in) ::  B(:), LU(:,:)
     real*8, intent(out), allocatable :: X(:)
+    integer, intent(in) :: TAMANO
+
     real*8, allocatable :: y(:)
     real*8 :: suma
-    integer, intent(in) :: tamano
     integer :: i, j, s
 
     allocate(x(tamano))
     allocate(y(tamano))
-
 
     y(1) = b(1)
     do i = 2, tamano
@@ -78,4 +80,5 @@ subroutine resolver(B, LU, X, TAMANO)
         x(i) = (y(i) - suma)/LU(i,i)
     end do
 end subroutine resolver
+    
 end module factorizacion_lu
