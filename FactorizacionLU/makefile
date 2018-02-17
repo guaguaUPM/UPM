@@ -13,7 +13,7 @@ RM = rm
 SRC  = ascii_lu.f95 factorizacion_lu.f95 main.f95 
 
 OBJ  = $(SRC:.f95=.o)
-EXE  = fact
+EXE  = fact.out
 
 .SUFFIXES: .f95 .o
 
