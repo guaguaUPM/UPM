@@ -5,6 +5,7 @@ implicit none
 
 integer::n
 real(8),allocatable:: A(:,:), LU(:,:), B(:), X(:)
+real :: cpu_start,cpu_finish
 integer::i,j 
 
 call ascii
@@ -35,6 +36,7 @@ do i=1, N
 end do
 ! -----------------------------
 
+call cpu_time(cpu_start) ! Se empiza a contar el tiempo
 
 call factorizar(A, LU, N)
 
@@ -48,7 +50,10 @@ end do
 write(*,*)
 write(*,*) "Resolución:"
 call resolver(B, LU, X, N)
-write(*,*) X
+
+call cpu_time(cpu_finish)
+
+write(*,*) X, "Se tardó en segundos:", cpu_finish-cpu_start
 
 
 end program mates
