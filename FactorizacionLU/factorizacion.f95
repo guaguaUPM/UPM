@@ -9,17 +9,17 @@ integer::n
 real(8),allocatable:: A(:,:),L(:,:),U(:,:)
 integer::i,j 
 
+call ascii
 write(*,*) "Introduce el tamaño de la matriz:"
 read(*,*) n
 
 allocate (A(n,n))
-call ascii
-do i=1,n
-    do j=1,n
-        write(*,*) 'escriba un numero para',i,j
+do i = 1, N
+    do j = 1, N
+        write(*,fmt='(a7,1x,i0,1x,a7,1x,i0)') "A, fila", i, "columna", j
         read(*,*) A(i,j)
-    enddo
-enddo
+    end do
+end do
 
 call factorizacion (A,L,U,n)
                                       !Debug que muestra L y U
@@ -32,14 +32,6 @@ do i=1,n
 enddo
 
                                       !Solucion
-
-
-
-
-
-
-
-
 
 
 end program mates
