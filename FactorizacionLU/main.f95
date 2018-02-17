@@ -37,8 +37,8 @@ end do
 call factorizar(A, LU, N)
 
 !Debug que muestra L y U
-write(*,*) "Descomposición LU:"
 write(*,*)
+write(*,*) "Descomposición LU:"
 do i=1, N
     write(*,*) LU(i,:)
 end do
@@ -46,7 +46,6 @@ end do
 write(*,*)
 write(*,*) "Resolución:"
 call resolver(B, LU, X, N)
-write(*,*)
 write(*,*) X
 
 
