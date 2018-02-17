@@ -1,6 +1,6 @@
 program mates
-use algebra
 use ascii_art
+use factorizacion_lu
 implicit none
 
 
@@ -21,15 +21,11 @@ do i = 1, N
     end do
 end do
 
-call factorizacion (A,L,U,n)
+call factorizar(A, L, U, N)
                                       !Debug que muestra L y U
-do i=1,n
-    write(*,*) L(i,:)
-enddo
-
-do i=1,n
-    write(*,*) U(i,:)
-enddo
+do i=1, N
+    write(*,*) L(i,:), "|", U(i, :)
+end do
 
                                       !Solucion
 
