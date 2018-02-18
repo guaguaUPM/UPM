@@ -4,25 +4,26 @@ use ascii_art
 implicit none
 
 integer              :: i, j
-integer              :: INFO, N, LDA             !INFO es 0 si se resolvió satisfactoriamente.
-integer, allocatable :: IPIV(:), JPIV(:)    !Índices de pivotamiento (fila y columna respectivamente).
+integer              :: INFO, M, N, LDA             !INFO es 0 si se resolvió satisfactoriamente.
+integer, allocatable :: IPIV(:)  !Índices de pivotamiento (fila y columna respectivamente).
 real                 :: cpu_start,cpu_finish
 real*8, allocatable  :: A(:,:), L(:,:), U(:,:)
     
 call ascii_lapack
     
-IPIV = 0 
-    
 write(*,*) "Ejemplo del uso de la función DGETC2 para la factorización LU de una matriz A(NxN)"
 write(*,*) "Por favor, introduzca el valor de N:"
     
 read(*,*) N
-LDA=N
+
 allocate(A(N,N))
 allocate(L(N,N))
 allocate(U(N,N))
 allocate(IPIV(N))
-allocate(JPIV(N))
+
+IPIV = 0
+M=N
+LDA=N
     
 write(*,*) "Esciba el valor de las matrices, en doble precisión (0.d0)"
     
@@ -41,7 +42,7 @@ end do
     
 call cpu_time(cpu_start)
     
-call dgetc2(N,A,LDA,IPIV,JPIV,INFO)
+call dgetrf(M,N,A,LDA,IPIV,INFO)
 
 call cpu_time(cpu_finish)
 
@@ -57,7 +58,5 @@ if(info==0) then
         !write(*,*) L(i,:), "|", U(i,:)
     !end do
 end if
-    
 
-    
 end program fact_lu
