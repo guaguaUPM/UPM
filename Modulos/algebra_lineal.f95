@@ -189,10 +189,10 @@ contains
         real*8                         :: d, k
         integer                        :: i, j, n
 
+        n = size(U,1)
         allocate(inversa(n,n))
         allocate(B(n,2*n))
            
-        n = size(U,1)
         d=0
         inversa=0
         B=0
@@ -382,7 +382,7 @@ contains
         end do
     end subroutine
     
-    function norma2 (vector,n)
+    function norma2 (vector, n)
         real(8), intent(in) :: vector(:)
         integer, intent(in) :: n
         real(8) :: norma2

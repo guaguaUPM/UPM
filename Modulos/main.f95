@@ -1,6 +1,7 @@
 program main
 use algebra_lineal
 implicit none
+
 real(8),allocatable :: MA(:,:)     
 real(8),allocatable :: Vb(:)       
 real(8),allocatable :: Vx(:)
@@ -28,14 +29,12 @@ MA(4,3)=15
 MA(4,4)=16
 
 
-call Gauss(MA,Vb,Vx)
+call jacobi (MA, Vx, Vb, 0.0000004d0)
 
-    write(*,*) 'Solución'
-    write(*,*) Vx
-    write(*,*) 'Comprobación'
-    write(*,*) Matmul(Ma,Vx)
-    write(*,*) Vb
-
-
+write(*,*) 'Solución'
+write(*,*) Vx
+write(*,*) 'Comprobación'
+write(*,*) Matmul(Ma,Vx)
+write(*,*) Vb
 
 end program main
