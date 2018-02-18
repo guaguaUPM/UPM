@@ -63,12 +63,12 @@ end do
 
 ! Descomposicion por el método Fernando
 ! A BORRAR, el metodo Lucas funciona mejor
-call factorizar(A_pivotada, LU, N)
-write(*,*)
-write(*,*) "Descomposición LU, método Fernando"
-do i=1, N
-    write(*,*) LU(i,:)
-end do
+!   call factorizar(A_pivotada, LU, N)
+!   write(*,*)
+!   write(*,*) "Descomposición LU, método Fernando"
+!   do i=1, N
+!       write(*,*) LU(i,:)
+!   end do
 
 ! Descomposicion por el método Lucas
 call factorizacion(A_pivotada, L, U, N)
@@ -83,7 +83,7 @@ end do
 ! A BORRAR Y SUSTITUIR POR METODO FERNANDO
 write(*,*)
 write(*,*) "Resolución:"
-call resolver(B_pivotada, LU, X_pivotada, N)
+call resolucion(L, U, B_pivotada, X_pivotada, N)
 
 ! Se despivota el vector resolución
 X = matmul(X_pivotada, PERMUTACION)

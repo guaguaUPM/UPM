@@ -25,26 +25,40 @@ subroutine factorizacion (A,L,U,n)
         do i=2,k      
             do j=1,i-1
                 sum = L(i,j)*U(j,k+1)
-            enddo 
+            end do 
             U(i,k+1) = (A(i,k+1)-sum)/L(i,i)
-        enddo  
+        end do  
     
         L(k+1,1) = A(k+1,1)
 
         do i=2,k      
             do j=1,i-1
                 sum = U(j,i)*L(k+1,j)
-            enddo 
+            end do 
             L(k+1,i) = (A(k+1,i)-sum)
-        enddo
+        end do
 
         U(k+1,k+1) = 1                              
    
         do i=1,k
             sum = L(k+1,i)*U(i,k+1)     
-        enddo
+        end do
    
         L(k+1,k+1) = A(k+1,k+1)-sum   
-    enddo                                           
-endsubroutine
+    end do                                           
+end subroutine
+
+subroutine resolucion(L, U, B, X, TAMANO)
+    ! Subrutina que hace la sustitucion de L y U y devuelve el vector X, que despues se despivotará
+    real*8, intent(in)               :: L(:,:), U(:,:), B(:)
+    real*8, intent(out), allocatable :: X(:)
+    integer, intent(in)              :: TAMANO
+    allocate(X(TAMANO))
+
+    ! --
+    X = 1.d0 !! DEBUG, para ver si la subrutina es llamada correctamente
+    ! --
+    
+end subroutine resolucion
+
 endmodule
