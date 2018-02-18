@@ -42,7 +42,7 @@ subroutine Gauss(A,b,x)
     ! Etapa sustitución
     do i = m,1,-1
 
-        h = Ab(i,m+1) 		! Guardo en h el valor de la columna ampliada
+        h = Ab(i,m+1) 	! Guardo en h el valor de la columna ampliada
   
         do j = i+1,m
             h = h-Ab(i,j)*x(j) ! Resto los productos de x's ya calculados
