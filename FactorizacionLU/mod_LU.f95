@@ -48,7 +48,7 @@ subroutine factorizacion (A,L,U,n)
     end do                                           
 end subroutine
 
-    subroutine invert(U,m,Ui)
+    subroutine invertir(U,m,Ui)
         integer,intent(in)::m 
         integer::i,j
         real*8::k
@@ -122,7 +122,7 @@ end subroutine
         end do 
     end do 
                 
-    end subroutine invert
+    end subroutine invertir
     
 
 endmodule

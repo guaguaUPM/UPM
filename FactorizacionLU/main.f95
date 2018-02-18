@@ -7,7 +7,7 @@ use array_randomizer
 implicit none
 
 integer::n
-real(8),allocatable    :: A(:,:), A_pivotada(:,:), B(:), B_pivotada(:), X(:),Y(:,:), X_pivotada(:), L(:,:), U(:,:), Ui(:,:), Li(:,:)
+real(8),allocatable    :: A(:,:), A_pivotada(:,:), B(:), B_pivotada(:), X(:),Y(:), X_pivotada(:), L(:,:), U(:,:), Ui(:,:), Li(:,:)
 integer, allocatable   :: PERMUTACION(:,:)
 real                   :: cpu_start,cpu_finish
 integer                :: i, j, modo
@@ -82,17 +82,17 @@ do i=1, N
 end do
 
 
-! Resolucion por metodo Fernando
-! A BORRAR Y SUSTITUIR POR METODO FERNANDO
+! Resolucion 
 write(*,*)
 write(*,*) "Resolución:"
 
-invert(L,n,Li)
+call invertir(L,n,Li)
+call invertir(U,n,Ui)
 
-y = MATMUL(Li,b)
-X_pivotada =  Matmul(Ui,y)
+Y = MATMUL(Li,b)
+X_pivotada =  Matmul(Ui,Y)
 
-
+write(*,*) X_pivotada
 
 ! Se despivota el vector resolución
 X = matmul(X_pivotada, PERMUTACION)
