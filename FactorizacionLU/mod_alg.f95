@@ -48,17 +48,6 @@ subroutine factorizacion (A,L,U,n)
     end do                                           
 end subroutine
 
-subroutine resolucion(L, U, B, X, TAMANO)
-    ! Subrutina que hace la sustitucion de L y U y devuelve el vector X, que despues se despivotará
-    real*8, intent(in)               :: L(:,:), U(:,:), B(:)
-    real*8, intent(out), allocatable :: X(:)
-    integer, intent(in)              :: TAMANO
-    allocate(X(TAMANO))
 
-    ! --
-    X = 1.d0 !! DEBUG, para ver si la subrutina es llamada correctamente
-    ! --
-    
-end subroutine resolucion
 
 endmodule

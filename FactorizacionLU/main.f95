@@ -3,6 +3,7 @@ use ascii_art
 use factorizacion_lu
 use algebra
 use array_randomizer
+use inversa
 implicit none
 
 integer::n
