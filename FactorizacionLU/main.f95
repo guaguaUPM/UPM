@@ -2,13 +2,14 @@ program mates
 use ascii_art
 use factorizacion_lu
 use algebra
+use array_randomizer
 implicit none
 
 integer::n
-real(8),allocatable    :: A(:,:), A_pivotada(:,:), LU(:,:), B(:), B_pivotada(:), X(:), X_pivotada(:), L(:,:), U(:,:)
+real(8),allocatable    :: A(:,:), A_pivotada(:,:), B(:), B_pivotada(:), X(:), X_pivotada(:), L(:,:), U(:,:)
 integer, allocatable   :: PERMUTACION(:,:)
 real                   :: cpu_start,cpu_finish
-integer                ::i,j 
+integer                :: i, j, modo
 
 call ascii
 
@@ -17,7 +18,6 @@ read(*,*) n
 
 ! mold es para no tener que poner (n,n) en cada una, queda mas elegante
 allocate(A(n,n))
-allocate(LU, mold=A)
 allocate(A_pivotada, mold=A)
 allocate(L, mold=A)
 allocate(U, mold=A)
@@ -28,7 +28,9 @@ allocate(B_pivotada, mold=B)
 allocate(X, mold=B)
 allocate(X_pivotada, mold=B)
 
-
+write(*,*) "Elija el modo: 0=Introducir datos, POR DEFECTO=Asignación aleatoria"
+read(*,*) modo
+if(modo == 0) then
 ! --------- SE PIDEN DATOS AL USUARIO
 do i = 1, N
     do j = 1, N
@@ -46,6 +48,10 @@ do i=1, N
     write(*,*) A(i,:), "|", B(i)
 end do
 ! -----------------------------
+else
+    call randomizar_matriz(A, N)
+    call randomizar_vector(B, N)
+end if
 
 
 
@@ -61,14 +67,6 @@ do i=1, N
     write(*,*) PERMUTACION(i,:), "||", A_pivotada(i,:), "|", B_pivotada(i)
 end do
 
-! Descomposicion por el método Fernando
-! A BORRAR, el metodo Lucas funciona mejor
-!   call factorizar(A_pivotada, LU, N)
-!   write(*,*)
-!   write(*,*) "Descomposición LU, método Fernando"
-!   do i=1, N
-!       write(*,*) LU(i,:)
-!   end do
 
 ! Descomposicion por el método Lucas
 call factorizacion(A_pivotada, L, U, N)
@@ -90,9 +88,13 @@ X = matmul(X_pivotada, PERMUTACION)
 
 call cpu_time(cpu_finish)
 
-write(*,*) "X pivot vale", X_pivotada
+!! DEBUG, habrá que quitarlo
+write(*,*) "X pivotada vale", X_pivotada
 write(*,*)
-write(*,*) X, "Se tardó en segundos:", cpu_finish-cpu_start
+!! ----------
+write(*,*) X
+write(*,*)
+write(*,*) "Se tardó en segundos:", cpu_finish-cpu_start
 
 
 end program mates
