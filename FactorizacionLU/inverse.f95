@@ -1,9 +1,6 @@
 module inversa
-implicit none
-
 contains
-
-subroutine inversa(U,m,Ui)
+subroutine invert(U,m,Ui)
     integer,intent(in)::m 
     integer::i,j
     real*8::k
@@ -12,9 +9,11 @@ subroutine inversa(U,m,Ui)
     real*8,intent(inout)::Ui(m,m)
     real*8::d
     allocate(B(m,2*m))
+   
     d=0
     Ui=0
     B=0
+    
     do i=1,m
         do j=1,m
             d=0
@@ -22,6 +21,7 @@ subroutine inversa(U,m,Ui)
             B(i,j)=d
         end do 
     end do 
+
 d=0
     do i=1,m
         do j=m+1,2*m
@@ -74,6 +74,6 @@ do i=1,m
     end do 
 end do 
             
-end subroutine inversa
+end subroutine invert
 
-end module inversa
+end module 
