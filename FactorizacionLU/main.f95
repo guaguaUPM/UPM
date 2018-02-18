@@ -42,16 +42,17 @@ do i = 1, N
     write(*,fmt='(a13,1x,i0)') "B, componente", i
     read(*,*) B(i)
 end do
+else
+    call randomizar_matriz(A, N)
+    call randomizar_vector(B, N)
+end if
+! -----------------------------
 
 write(*,*) "Su sistema es:"
 do i=1, N
     write(*,*) A(i,:), "|", B(i)
 end do
-! -----------------------------
-else
-    call randomizar_matriz(A, N)
-    call randomizar_vector(B, N)
-end if
+
 
 
 
