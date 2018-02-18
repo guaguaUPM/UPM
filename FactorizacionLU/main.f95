@@ -87,7 +87,7 @@ call resolucion(L, U, B_pivotada, X_pivotada, N)
 ! Se despivota el vector resolución
 X = matmul(X_pivotada, PERMUTACION)
 
-call cpu_time(cpu_finish)
+call cpu_time(cpu_finish) ! Se para de contar el tiempo
 
 !! DEBUG, habrá que quitarlo
 write(*,*) "X pivotada vale", X_pivotada
