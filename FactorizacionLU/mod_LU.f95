@@ -1,7 +1,7 @@
 module algebra
 contains
 
-subroutine factorizacion (A,L,U,n)
+subroutine factorizacionLU (A,L,U,n)
     
     real(8),intent(in)::A(n,n)
     integer,intent(in)::n
@@ -12,16 +12,18 @@ subroutine factorizacion (A,L,U,n)
     allocate(L(n,n))
     allocate(U(n,n))
 
+    !Aplicamos el algoritmo matemático asociado a la factorización LU
+
     L=0.d0
     U=0.d0
 
     L(1,1) = A(1,1)
     U(1,1) = 1
  
-
-    do k=1,n-1                                       !Es importante el orden de los bucles 
+    do k=1,n-1
+                                               !Es importante el orden de los bucles 
         U(1,k+1) = A(1,k+1)/L(1,1)
-    
+          
         do i=2,k      
             do j=1,i-1
                 sum = L(i,j)*U(j,k+1)
@@ -45,8 +47,10 @@ subroutine factorizacion (A,L,U,n)
         end do
    
         L(k+1,k+1) = A(k+1,k+1)-sum   
-    end do                                           
+    end do
+
 end subroutine
+
     subroutine pivotar(ENTRADA, SALIDA, B_ENTRADA, B_SALIDA, PERMUTACION, TAMANO)
         implicit none
     
@@ -113,7 +117,7 @@ end subroutine
     
     end subroutine pivotar
         
-    subroutine invertir(U,m,Ui)
+subroutine invertir(U,m,Ui)
         integer,intent(in)::m 
         integer::i,j
         real*8::k
@@ -187,7 +191,7 @@ end subroutine
         end do 
     end do 
                 
-    end subroutine invertir
+end subroutine invertir
     
 
 endmodule

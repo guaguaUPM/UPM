@@ -49,24 +49,13 @@ do i=1, N
     write(*,*) A(i,:)
 end do
 
-do i = 1, N
-    do j = 1, N
-        if (i<=j) then
-            L(i,j) = A(i,j)
-        else
-            U(i,j) = A(i,j)
-        end if
-    end do
-end do
-
-
 if(info==0) then
     write(*,*)
     write(*,*) "Matriz factorizada correctamente, se tardó (s):", cpu_finish - cpu_start
     write(*,*) 
-    do i=1, N
-        write(*,*) L(i,:), "|", U(i,:)
-    end do
+    !do i=1, N
+        !write(*,*) L(i,:), "|", U(i,:)
+    !end do
 end if
     
 
