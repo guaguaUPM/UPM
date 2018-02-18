@@ -3,11 +3,11 @@ use ascii_art
 use factorizacion_lu
 use algebra
 use array_randomizer
-use inversa
+
 implicit none
 
 integer::n
-real(8),allocatable    :: A(:,:), A_pivotada(:,:), B(:), B_pivotada(:), X(:), X_pivotada(:), L(:,:), U(:,:)
+real(8),allocatable    :: A(:,:), A_pivotada(:,:), B(:), B_pivotada(:), X(:),Y(:,:), X_pivotada(:), L(:,:), U(:,:), Ui(:,:), Li(:,:)
 integer, allocatable   :: PERMUTACION(:,:)
 real                   :: cpu_start,cpu_finish
 integer                :: i, j, modo
@@ -22,11 +22,14 @@ allocate(A(n,n))
 allocate(A_pivotada, mold=A)
 allocate(L, mold=A)
 allocate(U, mold=A)
+allocate(Li, mold=A)
+allocate(Ui, mold=A)
 allocate(PERMUTACION(n,n))
 
 allocate(B(n))
 allocate(B_pivotada, mold=B)
 allocate(X, mold=B)
+allocate(Y, mold=B)
 allocate(X_pivotada, mold=B)
 
 write(*,*) "Elija el modo: 0=Introducir datos, POR DEFECTO=Asignación aleatoria"
@@ -83,7 +86,13 @@ end do
 ! A BORRAR Y SUSTITUIR POR METODO FERNANDO
 write(*,*)
 write(*,*) "Resolución:"
-call resolucion(L, U, B_pivotada, X_pivotada, N)
+
+invert(L,n,Li)
+
+y = MATMUL(Li,b)
+X_pivotada =  Matmul(Ui,y)
+
+
 
 ! Se despivota el vector resolución
 X = matmul(X_pivotada, PERMUTACION)
