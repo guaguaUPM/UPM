@@ -8,12 +8,12 @@ LD = gfortran
 FFLAGS  = -fbounds-check
 
 # COMMAND TO DELETE (Windows=del, MacOS=rm)
-RM = rm
+RM = del
 
 SRC  = ascii_lu.f95 mod_LU.f95 array_randomizer.f95 main.f95 
 
 OBJ  = $(SRC:.f95=.o)
-EXE  = fact.out
+EXE  = fact.exe
 
 .SUFFIXES: .f95 .o
 
