@@ -1,13 +1,12 @@
 program mates
 use ascii_art
-use factorizacion_lu
 use algebra
 use array_randomizer
 
 implicit none
 
 integer::n
-real(8),allocatable    :: A(:,:), A_pivotada(:,:), B(:), B_pivotada(:), X(:),Y(:), X_pivotada(:), L(:,:), U(:,:), Ui(:,:), Li(:,:)
+real(8), allocatable    :: A(:,:), A_pivotada(:,:), B(:), B_pivotada(:), X(:),Y(:), X_pivotada(:), L(:,:), U(:,:), Ui(:,:), Li(:,:)
 integer, allocatable   :: PERMUTACION(:,:)
 real                   :: cpu_start,cpu_finish
 integer                :: i, j, modo
