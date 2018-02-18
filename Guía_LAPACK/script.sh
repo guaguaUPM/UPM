@@ -5,6 +5,11 @@ sudo apt -y install make build-essential gfortran
 
 wget http://www.netlib.org/lapack/lapack-3.8.0.tar.gz
 tar -xvzf lapack-3.8.0.tar.gz
-cd lapack-3.8.0
+cd la*
+cp INSTALL/make.inc.gfortran make.inc
+make lib blaslib
+
+cp liblapack.a /mnt/c
+cp librefblas.a /mnt/c
 
 echo "LISTO"
