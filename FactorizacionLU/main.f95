@@ -99,8 +99,8 @@ X = matmul(X_pivotada, PERMUTACION)
 call cpu_time(cpu_finish) ! Se para de contar el tiempo
 
 !! DEBUG, habrá que quitarlo
-write(*,*) "X pivotada vale", X_pivotada
-write(*,*)
+!write(*,*) "X pivotada vale", X_pivotada
+!write(*,*)
 !! ----------
 write(*,*) X
 write(*,*)
