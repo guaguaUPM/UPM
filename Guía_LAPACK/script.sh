@@ -9,7 +9,7 @@ cd la*
 cp INSTALL/make.inc.gfortran make.inc
 make lib blaslib
 
-cp liblapack.a /mnt/c
-cp librefblas.a /mnt/c
+sudo  cp liblapack.a /mnt/c
+suudo cp librefblas.a /mnt/c
 
 echo "LISTO"
