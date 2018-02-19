@@ -52,9 +52,9 @@ end if
 ! -----------------------------
 
 write(*,*) "Su sistema es:"
-do i=1, N
-    write(*,*) A(i,:), "|", B(i)
-end do
+!do i=1, N
+!    write(*,*) A(i,:), "|", B(i)
+!end do
 
 
 
@@ -67,18 +67,18 @@ call cpu_time(cpu_start) ! Se empiza a contar el tiempo
 call pivotar(A, A_pivotada, B, B_pivotada, PERMUTACION, N)
 write(*,*)
 write(*,*) "Matriz de pivotación y sistema pivotado:"
-do i=1, N
-    write(*,*) PERMUTACION(i,:), "||", A_pivotada(i,:), "|", B_pivotada(i)
-end do
+!do i=1, N
+!    write(*,*) PERMUTACION(i,:), "||", A_pivotada(i,:), "|", B_pivotada(i)
+!end do
 
 
 ! Descomposicion por el método Lucas
 call factorizacionLU(A_pivotada, L, U, N)
 write(*,*)
 write(*,*) "Descomposición LU, método LUCAS:"
-do i=1, N
-    write(*,*) L(i,:), "|", U(i,:)
-end do
+!do i=1, N
+!    write(*,*) L(i,:), "|", U(i,:)
+!end do
 
 
 ! Resolucion 
@@ -91,7 +91,7 @@ call invertir(U,n,Ui)
 Y = MATMUL(Li,b)
 X_pivotada =  Matmul(Ui,Y)
 
-write(*,*) X_pivotada
+!write(*,*) X_pivotada
 
 ! Se despivota el vector resolución
 X = matmul(X_pivotada, PERMUTACION)
@@ -102,7 +102,7 @@ call cpu_time(cpu_finish) ! Se para de contar el tiempo
 !write(*,*) "X pivotada vale", X_pivotada
 !write(*,*)
 !! ----------
-write(*,*) X
+!write(*,*) X
 write(*,*)
 write(*,*) "Se tardó en segundos:", cpu_finish-cpu_start
 
