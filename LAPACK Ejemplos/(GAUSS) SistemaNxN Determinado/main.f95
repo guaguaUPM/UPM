@@ -39,10 +39,10 @@ else
 end if
 ! -----------------------------
     
-write(*,*) "Su sistema es:"
-do i=1, N
-    write(*,*) A(i,:), "|", B(i)
-end do
+!write(*,*) "Su sistema es:"
+!do i=1, N
+!    write(*,*) A(i,:), "|", B(i)
+!end do
 
 
 
@@ -51,8 +51,8 @@ call dgesv(2, 1, A, 2, IPIV, B, 2, INFO)
 call cpu_time(cpu_finish)
 
 if(info==0) then
-    write(*,*)
-    write(*,*) B
+!    write(*,*)
+!    write(*,*) B
     write(*,*) "Sistema resuelto satisfactoriamente, se tardó (s):", cpu_finish - cpu_start
 else
     write(*,*) "El sistema no es compatible determinado"
