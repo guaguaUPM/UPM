@@ -73,7 +73,7 @@ end do
 
 
 ! Descomposicion por el método Lucas
-call factorizacion(A_pivotada, L, U, N)
+call factorizacionLU(A_pivotada, L, U, N)
 write(*,*)
 write(*,*) "Descomposición LU, método LUCAS:"
 do i=1, N
