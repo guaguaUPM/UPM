@@ -46,8 +46,14 @@ do i = 1, N
     read(*,*) B(i)
 end do
 else
-    call randomizar_matriz(A, N)
-    call randomizar_vector(B, N)
+    !call randomizar_matriz(A, N)
+    !call randomizar_vector(B, N)
+    do i = 1, N
+        do j = 1, N
+            B(i) = (i**3) + 4*i
+            A(i,j) = (i**2) + 2*i + (j**3)
+        end do
+    end do
 end if
 ! -----------------------------
 
@@ -55,10 +61,6 @@ write(*,*) "Su sistema es:"
 !do i=1, N
 !    write(*,*) A(i,:), "|", B(i)
 !end do
-
-
-
-
 
 call cpu_time(cpu_start) ! Se empiza a contar el tiempo
 
@@ -71,7 +73,6 @@ write(*,*) "Matriz de pivotación y sistema pivotado:"
 !    write(*,*) PERMUTACION(i,:), "||", A_pivotada(i,:), "|", B_pivotada(i)
 !end do
 
-
 ! Descomposicion por el método Lucas
 call factorizacionLU(A_pivotada, L, U, N)
 write(*,*)
@@ -79,7 +80,6 @@ write(*,*) "Descomposición LU, método LUCAS:"
 !do i=1, N
 !    write(*,*) L(i,:), "|", U(i,:)
 !end do
-
 
 ! Resolucion 
 write(*,*)
@@ -105,6 +105,5 @@ call cpu_time(cpu_finish) ! Se para de contar el tiempo
 !write(*,*) X
 write(*,*)
 write(*,*) "Se tardó en segundos:", cpu_finish-cpu_start
-
 
 end program mates

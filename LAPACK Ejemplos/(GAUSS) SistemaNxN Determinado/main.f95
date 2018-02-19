@@ -18,33 +18,36 @@ read(*,*) N
 allocate(A(N,N))
 allocate(B(N))
 
-
 write(*,*) "Elija el modo: 0=Introducir datos, POR DEFECTO=Asignación aleatoria"
 read(*,*) modo
 if(modo == 0) then
 ! --------- SE PIDEN DATOS AL USUARIO
-do i = 1, N
-    do j = 1, N
-        write(*,fmt='(a7,1x,i0,1x,a7,1x,i0)') "A, fila", i, "columna", j
-        read(*,*) A(i,j)
+    do i = 1, N
+        do j = 1, N
+            write(*,fmt='(a7,1x,i0,1x,a7,1x,i0)') "A, fila", i, "columna", j
+            read(*,*) A(i,j)
+        end do
     end do
-end do
-do i = 1, N
-    write(*,fmt='(a13,1x,i0)') "B, componente", i
-    read(*,*) B(i)
-end do
+    do i = 1, N
+        write(*,fmt='(a13,1x,i0)') "B, componente", i
+        read(*,*) B(i)
+    end do
 else
-    call randomizar_matriz(A, N)
-    call randomizar_vector(B, N)
+    !call randomizar_matriz(A, N)
+    !call randomizar_vector(B, N)
+    do i = 1, N
+        do j = 1, N
+            B(i) = (i**3) + 4*i
+            A(i,j) = (i**2) + 2*i + (j**3)
+        end do
+    end do
 end if
 ! -----------------------------
     
 !write(*,*) "Su sistema es:"
 !do i=1, N
-!    write(*,*) A(i,:), "|", B(i)
+    !write(*,*) A(i,:), "|", B(i)
 !end do
-
-
 
 call cpu_time(cpu_start)
 call dgesv(2, 1, A, 2, IPIV, B, 2, INFO)
@@ -53,7 +56,7 @@ call cpu_time(cpu_finish)
 if(info==0) then
 !    write(*,*)
 !    write(*,*) B
-    write(*,*) "Sistema resuelto satisfactoriamente, se tardó (s):", cpu_finish - cpu_start
+    print '("Time = ",f6.3," seconds.")', cpu_finish - cpu_start
 else
     write(*,*) "El sistema no es compatible determinado"
 end if
