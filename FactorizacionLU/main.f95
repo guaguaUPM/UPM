@@ -57,7 +57,7 @@ else
 end if
 ! -----------------------------
 
-write(*,*) "Su sistema es:"
+!write(*,*) "Su sistema es:"
 !do i=1, N
 !    write(*,*) A(i,:), "|", B(i)
 !end do
@@ -67,23 +67,23 @@ call cpu_time(cpu_start) ! Se empiza a contar el tiempo
 ! Subrutina de pivotación, devuelve la matriz pivotada con la matriz pivotacion
 ! FALTA POR HACER: si el 0 está en la útima posición
 call pivotar(A, A_pivotada, B, B_pivotada, PERMUTACION, N)
-write(*,*)
-write(*,*) "Matriz de pivotación y sistema pivotado:"
+!write(*,*)
+!write(*,*) "Matriz de pivotación y sistema pivotado:"
 !do i=1, N
 !    write(*,*) PERMUTACION(i,:), "||", A_pivotada(i,:), "|", B_pivotada(i)
 !end do
 
 ! Descomposicion por el método Lucas
 call factorizacionLU(A_pivotada, L, U, N)
-write(*,*)
-write(*,*) "Descomposición LU, método LUCAS:"
+!write(*,*)
+!write(*,*) "Descomposición LU, método LUCAS:"
 !do i=1, N
 !    write(*,*) L(i,:), "|", U(i,:)
 !end do
 
 ! Resolucion 
-write(*,*)
-write(*,*) "Resolución:"
+!write(*,*)
+!write(*,*) "Resolución:"
 
 call invertir(L,n,Li)
 call invertir(U,n,Ui)
