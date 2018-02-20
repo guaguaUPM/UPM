@@ -34,16 +34,16 @@ contains
             guagua=0
             if (AB(i,i)==0) then 
             do l=i+1,m
-                gua = max(Ab(l,i),gua)
-                if (gua==Ab(l,i)) then 
+                gua = max(A(l,i),gua)
+                if (gua==A(l,i)) then 
                     y=l
-                    guagua=Ab(l,m)
+                    guagua=A(l,m)
                 endif
             enddo
-                Ab(l,:)=Ab(i,:)
-                Ab(i,:)=guagua(:)
+                A(l,:)=A(i,:)
+                A(i,:)=guagua(:)
                 write(*,*) gua 
-                write(*,*) Ab
+                write(*,*) A
 
             do k = i+1, m                       ! Filas por debajo 
                 h = Ab(k,i)/Ab(i,i)             ! Factor que multiplica la fila i
