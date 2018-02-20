@@ -7,7 +7,7 @@ contains
     subroutine gauss(A, b, x)
 
         ! Argumentos de la subrutina
-        real(8), intent(in) :: A(:,:)     !
+        real(8), intent(inout) :: A(:,:)     !
         real(8), intent(in) :: b(:)       ! DIMENSIONES ASUMIDAS
         real(8), intent(inout) :: x(:)    !
     
