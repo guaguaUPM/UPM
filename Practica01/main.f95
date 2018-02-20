@@ -27,7 +27,7 @@ end do
 
     !1. Sea la matriz 𝐴t el resultado de aplicar el método de Gauss al sistema AX = B. 
 
-    call triangular_superior_gauss (A, At)
+    call triangularsuperiorgauss (A, At)
     write(*,*) "Escriba la fila y columna de la posición deseada"
     read(*,*) i, j
     write(*,*) "Su resultado es:", A(i,j)
