@@ -4,7 +4,7 @@ implicit none
 
 contains
 
-    subroutine gauss(A, b, x)
+    subroutine gauss (A, b, x)
 
         ! Argumentos de la subrutina
         real(8), intent(inout) :: A(:,:)     !
@@ -63,6 +63,51 @@ contains
         enddo
         ! Fin sustitución
 
+    end subroutine
+
+    subroutine triangulacion_superior_gauss (A, At)
+        ! Argumentos de la subrutina
+        real(8), intent(in)     :: A(:,:)      !
+        real(8), intent(out)    :: At(:,:)     !
+
+        ! Variables locales                  
+        real(8)                 :: h
+        real(8)                 :: maximo                !gua
+        real(8),allocatable     :: linea_emax (:)     !guagua(:)
+        integer                 :: i, k, l, y, m
+    
+        m = size(A,1) 
+        allocate(linea_emax(m-1))
+        At = A
+    
+        ! Etapa triangulación
+        do i = 1, m-1
+            ! INICIO PIVOTE
+            ! Tenemos la fila y la columna donde hay un cero, comparamos numeros para hallar el maximo en la misma columna
+            maximo = 0
+            linea_emax = 0
+            if (At(i,i)==0) then 
+                do l=i+1,m
+                    maximo = max(At(l,i), maximo)
+                    if (maximo==At(l,i)) then 
+                        y = l
+                        linea_emax = At(l,m)
+                    endif
+                enddo
+                At(l,:) = At(i,:)
+                At(i,:) = linea_emax(:)
+                write(*,*) maximo 
+                write(*,*) At
+            endif
+            ! FIN PIVOTE
+
+            do k = i+1, m                       ! Filas por debajo 
+                h = At(k,i) / At(i,i)             ! Factor que multiplica la fila i
+                At(k,:) = At(k,:) - h*At(i,:)
+            enddo
+
+        enddo
+        ! Fin Triangulación
     end subroutine
         
     subroutine factorizacionLU (A, L, U, n)
