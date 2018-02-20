@@ -72,8 +72,8 @@ contains
 
         ! Variables locales                  
         real(8)                 :: h
-        real(8)                 :: maximo                !gua
-        real(8),allocatable     :: linea_emax (:)     !guagua(:)
+        real(8)                 :: maximo               
+        real(8),allocatable     :: linea_emax (:)  
         integer                 :: i, k, l, y, m
     
         m = size(A,1) 
