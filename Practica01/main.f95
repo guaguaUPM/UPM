@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 program main
 use algebra_lineal
 implicit none
@@ -15,3 +16,6 @@ implicit none
 
 
 end program main
+=======
+HOLA FER
+>>>>>>> d58ef4a647e1f7ae3aa30f9dda3f6877bfd75535
