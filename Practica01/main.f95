@@ -2,10 +2,10 @@ program main
 use algebra_lineal
 implicit none
 
-real*8, allocatable :: A(:,:), b(:)
+real*8, allocatable :: A(:,:), At(:,:), b(:)
 integer :: i, j
-integer, parameter :: N=100
 
+integer, parameter :: N=100 !DEPENDE DEL EXAMEN
 allocate(A(N,N))
 allocate(b(N))
 
@@ -21,12 +21,17 @@ do i = 1, N
     end do
 end do
 
-!A.- Responder a las siguientes cuestiones sobre el sistema lineal 𝐴𝑥 = 𝑏:
+!A.- Responder a las siguientes cuestiones sobre el sistema lineal AX = B:
 
-!1. Sea la matriz 𝐴′ el resultado de aplicar el método de Gauss al sistema 𝐴𝑥 = 𝑏. 
-!Es decir, la matriz 𝐴´ será de la forma:
+    !1. Sea la matriz 𝐴t el resultado de aplicar el método de Gauss al sistema AX = B. 
 
+    call triangular_superior_gauss (A, At)
+    write(*,*) "Su matriz At resultado es:" 
+    do i = 1, N
+        write(*,*) A(i,:)
+    end do
 
-
+    !2. Sean las matrices L y U el resultado de hacer una descomposición de tipo A=LU 
+    !(descomposición LU sin permutación).
 
 end program main
