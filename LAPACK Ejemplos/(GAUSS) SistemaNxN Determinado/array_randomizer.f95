@@ -10,7 +10,7 @@ contains
             do j=1, TAMANO
                 call RANDOM_NUMBER(HARVEST=SALIDA(i,j))
             end do
-        end do
+            end do
     end subroutine randomizar_matriz
 
     subroutine randomizar_vector(SALIDA, TAMANO)
