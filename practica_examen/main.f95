@@ -34,11 +34,11 @@ end do
     read(*,*)
 
     !DEBUG:
-    write(*,*) "Su matriz At resultado es:" 
-    do i = 1, N
-        write(*,*) A(i,:)
-    end do
-    read(*,*)
+    !write(*,*) "Su matriz At resultado es:" 
+    !do i = 1, N
+        !write(*,*) A(i,:)
+    !end do
+    !read(*,*)
 
     !2. Sean las matrices L y U el resultado de hacer una descomposición de tipo A=LU 
     !(descomposición LU sin permutación).
@@ -54,13 +54,13 @@ end do
     read(*,*)
     
     !DEBUG:
-    write(*,*) "Su matriz L resultado es:" 
-    do i = 1, N
-        write(*,*) A(i,:)
-    end do
-    write(*,*) "Su matriz U resultado es:" 
-    do i = 1, N
-        write(*,*) A(i,:)
-    end do
+    !write(*,*) "Su matriz L resultado es:" 
+    !do i = 1, N
+        !write(*,*) A(i,:)
+    !end do
+    !write(*,*) "Su matriz U resultado es:" 
+    !do i = 1, N
+        !write(*,*) A(i,:)
+    !end do
 
 end program main
