@@ -65,19 +65,20 @@ contains
 
     end subroutine
 
-    subroutine triangulacion_superior (A, At)
+    subroutine triangulacion_superior_gauss (A, At)
         ! Argumentos de la subrutina
-        real(8), intent(inout)  :: A(:,:)      !
-        real(8), intent(out) :: At(:,:)     !
+        real(8), intent(in)     :: A(:,:)      !
+        real(8), intent(out)    :: At(:,:)     !
 
         ! Variables locales                  
         real(8)                 :: h
         real(8)                 :: maximo                !gua
         real(8),allocatable     :: linea_emax (:)     !guagua(:)
-        integer                 :: i, j, k, l, y, m
+        integer                 :: i, k, l, y, m
     
         m = size(A,1) 
         allocate(linea_emax(m-1))
+        At = A
     
         ! Etapa triangulación
         do i = 1, m-1
@@ -85,24 +86,24 @@ contains
             ! Tenemos la fila y la columna donde hay un cero, comparamos numeros para hallar el maximo en la misma columna
             maximo = 0
             linea_emax = 0
-            if (A(i,i)==0) then 
+            if (At(i,i)==0) then 
                 do l=i+1,m
-                    maximo = max(A(l,i), maximo)
-                    if (maximo==A(l,i)) then 
+                    maximo = max(At(l,i), maximo)
+                    if (maximo==At(l,i)) then 
                         y = l
-                        linea_emax = A(l,m)
+                        linea_emax = At(l,m)
                     endif
                 enddo
-                A(l,:) = A(i,:)
-                A(i,:) = linea_emax(:)
+                At(l,:) = At(i,:)
+                At(i,:) = linea_emax(:)
                 write(*,*) maximo 
-                write(*,*) A
+                write(*,*) At
             endif
             ! FIN PIVOTE
 
             do k = i+1, m                       ! Filas por debajo 
-                h = A(k,i) / A(i,i)             ! Factor que multiplica la fila i
-                A(k,:) = A(k,:) - h*A(i,:)
+                h = At(k,i) / At(i,i)             ! Factor que multiplica la fila i
+                At(k,:) = At(k,:) - h*At(i,:)
             enddo
 
         enddo
