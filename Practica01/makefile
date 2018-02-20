@@ -10,7 +10,7 @@ FFLAGS  = -fbounds-check
 # COMMAND TO DELETE (Windows=del, MacOS=rm)
 RM = rm
 
-SRC  = main.f95 
+SRC  = algebra_lineal.f95 main.f95 
 
 OBJ  = $(SRC:.f95=.o)
 EXE  = fact.out

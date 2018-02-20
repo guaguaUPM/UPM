@@ -80,7 +80,7 @@ contains
         allocate(linea_emax(m-1))
         At = A
     
-        ! Etapa triangulación
+        ! ETAPA TRIANGULACION
         do i = 1, m-1
             ! INICIO PIVOTE
             ! Tenemos la fila y la columna donde hay un cero, comparamos numeros para hallar el maximo en la misma columna
@@ -107,7 +107,7 @@ contains
             enddo
 
         enddo
-        ! Fin Triangulación
+        ! FIN TRIANGULACION
     end subroutine
         
     subroutine factorizacionLU (A, L, U, n)
