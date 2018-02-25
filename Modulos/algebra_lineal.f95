@@ -27,29 +27,28 @@ contains
 
         ! Etapa triangulación
         do i = 1, m-1
-            !if (abs(Ab(i,i))<epsilon(1.d0))   "Cero en la diagonal"  !!!!!PIVOTE PARCIAL
-
+            !if (abs(Ab(i,i))<epsilon(1.d0))   "Cero en la diagonal"
             !tenemos la fila y la columna donde hay un cero, comparamos numeros para hallar el maximo en la misma columna
             gua=0
             guagua=0
             if (AB(i,i)==0) then 
-            do l=i+1,m
-                gua = max(A(l,i),gua)
-                if (gua==A(l,i)) then 
-                    y=l
-                    guagua=A(l,m)
-                endif
-            enddo
+                do l=i+1,m
+                    gua = max(A(l,i),gua)
+                    if (gua==A(l,i)) then 
+                        y=l
+                        guagua=A(l,m)
+                    endif
+                enddo
                 A(l,:)=A(i,:)
                 A(i,:)=guagua(:)
                 write(*,*) gua 
                 write(*,*) A
+            endif
 
             do k = i+1, m                       ! Filas por debajo 
                 h = Ab(k,i)/Ab(i,i)             ! Factor que multiplica la fila i
                 Ab(k,:) = Ab(k,:) - h*Ab(i,:)
             enddo
-            endif
         enddo
         ! Fin Triangulación
 
@@ -318,48 +317,21 @@ contains
         integer :: n                     ! Dimensión del problema A(n,n) b(n) X(n)
         real(8), allocatable :: x0(:)
         real(8), allocatable :: x(:)
-        real(8), allocatable :: L(:,:)
-        real(8), allocatable :: D(:,:)
-        real(8), allocatable :: U(:,:)
-        real(8), allocatable :: c(:)
-        real(8), allocatable :: T(:,:)
         integer :: iter, j, k, maxiter
     
         n = size(A,1)
         allocate(x0(n))
         allocate(x(n))
-        allocate(L(n,n))
-        allocate(D(n,n))
-        allocate(U(n,n))
-        allocate(c(n))
-        allocate(T(n,n))
-    
-        !Establecemos las matrices L, D y U para el algoritmo de la iteración
-        do j= 1, n
-            do k=1, n
-                if (k > j) then
-                    U(j,k) = A(j,k)
-                else if (k == j) then
-                    D(j,k) = A(j,k)
-                else 
-                    L(j,k) = A(j,k)
-                end if
-            end do
-        end do
-            
-        !Segun nos indica la formula reducida del método de Jacobi calculamos las matrices c y T
-        c = matmul(inversa(D), b)
-        T = matmul((-1)*inversa(D),(U+L))
     
         !Primera semilla (primer valor establecido de x para iniciar la iteración)
         x0 = 0.d0
         maxiter = 999999
     
         do iter = 1, maxiter
-            x = matmul(T, x0) + c
+            !INSERTAR MATES
             if (norma2((x-x0), n)/norma2(x, n) <= tol) then
                 Xfinal = x
-                stop
+                return
             else 
                 x0 = x
             end if
@@ -379,52 +351,36 @@ contains
         integer :: n                     ! Dimensión del problema A(n,n) b(n) X(n)
         real(8), allocatable :: x0(:)
         real(8), allocatable :: x(:)
-        real(8), allocatable :: L(:,:)
-        real(8), allocatable :: D(:,:)
-        real(8), allocatable :: U(:,:)
-        real(8), allocatable :: c(:)
-        real(8), allocatable :: T(:,:)
-        integer :: iter, j, k, maxiter
+        real(8) :: sum1, sum2
+        integer :: iter, i, j, maxiter
         
         n = size(A,1)
         allocate(x0(n))
         allocate(x(n))
-        allocate(L(n,n))
-        allocate(D(n,n))
-        allocate(U(n,n))
-        allocate(c(n))
-        allocate(T(n,n))
-        
-        !Establecemos las matrices L, D y U para el algoritmo de la iteración
-        do j= 1, n
-            do k=1, n
-                if (k > j) then
-                    U(j,k) = A(j,k)
-                else if (k == j) then
-                    D(j,k) = A(j,k)
-                else 
-                    L(j,k) = A(j,k)
-                end if
-            end do
-        end do
                 
-        !Segun nos indica la formula reducida del método de Jacobi calculamos las matrices c y T
-        c = matmul(inversa(D+L), b)
-        T = matmul((-1)*inversa(D+L), U)
-        
         !Primera semilla (primer valor establecido de x para iniciar la iteración)
-        x0 = 0.d0
-        maxiter = 999999
-        
-        do iter = 1, maxiter
-            x = matmul(T, x0) + c
+        x0 = 0.0d0
+        x  = 0.0d0
+        maxiter = 999999999 !Numero de iteraciones
+        do iter = 1, maxiter !Iteraciones
+            do i=1,n
+                sum1=0  
+                sum2=0            
+                do j=1,i-1
+                    sum1 = sum1 + A(i,j) * x(j)
+                enddo
+                do j=i+1,n
+                    sum2 = sum2 + A(i,j) * x0(j)
+                enddo                           
+                x(i) = (1/A(i,i)) * (B(i) - sum1 - sum2)           
+            enddo        
             if (norma2((x-x0), n)/norma2(x, n) <= tol) then
                 Xfinal = x
-                stop
+                return
             else 
                 x0 = x
-            end if
-        end do
+            endif     
+        enddo      
     end subroutine
     
     function norma2 (vector, n)

@@ -27,29 +27,28 @@ contains
 
         ! Etapa triangulación
         do i = 1, m-1
-            !if (abs(Ab(i,i))<epsilon(1.d0))   "Cero en la diagonal"  !!!!!PIVOTE PARCIAL
-
+            !if (abs(Ab(i,i))<epsilon(1.d0))   "Cero en la diagonal"
             !tenemos la fila y la columna donde hay un cero, comparamos numeros para hallar el maximo en la misma columna
             gua=0
             guagua=0
             if (AB(i,i)==0) then 
-            do l=i+1,m
-                gua = max(A(l,i),gua)
-                if (gua==A(l,i)) then 
-                    y=l
-                    guagua=A(l,m)
-                endif
-            enddo
+                do l=i+1,m
+                    gua = max(A(l,i),gua)
+                    if (gua==A(l,i)) then 
+                        y=l
+                        guagua=A(l,m)
+                    endif
+                enddo
                 A(l,:)=A(i,:)
                 A(i,:)=guagua(:)
                 write(*,*) gua 
                 write(*,*) A
+            endif
 
             do k = i+1, m                       ! Filas por debajo 
                 h = Ab(k,i)/Ab(i,i)             ! Factor que multiplica la fila i
                 Ab(k,:) = Ab(k,:) - h*Ab(i,:)
             enddo
-            endif
         enddo
         ! Fin Triangulación
 
@@ -362,7 +361,7 @@ contains
         !Primera semilla (primer valor establecido de x para iniciar la iteración)
         x0 = 0.0d0
         x  = 0.0d0
-        maxiter = 9999999 !Numero de iteraciones
+        maxiter = 999999999 !Numero de iteraciones
         do iter = 1, maxiter !Iteraciones
             do i=1,n
                 sum1=0  
