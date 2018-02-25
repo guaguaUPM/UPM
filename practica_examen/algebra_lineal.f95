@@ -385,7 +385,7 @@ contains
         real(8), allocatable :: c(:)
         real(8), allocatable :: T(:,:)
         real(8) :: sum1,sum2
-        integer :: iter, j, k, maxiter
+        integer :: iter, i,j, k, maxiter
         
         n = size(A,1)
         allocate(x0(n))
@@ -411,7 +411,7 @@ contains
                 
         !Primera semilla (primer valor establecido de x para iniciar la iteración)
         x0 = 0.d0
-        maxiter = 100
+        maxiter = 10
         do k=1,maxiter !Iteraciones
         
             do i=1,n
@@ -420,22 +420,27 @@ contains
                 
                 do j=1,i-1
 
-                    sum1 = sum1 + A(i,j) * X(j)
+                    sum1 = sum1 + A(i,j) * x0(j)
 
                 enddo 
                 
                 do j=i+1,n
 
-                sum2 = sum2 + A(i,j) * x0(j)
+                    sum2 = sum2 + A(i,j) * x0(j)
         
                 enddo 
                 
                 
-                    X0(i) = (1/A(i,i)) * (B(i)- sum1 - sum2)
+                x0(i) = (1/A(i,i)) * (B(i)- sum1 - sum2)
            
            
             enddo
+        
+                
+        
         enddo
+
+            X = x0
 
         write (*,*) "La solucion es:"
         write (*,*) X
