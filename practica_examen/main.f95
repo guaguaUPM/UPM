@@ -67,8 +67,12 @@ end do
     !3. Resolver el sistema AX = B utilizando el método de Gauss, 
     !    la descomposición LU y los métodos iterativos de Jacobi y de Gauss-Seidel 
     !    (con el vector 𝑥 = (0,0, ... ,0,0) como condición inicial).
-
+     
     
+
+    write(*,*) "Escribe tol"
+    read(*,*) tol
+    call gauss_seidel (A, X, b, tol)
 
 !B.- Realizar el ajuste por mínimos cuadrados de los datos contenidos 
 !     en el fichero data_file.txt que podéis descargar de Moodle.
