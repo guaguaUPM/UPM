@@ -2,15 +2,16 @@ program main
 use algebra_lineal
 implicit none
 
-real*8, allocatable :: A(:,:), At(:,:), L(:,:), U(:,:), b(:)
+real*8, allocatable :: A(:,:), At(:,:), L(:,:), U(:,:), b(:),Xfinal(:)
 integer :: i, j
-
+real*8 :: tol
 integer, parameter :: N=100 !DEPENDE DEL EXAMEN
 allocate(A(N,N))
 allocate(At(N,N))
 allocate(L(N,N))
 allocate(U(N,N))
 allocate(b(N))
+allocate(Xfinal(N))
 
 !Sean la matriz A de tamaño 100 x 100 y el vector b de tamaño 100 definidos como:
 do i = 1, N
@@ -72,7 +73,16 @@ end do
 
     write(*,*) "Escribe tol"
     read(*,*) tol
-    call gauss_seidel (A, X, b, tol)
+
+    !Call cada una de las funciones    
+
+
+
+    call gauss_seidel (A, Xfinal, b, tol)
+    write(*,*) "X de gauss-seidel", Xfinal
+    
+    
+
 
 !B.- Realizar el ajuste por mínimos cuadrados de los datos contenidos 
 !     en el fichero data_file.txt que podéis descargar de Moodle.

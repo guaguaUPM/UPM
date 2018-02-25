@@ -411,39 +411,38 @@ contains
                 
         !Primera semilla (primer valor establecido de x para iniciar la iteración)
         x0 = 0.d0
-        maxiter = 10
-        do k=1,maxiter !Iteraciones
+        maxiter = 9999999 !Numero de iteraciones
+        do iter=1,maxiter !Iteraciones
         
             do i=1,n
                 sum1=0  
-                sum2=0
-                
+                sum2=0      
+
                 do j=1,i-1
-
                     sum1 = sum1 + A(i,j) * x0(j)
-
-                enddo 
-                
+                enddo                 
                 do j=i+1,n
+                    sum2 = sum2 + A(i,j) * x(j)
+                enddo                
 
-                    sum2 = sum2 + A(i,j) * x0(j)
+                x(i) = (1/A(i,i)) * (B(i) - sum1 - sum2)           
+            enddo        
+            
+        if (norma2((x-x0), n)/norma2(x, n) <= tol) then
+            Xfinal = x
+        stop
         
-                enddo 
-                
-                
-                x0(i) = (1/A(i,i)) * (B(i)- sum1 - sum2)
-           
-           
-            enddo
+        else 
+            
+            x0 = x
         
+        endif
                 
-        
         enddo
 
-            X = x0
 
-        write (*,*) "La solucion es:"
-        write (*,*) X
+
+            
 
 
       
