@@ -318,48 +318,21 @@ contains
         integer :: n                     ! Dimensión del problema A(n,n) b(n) X(n)
         real(8), allocatable :: x0(:)
         real(8), allocatable :: x(:)
-        real(8), allocatable :: L(:,:)
-        real(8), allocatable :: D(:,:)
-        real(8), allocatable :: U(:,:)
-        real(8), allocatable :: c(:)
-        real(8), allocatable :: T(:,:)
         integer :: iter, j, k, maxiter
     
         n = size(A,1)
         allocate(x0(n))
         allocate(x(n))
-        allocate(L(n,n))
-        allocate(D(n,n))
-        allocate(U(n,n))
-        allocate(c(n))
-        allocate(T(n,n))
-    
-        !Establecemos las matrices L, D y U para el algoritmo de la iteración
-        do j= 1, n
-            do k=1, n
-                if (k > j) then
-                    U(j,k) = A(j,k)
-                else if (k == j) then
-                    D(j,k) = A(j,k)
-                else 
-                    L(j,k) = A(j,k)
-                end if
-            end do
-        end do
-            
-        !Segun nos indica la formula reducida del método de Jacobi calculamos las matrices c y T
-        c = matmul(inversa(D), b)
-        T = matmul((-1)*inversa(D),(U+L))
     
         !Primera semilla (primer valor establecido de x para iniciar la iteración)
         x0 = 0.d0
         maxiter = 999999
     
         do iter = 1, maxiter
-            x = matmul(T, x0) + c
+            !INSERTAR MATES
             if (norma2((x-x0), n)/norma2(x, n) <= tol) then
                 Xfinal = x
-                stop
+                return
             else 
                 x0 = x
             end if
@@ -379,73 +352,36 @@ contains
         integer :: n                     ! Dimensión del problema A(n,n) b(n) X(n)
         real(8), allocatable :: x0(:)
         real(8), allocatable :: x(:)
-        real(8), allocatable :: L(:,:)
-        real(8), allocatable :: D(:,:)
-        real(8), allocatable :: U(:,:)
-        real(8), allocatable :: c(:)
-        real(8), allocatable :: T(:,:)
-        real(8) :: sum1,sum2
-        integer :: iter, i,j, k, maxiter
+        real(8) :: sum1, sum2
+        integer :: iter, i, j, maxiter
         
         n = size(A,1)
         allocate(x0(n))
         allocate(x(n))
-        allocate(L(n,n))
-        allocate(D(n,n))
-        allocate(U(n,n))
-        allocate(c(n))
-        allocate(T(n,n))
-        
-        !Establecemos las matrices L, D y U para el algoritmo de la iteración
-        do j= 1, n
-            do k=1, n
-                if (k > j) then
-                    U(j,k) = A(j,k)
-                else if (k == j) then
-                    D(j,k) = A(j,k)
-                else 
-                    L(j,k) = A(j,k)
-                end if
-            end do
-        end do
                 
         !Primera semilla (primer valor establecido de x para iniciar la iteración)
-        x0 = 0.d0
+        x0 = 0.0d0
+        x  = 0.0d0
         maxiter = 9999999 !Numero de iteraciones
-        do iter=1,maxiter !Iteraciones
-        
+        do iter = 1, maxiter !Iteraciones
             do i=1,n
                 sum1=0  
-                sum2=0      
-
+                sum2=0            
                 do j=1,i-1
-                    sum1 = sum1 + A(i,j) * x0(j)
-                enddo                 
+                    sum1 = sum1 + A(i,j) * x(j)
+                enddo
                 do j=i+1,n
-                    sum2 = sum2 + A(i,j) * x(j)
-                enddo                
-
+                    sum2 = sum2 + A(i,j) * x0(j)
+                enddo                           
                 x(i) = (1/A(i,i)) * (B(i) - sum1 - sum2)           
             enddo        
-            
-        if (norma2((x-x0), n)/norma2(x, n) <= tol) then
-            Xfinal = x
-        stop
-        
-        else 
-            
-            x0 = x
-        
-        endif
-                
-        enddo
-
-
-
-            
-
-
-      
+            if (norma2((x-x0), n)/norma2(x, n) <= tol) then
+                Xfinal = x
+                return
+            else 
+                x0 = x
+            endif     
+        enddo      
     end subroutine
     
     function norma2 (vector, n)
