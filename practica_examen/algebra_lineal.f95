@@ -427,16 +427,12 @@ contains
 
                 x(i) = (1/A(i,i)) * (B(i) - sum1 - sum2)           
             enddo        
-            
+          
         if (norma2((x-x0), n)/norma2(x, n) <= tol) then
             Xfinal = x
         stop
-        
-        else 
-            
-            x0 = x
-        
         endif
+        x0 = x
                 
         enddo
 
