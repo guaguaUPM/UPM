@@ -384,6 +384,7 @@ contains
         real(8), allocatable :: U(:,:)
         real(8), allocatable :: c(:)
         real(8), allocatable :: T(:,:)
+        real(8) :: sum1,sum2
         integer :: iter, j, k, maxiter
         
         n = size(A,1)
@@ -408,23 +409,39 @@ contains
             end do
         end do
                 
-        !Segun nos indica la formula reducida del método de Jacobi calculamos las matrices c y T
-        c = matmul(inversa(D+L), b)
-        T = matmul((-1)*inversa(D+L), U)
-        
         !Primera semilla (primer valor establecido de x para iniciar la iteración)
         x0 = 0.d0
-        maxiter = 999999
+        maxiter = 100
+        do k=1,maxiter !Iteraciones
         
-        do iter = 1, maxiter
-            x = matmul(T, x0) + c
-            if (norma2((x-x0), n)/norma2(x, n) <= tol) then
-                Xfinal = x
-                stop
-            else 
-                x0 = x
-            end if
-        end do
+            do i=1,n
+                sum1=0  
+                sum2=0
+                
+                do j=1,i-1
+
+                    sum1 = sum1 + A(i,j) * X(j)
+
+                enddo 
+                
+                do j=i+1,n
+
+                sum2 = sum2 + A(i,j) * x0(j)
+        
+                enddo 
+                
+                
+                    X0(i) = (1/A(i,i)) * (B(i)- sum1 - sum2)
+           
+           
+            enddo
+        enddo
+
+        write (*,*) "La solucion es:"
+        write (*,*) X
+
+
+      
     end subroutine
     
     function norma2 (vector, n)

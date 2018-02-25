@@ -68,6 +68,7 @@ end do
     !    la descomposición LU y los métodos iterativos de Jacobi y de Gauss-Seidel 
     !    (con el vector 𝑥 = (0,0, ... ,0,0) como condición inicial).
 
+    
 
 !B.- Realizar el ajuste por mínimos cuadrados de los datos contenidos 
 !     en el fichero data_file.txt que podéis descargar de Moodle.
