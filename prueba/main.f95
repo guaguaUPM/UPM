@@ -5,7 +5,7 @@ implicit none
 real*8, allocatable :: A(:,:), At(:,:), L(:,:), U(:,:), b(:), X(:)
 integer :: i, j
 real*8 :: tol
-integer, parameter :: N=4 !DEPENDE DEL EXAMEN
+integer, parameter :: N=3!DEPENDE DEL EXAMEN
 allocate(A(N,N))
 allocate(At(N,N))
 allocate(L(N,N))
