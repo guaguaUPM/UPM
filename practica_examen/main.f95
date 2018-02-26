@@ -69,7 +69,8 @@ end do
     !    la descomposición LU y los métodos iterativos de Jacobi y de Gauss-Seidel 
     !    (con el vector 𝑥 = (0,0, ... ,0,0) como condición inicial).
      
-    
+    write(*,*) "Escriba un valor para la tolerancia de gauss-seidel y jacobi"
+    read(*,*) tol
 
     !Call cada una de las funciones   
     call gauss (A, b, X)
@@ -80,8 +81,7 @@ end do
     write(*,*) "Xi de LU", X
     read(*,*)    
 
-    write(*,*) "Escriba un valor para la tolerancia de gauss-seidel y jacobi"
-    read(*,*) tol
+    
 
     call jacobi (A, X, b, tol)
     write(*,*) "Xi de Jacobi", X
