@@ -73,18 +73,19 @@ end do
     read(*,*) tol
 
     !Call cada una de las funciones   
-    call jacobi (A, X, b, tol)
-    write(*,*) "Xi de Jacobi", X
-    read(*,*)
+   
     
     call gauss (A, b, X)
     write(*,*) "Xi de Gauss", X
     read(*,*)
  
-    call resolucionLU (L, U, B, X)
-    write(*,*) "Xi de LU", X
-    read(*,*)    
-
+    !call resolucionLU (L, U, B, X)
+    !write(*,*) "Xi de LU", X
+    !read(*,*)    
+    
+    call jacobi (A, X, b, tol)
+    write(*,*) "Xi de Jacobi", X
+    read(*,*)
     
 
     call gauss_seidel (A, X, b, tol)
