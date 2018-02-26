@@ -73,6 +73,10 @@ end do
     read(*,*) tol
 
     !Call cada una de las funciones   
+    call jacobi (A, X, b, tol)
+    write(*,*) "Xi de Jacobi", X
+    read(*,*)
+    
     call gauss (A, b, X)
     write(*,*) "Xi de Gauss", X
     read(*,*)
@@ -82,10 +86,6 @@ end do
     read(*,*)    
 
     
-
-    call jacobi (A, X, b, tol)
-    write(*,*) "Xi de Jacobi", X
-    read(*,*)
 
     call gauss_seidel (A, X, b, tol)
     write(*,*) "Xi de Gauss-Seidel", X
