@@ -2,7 +2,7 @@ program main
 use algebra_lineal
 implicit none
 
-real*8, allocatable :: A(:,:), At(:,:), L(:,:), U(:,:), b(:),Xfinal(:)
+real*8, allocatable :: A(:,:), At(:,:), L(:,:), U(:,:), b(:), X(:)
 integer :: i, j
 real*8 :: tol
 integer, parameter :: N=100 !DEPENDE DEL EXAMEN
@@ -11,7 +11,7 @@ allocate(At(N,N))
 allocate(L(N,N))
 allocate(U(N,N))
 allocate(b(N))
-allocate(Xfinal(N))
+allocate(X(N))
 
 !Sean la matriz A de tamaño 100 x 100 y el vector b de tamaño 100 definidos como:
 do i = 1, N
@@ -69,19 +69,25 @@ end do
     !    la descomposición LU y los métodos iterativos de Jacobi y de Gauss-Seidel 
     !    (con el vector 𝑥 = (0,0, ... ,0,0) como condición inicial).
      
-    
-
-    write(*,*) "Escribe tol"
+    write(*,*) "Escriba un valor para la tolerancia de gauss-seidel y jacobi"
     read(*,*) tol
 
-    !Call cada una de las funciones    
+    !Call cada una de las funciones   
+    call gauss (A, b, X)
+    write(*,*) "Xi de Gauss", X
+    read(*,*)
+ 
+    !call resoluciónLU (L, U, X)
+    !write(*,*) "Xi de Gauss", X
+    !read(*,*)    
 
+    !call jacobi (A, X, b, tol)
+    !write(*,*) "Xi de Jacobi", X
+    !read(*,*)
 
-
-    call gauss_seidel (A, Xfinal, b, tol)
-    write(*,*) "X de gauss-seidel", Xfinal
-    
-    
+    call gauss_seidel (A, X, b, tol)
+    write(*,*) "Xi de Gauss-Seidel", X
+    read(*,*)
 
 
 !B.- Realizar el ajuste por mínimos cuadrados de los datos contenidos 
