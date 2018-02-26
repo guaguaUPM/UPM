@@ -348,7 +348,7 @@ contains
                 sum1=0  
                 do j=1,n
                     if(j/=i) then
-                        sum1 = sum1 + A(i,j)*x0(i)
+                        sum1 = sum1 + A(i,j)*x0(j)
                     endif    
                 enddo
                 x(i) = (1/A(i,i)) * (B(i) - sum1)    
