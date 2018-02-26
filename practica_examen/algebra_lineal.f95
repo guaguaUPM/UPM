@@ -158,7 +158,21 @@ contains
         end do
         
     end subroutine
+        subroutine resolucionLU(L,U,B,Xfinal)
+            real*8, intent(in)             :: L(:,:),U(:,:),B(:)
+            real*8, intent(inout)             :: Xfinal(:)
 
+            real*8, allocatable :: y(:)
+            integer :: n
+           
+            n=size(U,1)
+
+            allocate(y(n))
+            
+
+            y = matmul(inversa(L), B )
+            Xfinal = matmul(inversa(U), y)
+        end subroutine   
     subroutine pivotar (ENTRADA, SALIDA, B_ENTRADA, B_SALIDA, PERMUTACION, TAMANO)
         implicit none
         
