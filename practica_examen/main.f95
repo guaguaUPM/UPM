@@ -81,9 +81,9 @@ end do
     !write(*,*) "Xi de Gauss", X
     !read(*,*)    
 
-    !call jacobi (A, X, b, tol)
-    !write(*,*) "Xi de Jacobi", X
-    !read(*,*)
+    call jacobi (A, X, b, tol)
+    write(*,*) "Xi de Jacobi", X
+    read(*,*)
 
     call gauss_seidel (A, X, b, tol)
     write(*,*) "Xi de Gauss-Seidel", X
