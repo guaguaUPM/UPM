@@ -76,9 +76,9 @@ end do
     write(*,*) "Xi de Gauss", X
     read(*,*)
  
-    call resolucionLU (L, U, B, X)
-    write(*,*) "Xi de LU", X
-    read(*,*)    
+    !call resolucionLU (L, U, B, X)
+    !write(*,*) "Xi de LU", X
+    !read(*,*)    
 
     write(*,*) "Escriba un valor para la tolerancia de gauss-seidel y jacobi"
     read(*,*) tol
