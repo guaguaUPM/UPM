@@ -78,7 +78,7 @@ end do
     read(*,*)
  
     !call resoluciónLU (L, U, X)
-    !write(*,*) "Xi de Gauss", X
+    !write(*,*) "Xi de LU", X
     !read(*,*)    
 
     call jacobi (A, X, b, tol)

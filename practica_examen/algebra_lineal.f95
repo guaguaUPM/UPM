@@ -328,20 +328,14 @@ contains
         maxiter = 999999
     
         do iter = 1, maxiter
-            !INSERTAR MATES
             do i=1,n
                 sum1=0  
                 do j=1,n
-                
                     if(j/=i) then
-
                         sum1 = sum1 + A(i,j)*x0(i)
-
                     endif    
-
                 enddo
                 x(i) = (1/A(i,i)) * (B(i) - sum1)    
-
             enddo
             if (norma2((x-x0), n)/norma2(x, n) <= tol) then
                 Xfinal = x
