@@ -82,6 +82,10 @@ end do
     !call resolucionLU (L, U, B, X)
     !write(*,*) "Xi de LU", X
     !read(*,*)    
+<<<<<<< HEAD
+=======
+
+>>>>>>> 4738556df8320e4566856b6b7965b020e5f83baa
     
     call jacobi (A, X, b, tol)
     write(*,*) "Xi de Jacobi", X
