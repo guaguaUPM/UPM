@@ -71,7 +71,7 @@ contains
         !Primera semilla (primer valor establecido de x para iniciar la iteración)
         x0 = 0.0d0
         x  = 0.0d0
-        maxiter = 999999999 !Numero de iteraciones
+        maxiter = 2 !Numero de iteraciones
         do iter = 1, maxiter !Iteraciones
             do i=1,n
                 sum1=0  
