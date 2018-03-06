@@ -52,4 +52,6 @@ subroutine LU_factorizar (A, L, U, n)
     
 end subroutine
 
+!!FALTA LU_RESOLVER
+
 end module alg_LU
