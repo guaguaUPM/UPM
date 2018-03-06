@@ -5,7 +5,7 @@ SRC  = main.f95
 FC = gfortran
 # Argumentos de compilacion (Bounds para matrices y O3 para velocidad) 
 #                                                    Descomentar para usar LAPACK/BLAS
-FFLAGS = -fbounds-check  -L~/libDIOS -lDIOS # -L/usr/lib -llapack -L/usr/lib -lblas
+FFLAGS = -fbounds-check  -L$$HOME/libDIOS -lDIOS # -L/usr/lib -llapack -L/usr/lib -lblas
 
 OBJ  = $(SRC:.f95=.o)
 EXE  = run.out

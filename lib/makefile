@@ -3,7 +3,7 @@ SRC=$(wildcard *.f95)
  
 OBJ = $(SRC:.f95=.o)
  
-OUT = ~/libDIOS/libDIOS.a
+OUT = $$HOME/libDIOS/libDIOS.a
 
 # Fortran compiler flags
 FFLAGS = -fbounds-check
@@ -20,9 +20,7 @@ default: dep $(OUT)
  
 $(OUT): $(OBJ)
 	rm -f $(OUT)
-	rm -f ~/libDIOS/*.mod
 	ar -rcs $(OUT) $(OBJ)
-	cp *.mod ~/libDIOS/
 depend: dep
  
 dep:
