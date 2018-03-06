@@ -1,4 +1,4 @@
-module matriz
+module autovalores
 
 contains
 
