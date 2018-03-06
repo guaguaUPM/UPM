@@ -52,6 +52,24 @@ subroutine LU_factorizar (A, L, U, n)
     
 end subroutine
 
-!!FALTA LU_RESOLVER
+subroutine resolverLU(L,U,X,n)
+Real(8),intent(in)  :: L(:,:)
+Real(8),intent(in) ::  U(:,:)
+Real(8),intent(out)  :: X(:)
+integer,intent(in) ::  n
+    
+allocate(X(n))   
+
+
+
+
+
+
+
+
+
+
+
+end subroutine resolverLU
 
 end module alg_LU
