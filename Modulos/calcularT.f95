@@ -78,10 +78,9 @@ function inversa (U)
                     
 end function
 
-subroutine matrizT (A,b)
+subroutine matrizT (A)
     ! Argumentos de la subrutina
     real(8), intent(in) :: A(:,:)          !
-    real(8), intent(in) :: b(:)            ! DIMENSIONES ASUMIDAS
         
     ! Variables locales
     integer :: n                     ! Dimensión del problema A(n,n) b(n) X(n)
