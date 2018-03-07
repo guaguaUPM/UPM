@@ -84,7 +84,5 @@ subroutine resolver_gauss(A,B,X,N)
     call pivotar(A, A_PIVOT, B, B_PIVOT, PIVOTE, N)
     call gauss_triangular(A_PIVOT, A_PIVOT,B_PIVOT, B_PIVOT, N)
     call gauss_sustituir(A_PIVOT,B_PIVOT,X,N, .TRUE.)
-    write(*,*) X
     X = matmul(PIVOTE, X)
-    write(*,*) X
 end subroutine resolver_gauss
