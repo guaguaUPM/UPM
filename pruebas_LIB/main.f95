@@ -15,7 +15,7 @@ call pedir_vector(B,N)
 call write_AB(A,B, N)
 write(*,*)
 
-call resolver_gauss(A,B,X, N)
+call resolver_LU(A,B,X,N)
 write(*,*) X
 
 end program main

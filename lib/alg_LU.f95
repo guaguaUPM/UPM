@@ -3,12 +3,9 @@ subroutine LU_factorizar (A, L, U, n)
     implicit none
     real(8),intent(in)::A(n,n)
     integer,intent(in)::n
-    real(8),intent(out),allocatable:: L(:,:),U(:,:)
+    real(8),intent(out) ::L(N,N),U(N,N)
     integer::i,j,k
     real(8) :: sum
-    
-    allocate(L(n,n))
-    allocate(U(n,n))
     
     !Aplicamos el algoritmo matemático asociado a la factorización LU
     
@@ -47,4 +44,16 @@ subroutine LU_factorizar (A, L, U, n)
         L(k+1,k+1) = A(k+1,k+1)-sum   
     end do
     
-end subroutine
+end subroutine LU_factorizar
+
+subroutine resolver_LU (A,B,X,N)
+    implicit none
+    integer, intent(in) :: N
+    real*8, intent(in) :: A(N,N), B(N)
+    real*8, intent(out) :: X(N)
+    real*8 :: L(N,N), U(N,N), Y(N)
+
+    call LU_factorizar(A,L,U,N)
+    call gauss_sustituir(L,B,Y,N, .FALSE.)
+    call gauss_sustituir(U,Y,X,N, .TRUE.)
+end subroutine resolver_LU
