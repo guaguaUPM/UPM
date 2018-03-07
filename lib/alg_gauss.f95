@@ -3,11 +3,11 @@ subroutine gauss_sustituir(A,B, RESULTADO, TAMANO, MODO)
 
     ! CON CEROS EN LA DIAGONAL
 
-    ! Si MODO es TRUE, se interpreta la matriz de entrada como triangular superior:
+    ! Si MODO es .TRUE., se interpreta la matriz de entrada como triangular superior:
     ! 1 3 4 | 0.1
     ! 0 1 5 | 0.2
     ! 0 0 1 | 0.3
-    ! Si MODO es FALSE, se interpreta como triangular inferior:
+    ! Si MODO es .FALSE., se interpreta como triangular inferior:
     ! 1 0 0 | 0.1
     ! 3 1 0 | 0.2
     ! 4 5 1 | 0.3
@@ -69,3 +69,22 @@ subroutine gauss_triangular(ENTRADA, SALIDA, VECTOR_IN, VECTOR_OUT, TAMANO)
     end do
 
 end subroutine gauss_triangular
+
+subroutine resolver_gauss(A,B,X,N)
+    implicit none
+    integer, intent(in) :: N
+    real*8, intent(in) :: A(N,N), B(N)
+    real*8, intent(out) :: X(N)
+    real*8, allocatable :: A_PIVOT(:,:), B_PIVOT(:)
+    integer, allocatable :: PIVOTE(:,:)
+    allocate(A_PIVOT(N,N))
+    allocate(B_PIVOT(N))
+    allocate(PIVOTE(N,N))
+
+    call pivotar(A, A_PIVOT, B, B_PIVOT, PIVOTE, N)
+    call gauss_triangular(A_PIVOT, A_PIVOT,B_PIVOT, B_PIVOT, N)
+    call gauss_sustituir(A_PIVOT,B_PIVOT,X,N, .TRUE.)
+    write(*,*) X
+    X = matmul(PIVOTE, X)
+    write(*,*) X
+end subroutine resolver_gauss
