@@ -67,13 +67,11 @@ function inversa (U, N)
     integer, intent(in)            :: N
     real*8, intent(in)             :: U(N,N)
 
-    real*8, allocatable            :: inversa(:,:)
-    real*8, allocatable            :: B(:,:)
+    real*8            :: inversa(N,N)
+    real*8            :: B(N,2*N)
     real*8                         :: d, k
     integer                        :: i, j
 
-    allocate(inversa(n,n))
-    allocate(B(n,2*n))
        
     d=0
     inversa=0
@@ -183,7 +181,9 @@ subroutine matrizT (A, N)
             end if
         end do
     end do
-                    
+
+     ! DABA ERRORES DE COMPILACION   
+                 
     !Segun nos indica la formula reducida del método de Jacobi calculamos las matrices c y T
     ! T = matmul((-1.d0)*inversa(D),(U+L))
     
