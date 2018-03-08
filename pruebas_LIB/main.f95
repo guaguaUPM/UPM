@@ -1,6 +1,5 @@
 program main
 implicit none
-
 real*8, allocatable :: A(:,:), B(:), X(:)
 integer :: N
 
