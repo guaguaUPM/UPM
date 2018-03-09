@@ -66,7 +66,7 @@ subroutine gauss_seidel (A, Xfinal, b, tol, N)
     !Primera semilla (primer valor establecido de x para iniciar la iteración)
     x0 = 0.0d0
     x  = 0.0d0
-    maxiter = 2 !Numero de iteraciones
+    maxiter = 9999999 !Numero de iteraciones
     do iter = 1, maxiter !Iteraciones
         do i=1,n
             sum1=0  
@@ -80,10 +80,10 @@ subroutine gauss_seidel (A, Xfinal, b, tol, N)
             x(i) = (1/A(i,i)) * (B(i) - sum1 - sum2)           
         enddo        
         !if (norma2((x-x0), n)/norma2(x, n) <= tol) then
-        !    Xfinal = x
-        !    return
+            !Xfinal = x
+            !return
         !else 
-        !    x0 = x
+            !x0 = x
         !endif     
     enddo      
 end subroutine gauss_seidel

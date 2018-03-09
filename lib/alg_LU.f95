@@ -16,7 +16,7 @@ subroutine LU_factorizar (A, L, U, n)
     U(1,1) = 1
      
     do k=1,n-1
-                                                   !Es importante el orden de los bucles 
+        !Es importante el orden de los bucles 
         U(1,k+1) = A(1,k+1)/L(1,1)
               
         do i=2,k      

@@ -65,16 +65,16 @@ function inversa (U, N)
     implicit none
 
     integer, intent(in)            :: N
-    real*8, intent(in)             :: U(N,N)
+    real(8), intent(in)            :: U(N,N)
 
-    real*8            :: inversa(N,N)
-    real*8            :: B(N,2*N)
-    real*8                         :: d, k
+    real(8)                        :: inversa (N,N)
+    real(8)                        :: B(N,2*N)
+    real(8)                        :: d, k
     integer                        :: i, j
 
        
     d=0
-    inversa=0
+    inversa=0.d0
     B=0
             
     do i=1, n
@@ -116,7 +116,7 @@ function inversa (U, N)
     end do
             
             
-        !Dividir para tener la identidad a la izquierda
+    !Dividir para tener la identidad a la izquierda
     do i=1, n
         do j=1, n
                 if (i==j) then 
@@ -152,16 +152,16 @@ function norma2 (vector, n)
         
 end function
 
-subroutine matrizT (A, N)
+subroutine matrizT (A, T, N)
     ! Argumentos de la subrutina
-    real(8), intent(in) :: A(N,N)          !
+    integer, intent(in) :: N
+    real(8), intent(in) :: A(N,N)
+    real(8), intent(out), allocatable :: T(:,:)
             
     ! Variables locales
-    integer, intent(in) :: n                     ! Dimensión del problema A(n,n) b(n) X(n)
     real(8), allocatable :: L(:,:)
     real(8), allocatable :: D(:,:)
     real(8), allocatable :: U(:,:)
-    real(8), allocatable :: T(:,:)
     integer :: j, k
 
     allocate(L(n,n))
@@ -185,6 +185,6 @@ subroutine matrizT (A, N)
      ! DABA ERRORES DE COMPILACION   
                  
     !Segun nos indica la formula reducida del método de Jacobi calculamos las matrices c y T
-    ! T = matmul((-1.d0)*inversa(D),(U+L))
+    !T = matmul((-1.d0)*inversa(D,N),(U+L))
     
 end subroutine matrizT
