@@ -1,3 +1,5 @@
+! Para usar modulos de este archivo descomentar los argumentos de LAPACK en proyecto en cuestion
+
 subroutine resolver_LAPACK(A,B,X,N)
     implicit none
     integer, intent(in)  :: N
