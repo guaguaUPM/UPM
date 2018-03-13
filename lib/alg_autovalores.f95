@@ -7,7 +7,7 @@ subroutine auto_potencia (A,AUTOVECTOR,TOL,N)
 
     ! Variables propias
     real*8 :: Q(N), Q_ANTERIOR(N), norma, resto(N)
-    integer :: i, j, maxiter
+    integer :: i, maxiter
 
     maxiter = 10
 
