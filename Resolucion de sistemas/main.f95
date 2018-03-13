@@ -12,8 +12,7 @@ allocate(B(N))
 allocate(X,mold=B)
 
 call pedir_matrix(A,N)
-call pedir_vector(B,N) !pene
-
+call pedir_vector(B,N) 
 call write_AB(A,B, N)
 write(*,*)
 ! ------------------------------
