@@ -12,5 +12,4 @@ subroutine derivada(FUNCION,A,VALOR)
     write(*,*) FUNCION(A)
     VALOR = 2.d0
 
-
 end subroutine derivada
