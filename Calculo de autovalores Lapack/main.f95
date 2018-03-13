@@ -11,8 +11,8 @@ program autovalores
     allocate(A(N,N))
     allocate(Valores(N))
     allocate(work(N))
-    allocate(basura(n-1))
-    Write(*,*) "Escriba una matriz"
+   
+    Write(*,*) "Escriba una matriz !Simetrica!"
     call pedir_matrix(A,N)
     call write_A(A,N)
     !write (*,*) "Escribe N para calcular los autovectores, luego escribe U o L"
@@ -24,8 +24,7 @@ program autovalores
     UPLO = "U"
     LDA = N
    
-    call SGEHRD(n,1,N,A,n,basura,work,Lwork,info)
-    write(*,*) info
+  
     call DSYEV(jobz,UPLO,n,A,n,Valores,work,LWORK,info) 
     Lwork = work(1)
     call DSYEV(jobz,UPLO,n,A,LDA,Valores,work,LWORK,info) 
