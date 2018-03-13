@@ -25,10 +25,8 @@ subroutine auto_potencia (A,AUTOVECTOR,TOL,N)
         resto = Q - Q_ANTERIOR
 
         do j=1,N
-            if( resto(j) <tol) then
+            if( maxval(resto) <tol) then
                 AUTOVECTOR = Q
-                return
-            else
                 return
             endif
         enddo
