@@ -3,14 +3,13 @@ program autovalores
     real*8, allocatable :: A(:,:), Valores(:),work(:),basura(:)
     real*8 :: autovalor, tol
     integer :: N,info,LWORK,LDA
-    character*1 :: jobz,UPLO
+    character*1 :: jobz,UPLO,ILO,IHI
     
     ! Se piden los datos de la matriz al usuario
     write(*,*) "¿Que tamano de matriz desea?"
     read(*,*) N
     allocate(A(N,N))
     allocate(Valores(N))
-    allocate(work(N))
    
     Write(*,*) "Escriba una matriz !Simetrica!"
     call pedir_matrix(A,N)
@@ -20,17 +19,10 @@ program autovalores
     !read(*,*) UPLO
     ! -----------------------------------------
     LWORK = 10000
-    jobz = "N"
+    jobz = "B"
     UPLO = "U"
     LDA = N
-   
-  
-    call DSYEV(jobz,UPLO,n,A,n,Valores,work,LWORK,info) 
-    Lwork = work(1)
-    call DSYEV(jobz,UPLO,n,A,LDA,Valores,work,LWORK,info) 
-
-    Write(*,*) "Los autovalores son:",Valores
-    write(*,*) work(1)
+   call DGBAL(jobz,n,A,lda,ILO,IHI,valores,info)
 
     if (info == 0) then
         write(*,*) "De puta madre"
