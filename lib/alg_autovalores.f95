@@ -28,6 +28,8 @@ subroutine auto_potencia (A,AUTOVECTOR,TOL,N)
             if( resto(j) <tol) then
                 AUTOVECTOR = Q
                 return
+            else
+                return
             endif
         enddo
     enddo
