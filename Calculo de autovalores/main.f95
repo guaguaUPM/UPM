@@ -1,6 +1,7 @@
 program autovalores
     implicit none
     real*8, allocatable :: A(:,:)
+    real*8 :: autovalor, tol
     integer :: N
 
     
@@ -11,5 +12,7 @@ program autovalores
     call pedir_matrix(A,N)
     call write_A(A,N)
     ! -----------------------------------------
+
+    call auto_potencia(A,autovalor,tol,N)
 
 end program autovalores

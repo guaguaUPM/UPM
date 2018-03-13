@@ -138,19 +138,20 @@ function inversa (U, N)
                     
 end function
 
-function norma2 (vector, n)
-    integer, intent(in) :: n
-    real(8), intent(in) :: vector(n)
-    real(8) :: norma2
+subroutine norma2 (norma,vector, n)
+    implicit none
+    integer, intent(in)  :: n
+    real(8), intent(in)  :: vector(n)
+    real(8), intent(out) :: norma
     integer :: i
     
-    norma2 = 0.d0
+    norma = 0.d0
     do i = 1, n
-        norma2 = norma2+vector(i)**2
-    enddo
-    norma2 = sqrt(norma2) 
+        norma = norma+vector(i)**2
+    end do
+    norma = sqrt(norma) 
         
-end function
+end subroutine norma2
 
 subroutine matrizT (A, T, N)
     ! Argumentos de la subrutina

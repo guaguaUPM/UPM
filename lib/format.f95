@@ -7,6 +7,7 @@ subroutine write_A(A,N)
     do i = 1, N
         write(*,*) A(i,:)
     end do
+    write(*,*)
 end subroutine write_A
 
 subroutine write_AB(A,B,N)
