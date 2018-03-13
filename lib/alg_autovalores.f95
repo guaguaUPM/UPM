@@ -9,6 +9,8 @@ subroutine auto_potencia (A,AUTOVECTOR,TOL,N)
     real*8 :: Q(N), Q_ANTERIOR(N), norma, resto(N)
     integer :: i, j, maxiter
 
+    maxiter = 10
+
     do i = 1, maxiter
         Q=(1.d0)
         call norma2(norma,Q,N)
@@ -24,12 +26,10 @@ subroutine auto_potencia (A,AUTOVECTOR,TOL,N)
         
         resto = Q - Q_ANTERIOR
 
-        do j=1,N
-            if( maxval(resto) <tol) then
-                AUTOVECTOR = Q
-                return
-            endif
-        enddo
+        if( maxval(resto) <tol) then
+            AUTOVECTOR = Q
+            return
+        endif
     enddo
 
 end subroutine auto_potencia
