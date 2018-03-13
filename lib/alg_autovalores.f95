@@ -7,16 +7,16 @@ subroutine auto_potencia (A,AUTOVALOR,TOL,N)
     ! Variables propias
     real*8 :: Q(N), Q_ANTERIOR(N), error, norma, norma_anterior
 
-    Q=(1.d0)/sqrt(1.d0*N)
-    !do while(error > tol)
-        write(*,*) Q ! DEBUG
-        Q_ANTERIOR = Q
-        norma_anterior = norma
-    
-        Q = matmul(A,Q)
-        call norma2(norma,Q,N)
-        Q = Q / norma
-        error  = norma_anterior - norma
-        write(*,*) error
-    !end do
+    Q=(1.d0)
+    call norma2(norma,Q,N)
+    Q = Q/norma
+    write(*,*) Q
+
+    Q_ANTERIOR = Q
+
+    Q = matmul(A,Q)
+    call norma2(norma,Q,N)
+    Q = Q/norma
+    write(*,*) Q
+
 end subroutine auto_potencia
