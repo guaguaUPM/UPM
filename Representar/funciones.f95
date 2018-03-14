@@ -6,4 +6,10 @@ contains
 
         parabola = X**2
     end function parabola
+    function arcotangente(X)
+        real*8 :: X
+        real*8 :: arcotangente
+    
+        arcotangente = ATAN(X)
+    end function arcotangente
 end module funciones
