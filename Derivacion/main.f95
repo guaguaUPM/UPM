@@ -1,7 +1,10 @@
 program main
-    implicit none
+use funciones
+implicit none
 
-    write(*,*) "FUNCIONA"
+real*8 :: m
+
+call derivada(parabola,2.d0,m)
 
 
 

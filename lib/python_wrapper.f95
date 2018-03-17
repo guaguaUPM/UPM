@@ -18,5 +18,34 @@ subroutine represtarR1_R1(FUNCION,INICIO,FIN,PARTICIONES)
         write(10,*) abcisa,FUNCION(abcisa)
     end do
     close(10)
-    call SYSTEM("python plot.py")
+    call SYSTEM("python plot11.py")
 end subroutine represtarR1_R1
+
+subroutine represtarR2_R1(FUNCION,INICIO_X,FIN_X,INICIO_Y,FIN_Y,PARTICIONES_X, PARTICIONES_Y)
+    implicit none
+    real*8, intent(in)  :: INICIO_X,FIN_X,INICIO_Y,FIN_Y
+    integer, intent(in) :: PARTICIONES_X, PARTICIONES_Y
+    interface
+        function FUNCION(X,Y)
+            real*8 :: X,Y
+            real*8 :: FUNCION
+        end function
+    end interface
+    integer :: info, i,j
+    real*8  :: incremento_x, incremento_y, posX, posY
+    
+    open(unit=10,file='valores.dat',status='unknown',action='write',iostat=info)
+
+    incremento_x = (FIN_X-INICIO_X)/(PARTICIONES_X*1.d0)
+    incremento_Y = (FIN_Y-INICIO_Y)/(PARTICIONES_Y*1.d0)
+
+    do i=0, PARTICIONES_X
+        posX = INICIO_X + i*incremento_x
+        do j=0, PARTICIONES_Y
+            posY = INICIO_Y + j*incremento_y
+            write(10,*) int(posX), int(posY), int(FUNCION(posX,posY))
+        end do
+    end do
+    close(10)
+    call SYSTEM("python plot21.py")
+end subroutine represtarR2_R1
