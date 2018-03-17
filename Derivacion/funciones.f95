@@ -18,4 +18,10 @@ contains
 
         paraboloide = X**2 + Y**2 + 2
     end function paraboloide
+    function f001(X)
+        real*8 :: X
+        real*8 :: f001
+      
+        f001 = X*sin(X)
+    end function f001
 end module funciones
