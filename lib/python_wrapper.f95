@@ -49,3 +49,36 @@ subroutine represtarR2_R1(FUNCION,INICIO_X,FIN_X,INICIO_Y,FIN_Y,PARTICIONES_X, P
     close(10)
     call SYSTEM("python plot21.py")
 end subroutine represtarR2_R1
+
+subroutine represtarR1_R1_tangente(FUNCION,INICIO,FIN,PARTICIONES,X0,M)
+    implicit none
+    real*8, intent(in)  :: INICIO, FIN, X0 ,M
+    integer, intent(in) :: PARTICIONES
+    interface
+        function FUNCION(X)
+            real*8 :: X
+            real*8 :: FUNCION
+        end function
+    end interface
+    integer :: info, i
+    real*8  :: incremento, abcisa, y0
+
+    open(unit=10,file='valores.dat',status='unknown',action='write',iostat=info)
+    incremento = (FIN-INICIO)/(PARTICIONES*1.d0)
+    do i=0, PARTICIONES
+        abcisa = INICIO + i * incremento
+        write(10,*) abcisa,FUNCION(abcisa)
+    end do
+    close(10)
+
+    open(unit=11,file='derivada.dat',status='unknown',action='write',iostat=info)
+    y0=FUNCION(X0)
+
+    abcisa = x0-(PARTICIONES/2)*incremento
+    write(11,*) abcisa, M*(abcisa-x0) + y0
+    abcisa = x0+(PARTICIONES/2)*incremento
+    write(11,*) abcisa, M*(abcisa-x0) + y0
+    close(11)
+
+    call SYSTEM("python plot11_derivada.py")
+end subroutine represtarR1_R1_tangente
