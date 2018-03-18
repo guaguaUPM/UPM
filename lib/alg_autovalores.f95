@@ -21,8 +21,10 @@ subroutine auto_potencia (A, AUTOVALOR, TOL, Q0, N)
     if (norma /= 1.d0) then
         Q = Q/norma
     endif
-    write(*,*) Q
-    read(*,*)
+    
+    !DEBUG
+    !write(*,*) Q
+    !read(*,*)
 
     !   CALCULO DEL AUTOVECTOR
     do i = 1, maxiter
@@ -36,8 +38,10 @@ subroutine auto_potencia (A, AUTOVALOR, TOL, Q0, N)
 
         call norma2(norma,Q,N)
         Q = Q/norma
-        write(*,*) Q
-        read(*,*)
+
+        !DEBUG
+        !write(*,*) Q
+        !read(*,*)
         
         do j= 1, N
             sumaQ = sumaQ + abs(Q(j))
