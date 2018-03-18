@@ -15,7 +15,7 @@ subroutine resolver_jacobi_tol (A, Xfinal, b, tol)
     real(8), allocatable :: x0(:)
     real(8), allocatable :: x(:)
     integer :: iter, i,j, maxiter
-    real(8) :: sum1
+    real(8) :: sum1,normaXX0,normaX
     
     n = size(A,1)
     allocate(x0(n))
@@ -39,8 +39,10 @@ subroutine resolver_jacobi_tol (A, Xfinal, b, tol)
             x(i) = (1/A(i,i)) * (B(i) - sum1)    
         enddo
         
-        
-        if (norma2((x-x0), n)/norma2(x, n) <= tol) then
+        call norma2(normaXX0,X-x0,n)
+        call norma2(normaX,x,n)
+
+        if (normaXX0/normaX<= tol) then
             Xfinal = x
             return
         else 
@@ -103,7 +105,7 @@ subroutine resolver_gauss_seidel_tol (A, Xfinal, b, tol, N)
 
     real(8), allocatable :: x0(:)
     real(8), allocatable :: x(:)
-    real(8) :: sum1, sum2
+    real(8) :: sum1, sum2, normaXX0, normaX
     integer :: iter, i, j, maxiter
     
     allocate(x0(n))
@@ -125,12 +127,15 @@ subroutine resolver_gauss_seidel_tol (A, Xfinal, b, tol, N)
             enddo                           
             x(i) = (1/A(i,i)) * (B(i) - sum1 - sum2)           
         enddo        
-        if (norma2((x-x0), n)/norma2(x, n) <= tol) then
-            Xfinal = x
-            return
-        else 
-            x0 = x
-        endif     
+            call norma2(normaXX0,X-x0,n)
+            call norma2(normaX,x,n)
+    
+            if (normaXX0/normaX<= tol) then
+                Xfinal = x
+                return
+            else 
+                x0 = x
+            end if    
     enddo      
 end subroutine resolver_gauss_seidel_tol
 
