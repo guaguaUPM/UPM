@@ -1,7 +1,7 @@
 !ITERATIVOS REQUIEREN QUE EL SISTEMA CONVERJA
 !REQUIERE QUE NO EXISTAN CEROS EN LA DIAGONAL (PREVIO PIVOTAMIENTO) 
 
-subroutine jacobi (A, Xfinal, b, tol)
+subroutine jacobi_tol (A, Xfinal, b, tol)
 
     ! Argumentos de la subrutina
     real(8), intent(in) :: A(:,:)          !
@@ -9,12 +9,14 @@ subroutine jacobi (A, Xfinal, b, tol)
     real(8), intent(out) :: Xfinal(:)    !
     real(8), intent(in) :: tol             !
     
+
     ! Variables locales
     integer :: n                     ! Dimensión del problema A(n,n) b(n) X(n)
     real(8), allocatable :: x0(:)
     real(8), allocatable :: x(:)
     integer :: iter, i,j, maxiter
     real(8) :: sum1
+    
     n = size(A,1)
     allocate(x0(n))
     allocate(x(n))
@@ -24,6 +26,8 @@ subroutine jacobi (A, Xfinal, b, tol)
     x  = 0.0d0
     maxiter = 999999
     
+   
+
     do iter = 1, maxiter
         do i=1,n
             sum1=0  
@@ -34,16 +38,59 @@ subroutine jacobi (A, Xfinal, b, tol)
             enddo
             x(i) = (1/A(i,i)) * (B(i) - sum1)    
         enddo
+        
+        
         if (norma2((x-x0), n)/norma2(x, n) <= tol) then
             Xfinal = x
             return
         else 
             x0 = x
         end if
-    end do
+    enddo    
+end subroutine jacobi_tol
+
+subroutine jacobi_iter (A, Xfinal, b, Maxiter)
+
+        ! Argumentos de la subrutina
+        real(8), intent(in) :: A(:,:)          !
+        real(8), intent(in) :: b(:)            ! DIMENSIONES ASUMIDAS
+        real(8), intent(out) :: Xfinal(:)    !
+        integer, intent(in) :: Maxiter            !
+        
     
-end subroutine jacobi
-     
+        ! Variables locales
+        integer :: n                     ! Dimensión del problema A(n,n) b(n) X(n)
+        real(8), allocatable :: x0(:)
+        real(8), allocatable :: x(:)
+        integer :: iter, i,j
+        real(8) :: sum1
+        
+        n = size(A,1)
+        allocate(x0(n))
+        allocate(x(n))
+        
+        !Primera semilla (primer valor establecido de x para iniciar la iteración)
+        x0 = 0.d0
+        x  = 0.0d0
+        
+        do iter = 1, maxiter
+            do i=1,n
+                sum1=0  
+                do j=1,n
+                    if(j/=i) then
+                        sum1 = sum1 + A(i,j)*x0(j)
+                    endif    
+                enddo
+                x(i) = (1/A(i,i)) * (B(i) - sum1)    
+            enddo
+            
+                x0 = x
+           
+        enddo   
+            
+        Xfinal = x0    
+end subroutine jacobi_iter     
+
 subroutine gauss_seidel (A, Xfinal, b, tol, N)
     implicit none
     integer, intent(in) :: n                     ! Dimensión del problema A(n,n) b(n) X(n)
