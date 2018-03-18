@@ -134,7 +134,7 @@ subroutine resolver_gauss_seidel_tol (A, Xfinal, b, tol, N)
     enddo      
 end subroutine resolver_gauss_seidel_tol
 
-    subroutine resolver_gauss_seidel_iter (A, Xfinal, b, maxiter, N)
+subroutine resolver_gauss_seidel_iter (A, Xfinal, b, maxiter, N)
         implicit none
         integer, intent(in) :: n                     ! Dimensión del problema A(n,n) b(n) X(n)
         ! Argumentos de la subrutina
@@ -169,11 +169,8 @@ end subroutine resolver_gauss_seidel_tol
                 enddo                           
                 x(i) = (1/A(i,i)) * (B(i) - sum1 - sum2)           
             enddo        
-            !if (norma2((x-x0), n)/norma2(x, n) <= tol) then
-                !Xfinal = x
-                !return
-            !else 
-                !x0 = x
-            !endif     
+            
+                x0 = x
+                
         enddo      
 end subroutine resolver_gauss_seidel_iter
