@@ -134,21 +134,20 @@ subroutine resolver_gauss_seidel_tol (A, Xfinal, b, tol, N)
     enddo      
 end subroutine resolver_gauss_seidel_tol
 
-    subroutine resolver_gauss_seidel_iter (A, Xfinal, b, iter, N)
+    subroutine resolver_gauss_seidel_iter (A, Xfinal, b, maxiter, N)
         implicit none
         integer, intent(in) :: n                     ! Dimensión del problema A(n,n) b(n) X(n)
         ! Argumentos de la subrutina
         real(8), intent(in) :: A(n,n)          !
         real(8), intent(in) :: b(n)            ! DIMENSIONES ASUMIDAS
         real(8), intent(out) :: Xfinal(:)    !
-        real(8), intent(in) :: tol             !
-            
+        integer, intent(in) :: maxiter
         ! Variables locales
     
         real(8), allocatable :: x0(:)
         real(8), allocatable :: x(:)
         real(8) :: sum1, sum2
-        integer :: iter, i, j, maxiter
+        integer :: iter, i, j
         
         allocate(x0(n))
         allocate(x(n))
@@ -156,7 +155,8 @@ end subroutine resolver_gauss_seidel_tol
         !Primera semilla (primer valor establecido de x para iniciar la iteración)
         x0 = 0.0d0
         x  = 0.0d0
-        maxiter = 9999999 !Numero de iteraciones
+        
+         !Numero de iteraciones
         do iter = 1, maxiter !Iteraciones
             do i=1,n
                 sum1=0  
