@@ -11,18 +11,16 @@ subroutine auto_potencia (A, AUTOVALOR, TOL, Q0, N)
     real*8, intent(out) :: AUTOVALOR
 
     ! Variables propias
-    real*8 :: Q(N), Q_ANTERIOR(N), norma, norma_num, norma_den, resto(N), AUTOVECTOR(N)
+    real*8 :: Q(N), Q_ANTERIOR(N), norma, AUTOVECTOR(N)
     integer :: i, maxiter
 
-    maxiter = 15
+    maxiter = 60
 
     Q = Q0
     call norma2(norma,Q,N)
     if (norma /= 1.d0) then
         Q = Q/norma
     endif
-    write(*,*) Q
-    read(*,*)
 
     !   CALCULO DEL AUTOVECTOR
     do i = 1, maxiter
@@ -33,13 +31,8 @@ subroutine auto_potencia (A, AUTOVALOR, TOL, Q0, N)
 
         call norma2(norma,Q,N)
         Q = Q/norma
-        write(*,*) Q
-        read(*,*)
         
-        resto = Q - Q_ANTERIOR
-        !call norma2(norma_num, resto, N)
-        !call norma2(norma_den, Q, N)
-        !if( (norma_num/norma_den) <= tol) exit
+        !ERROR RELATIVO
 
     enddo
     
@@ -60,40 +53,29 @@ subroutine auto_potencia_inversa (A, AUTOVALOR, TOL, Q0, N)
     real*8, intent(out) :: AUTOVALOR
 
     ! Variables propias
-    real*8 :: Q(N), Q_ANTERIOR(N), norma, resto(N), AUTOVECTOR(N), Atriang(N,N)
+    real*8 :: Q(N), Q_ANTERIOR(N), norma, AUTOVECTOR(N)
     integer :: i, maxiter
 
-    maxiter = 10
+    maxiter = 60
 
     Q = Q0
     call norma2(norma,Q,N)
     if (norma /= 1.d0) then
         Q = Q/norma
     endif
-    write(*,*) Q
-    read(*,*)
 
     !   CALCULO DEL AUTOVECTOR
     do i = 1, maxiter
 
         Q_ANTERIOR = Q
 
-        !call gauss_triangular (A, Atriang, Q_ANTERIOR, Q_ANTERIOR, N)
-        !call gauss_sustituir (Atriang, Q_ANTERIOR, Q, N, .true.)
-
         call resolver_gauss (A, Q_ANTERIOR, Q, N)
 
         call norma2(norma,Q,N)
         Q = Q/norma
-        write(*,*) Q
-        read(*,*)
-        
-        resto = Q - Q_ANTERIOR
 
-        !if( maxval(resto) <tol) then
-            !AUTOVECTOR = Q
-            !exit
-        !endif
+        !ERROR RELATIVO
+
     enddo
     
     AUTOVECTOR = Q
