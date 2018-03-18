@@ -87,7 +87,7 @@ subroutine resolver_jacobi_iter (A, Xfinal, b, Maxiter)
            
         enddo   
             
-        Xfinal = x0    
+        Xfinal = x  
 end subroutine resolver_jacobi_iter    
 
 subroutine resolver_gauss_seidel_tol (A, Xfinal, b, tol, N)
@@ -125,12 +125,12 @@ subroutine resolver_gauss_seidel_tol (A, Xfinal, b, tol, N)
             enddo                           
             x(i) = (1/A(i,i)) * (B(i) - sum1 - sum2)           
         enddo        
-        !if (norma2((x-x0), n)/norma2(x, n) <= tol) then
-            !Xfinal = x
-            !return
-        !else 
-            !x0 = x
-        !endif     
+        if (norma2((x-x0), n)/norma2(x, n) <= tol) then
+            Xfinal = x
+            return
+        else 
+            x0 = x
+        endif     
     enddo      
 end subroutine resolver_gauss_seidel_tol
 
