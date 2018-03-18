@@ -14,7 +14,7 @@ subroutine auto_potencia (A, AUTOVALOR, TOL, Q0, N)
     real*8 :: Q(N), Q_ANTERIOR(N), norma, norma_num, norma_den, resto(N), AUTOVECTOR(N)
     integer :: i, maxiter
 
-    maxiter = 999999
+    maxiter = 15
 
     Q = Q0
     call norma2(norma,Q,N)
@@ -37,13 +37,10 @@ subroutine auto_potencia (A, AUTOVALOR, TOL, Q0, N)
         read(*,*)
         
         resto = Q - Q_ANTERIOR
-        call norma2(norma_num, resto, N)
-        call norma2(norma_den, Q, N)
+        !call norma2(norma_num, resto, N)
+        !call norma2(norma_den, Q, N)
+        !if( (norma_num/norma_den) <= tol) exit
 
-        if( (norma_num/norma_den) <= tol) then
-            AUTOVECTOR = Q
-            exit
-        endif
     enddo
     
     AUTOVECTOR = Q
@@ -63,7 +60,7 @@ subroutine auto_potencia_inversa (A, AUTOVALOR, TOL, Q0, N)
     real*8, intent(out) :: AUTOVALOR
 
     ! Variables propias
-    real*8 :: Q(N), Q_ANTERIOR(N), norma, resto(N), AUTOVECTOR(N)
+    real*8 :: Q(N), Q_ANTERIOR(N), norma, resto(N), AUTOVECTOR(N), Atriang(N,N)
     integer :: i, maxiter
 
     maxiter = 10
@@ -81,7 +78,9 @@ subroutine auto_potencia_inversa (A, AUTOVALOR, TOL, Q0, N)
 
         Q_ANTERIOR = Q
 
-        !call gauss_triangular (A, Q_ANTERIOR, Q, N)
+        !call gauss_triangular (A, Atriang, Q_ANTERIOR, Q_ANTERIOR, N)
+        !call gauss_sustituir (Atriang, Q_ANTERIOR, Q, N, .true.)
+
         call resolver_gauss (A, Q_ANTERIOR, Q, N)
 
         call norma2(norma,Q,N)
