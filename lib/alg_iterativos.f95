@@ -88,7 +88,7 @@ subroutine jacobi_iter (A, Xfinal, b, Maxiter)
            
         enddo   
             
-        Xfinal = x0    
+        Xfinal = x    
 end subroutine jacobi_iter     
 
 subroutine gauss_seidel (A, Xfinal, b, tol, N)
@@ -126,11 +126,11 @@ subroutine gauss_seidel (A, Xfinal, b, tol, N)
             enddo                           
             x(i) = (1/A(i,i)) * (B(i) - sum1 - sum2)           
         enddo        
-        !if (norma2((x-x0), n)/norma2(x, n) <= tol) then
-            !Xfinal = x
-            !return
-        !else 
-            !x0 = x
-        !endif     
+        if (norma2((x-x0), n)/norma2(x, n) <= tol) then
+            Xfinal = x
+            return
+        else 
+            x0 = x
+        endif     
     enddo      
 end subroutine gauss_seidel
