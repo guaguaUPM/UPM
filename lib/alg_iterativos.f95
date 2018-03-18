@@ -87,13 +87,8 @@ subroutine resolver_jacobi_iter (A, Xfinal, b, Maxiter)
            
         enddo   
             
-<<<<<<< HEAD
-        Xfinal = x    
-end subroutine jacobi_iter     
-=======
-        Xfinal = x0    
+        Xfinal = x  
 end subroutine resolver_jacobi_iter    
->>>>>>> f98206405b9a7aad5f6709efd328ba4e2a5a6ee8
 
 subroutine resolver_gauss_seidel (A, Xfinal, b, tol, N)
     implicit none
