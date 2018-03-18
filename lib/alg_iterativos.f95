@@ -90,7 +90,7 @@ subroutine resolver_jacobi_iter (A, Xfinal, b, Maxiter)
         Xfinal = x0    
 end subroutine resolver_jacobi_iter    
 
-subroutine resolver_gauss_seidel (A, Xfinal, b, tol, N)
+subroutine resolver_gauss_seidel_tol (A, Xfinal, b, tol, N)
     implicit none
     integer, intent(in) :: n                     ! Dimensión del problema A(n,n) b(n) X(n)
     ! Argumentos de la subrutina
@@ -132,9 +132,9 @@ subroutine resolver_gauss_seidel (A, Xfinal, b, tol, N)
             !x0 = x
         !endif     
     enddo      
-end subroutine resolver_gauss_seidel
+end subroutine resolver_gauss_seidel_tol
 
-    subroutine resolver_gauss_seidel (A, Xfinal, b, tol, N)
+    subroutine resolver_gauss_seidel_iter (A, Xfinal, b, iter, N)
         implicit none
         integer, intent(in) :: n                     ! Dimensión del problema A(n,n) b(n) X(n)
         ! Argumentos de la subrutina
@@ -176,4 +176,4 @@ end subroutine resolver_gauss_seidel
                 !x0 = x
             !endif     
         enddo      
-end subroutine resolver_gauss_seidel_tol
+end subroutine resolver_gauss_seidel_iter
