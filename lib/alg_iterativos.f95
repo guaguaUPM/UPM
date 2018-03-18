@@ -1,7 +1,7 @@
 !ITERATIVOS REQUIEREN QUE EL SISTEMA CONVERJA
 !REQUIERE QUE NO EXISTAN CEROS EN LA DIAGONAL (PREVIO PIVOTAMIENTO) 
 
-subroutine jacobi_tol (A, Xfinal, b, tol)
+subroutine resolver_jacobi_tol (A, Xfinal, b, tol)
 
     ! Argumentos de la subrutina
     real(8), intent(in) :: A(:,:)          !
@@ -47,9 +47,8 @@ subroutine jacobi_tol (A, Xfinal, b, tol)
             x0 = x
         end if
     enddo    
-end subroutine jacobi_tol
-
-subroutine jacobi_iter (A, Xfinal, b, Maxiter)
+end subroutine resolver_jacobi_tol
+subroutine resolver_jacobi_iter (A, Xfinal, b, Maxiter)
 
         ! Argumentos de la subrutina
         real(8), intent(in) :: A(:,:)          !
@@ -89,9 +88,9 @@ subroutine jacobi_iter (A, Xfinal, b, Maxiter)
         enddo   
             
         Xfinal = x0    
-end subroutine jacobi_iter     
+end subroutine resolver_jacobi_iter    
 
-subroutine gauss_seidel (A, Xfinal, b, tol, N)
+subroutine resolver_gauss_seidel (A, Xfinal, b, tol, N)
     implicit none
     integer, intent(in) :: n                     ! Dimensión del problema A(n,n) b(n) X(n)
     ! Argumentos de la subrutina
@@ -133,4 +132,4 @@ subroutine gauss_seidel (A, Xfinal, b, tol, N)
             !x0 = x
         !endif     
     enddo      
-end subroutine gauss_seidel
+end subroutine resolver_gauss_seidel
