@@ -12,7 +12,7 @@ Repositorio para los trabajos de grupo de Infórmatica del Grado de Ingeniería 
 
 ## Uso de los códigos:
 
-Para poder usar la ibrería donde se guardan módulos comunes, primero crear la carpeta donde se guardará:
+SOLO COMPATIBLE CON LINUX/MACOS. Para poder usar la ibrería donde se guardan las subrutinas comunes, primero crear la carpeta donde se guardará:
 
 ```
 mkdir $HOME/libDIOS
