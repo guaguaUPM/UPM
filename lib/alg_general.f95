@@ -138,7 +138,7 @@ function inversa (U, N)
                     
 end function
 
-subroutine norma2 (norma,vector, n)
+subroutine norma2 (norma, vector, n)
     implicit none
     integer, intent(in)  :: n
     real(8), intent(in)  :: vector(n)
