@@ -14,7 +14,7 @@ program autovalores
     call write_A(A,N)
     ! -----------------------------------------
 
-    tol = 0.05d0
+    tol = 0.00000000000000005d0
     call auto_potencia(A, autovalor_max, tol, q0, N)
     call auto_potencia_inversa(A, autovalor_min, tol, q0, N)
 

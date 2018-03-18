@@ -11,19 +11,24 @@ subroutine auto_potencia (A, AUTOVALOR, TOL, Q0, N)
     real*8, intent(out) :: AUTOVALOR
 
     ! Variables propias
-    real*8 :: Q(N), Q_ANTERIOR(N), norma, AUTOVECTOR(N)
-    integer :: i, maxiter
+    real*8 :: Q(N), Q_ANTERIOR(N), AUTOVECTOR(N), norma, resto, sumaQ, sumaQ_ant
+    integer :: i, j, maxiter
 
-    maxiter = 60
+    maxiter = 999999
 
     Q = Q0
     call norma2(norma,Q,N)
     if (norma /= 1.d0) then
         Q = Q/norma
     endif
+    write(*,*) Q
+    read(*,*)
 
     !   CALCULO DEL AUTOVECTOR
     do i = 1, maxiter
+
+        sumaQ = 0.d0
+        sumaQ_ant = 0.d0
 
         Q_ANTERIOR = Q
 
@@ -31,8 +36,15 @@ subroutine auto_potencia (A, AUTOVALOR, TOL, Q0, N)
 
         call norma2(norma,Q,N)
         Q = Q/norma
+        write(*,*) Q
+        read(*,*)
         
-        !ERROR RELATIVO
+        do j= 1, N
+            sumaQ = sumaQ + abs(Q(j))
+            sumaQ_ant = sumaQ_ant + abs(Q_ANTERIOR(j))
+        enddo
+        resto = sumaQ - sumaQ_ant
+        if( abs(resto) <tol) exit
 
     enddo
     
@@ -73,8 +85,6 @@ subroutine auto_potencia_inversa (A, AUTOVALOR, TOL, Q0, N)
 
         call norma2(norma,Q,N)
         Q = Q/norma
-
-        !ERROR RELATIVO
 
     enddo
     
