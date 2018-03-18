@@ -172,5 +172,6 @@ subroutine resolver_gauss_seidel_iter (A, Xfinal, b, maxiter, N)
             
                 x0 = x
                 
-        enddo      
+        enddo   
+        Xfinal = x   
 end subroutine resolver_gauss_seidel_iter
