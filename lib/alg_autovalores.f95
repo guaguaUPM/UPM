@@ -1,3 +1,4 @@
+!REQUISITOS: A MATRIZ CUADRADA, TODOS LOS AUTOVALORES DE A REALES Y ESTOS SON UN CONJUNTO ORDENADO
 subroutine auto_potencia (A,AUTOVECTOR,TOL,N)
     implicit none
     ! Variables de entrada/salida
@@ -11,12 +12,16 @@ subroutine auto_potencia (A,AUTOVECTOR,TOL,N)
 
     maxiter = 10
 
-    do i = 1, maxiter
-        Q=(1.d0)
-        call norma2(norma,Q,N)
-        Q = Q/norma
-        write(*,*) Q
+    !   SELECCIONAR UN q0
+    Q=(1.d0)
+    call norma2(norma,Q,N)
+    Q = Q/norma
+    write(*,*) Q
 
+    !   CALCULO DEL AUTOVECTOR
+    do i = 1, maxiter
+
+        resto = 0.d0
         Q_ANTERIOR = Q
 
         Q = matmul(A,Q)
@@ -31,5 +36,7 @@ subroutine auto_potencia (A,AUTOVECTOR,TOL,N)
             return
         endif
     enddo
+    
+    !   CALCULO DEL AUTOVALOR ASOCIADO
 
 end subroutine auto_potencia
