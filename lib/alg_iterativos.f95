@@ -1,3 +1,14 @@
+
+subroutine convergencia (T, converge, N)
+    implicit none
+    integer, intent(in) :: N
+    real*8, intent(in)  :: T(N,N)
+    logical, intent(out):: converge
+
+    call auto_potencia
+
+end subroutine convergencia
+
 !ITERATIVOS REQUIEREN QUE EL SISTEMA CONVERJA
 !REQUIERE QUE NO EXISTAN CEROS EN LA DIAGONAL (PREVIO PIVOTAMIENTO) 
 
@@ -50,6 +61,7 @@ subroutine resolver_jacobi_tol (A, Xfinal, b, tol)
         end if
     enddo    
 end subroutine resolver_jacobi_tol
+    
 subroutine resolver_jacobi_iter (A, Xfinal, b, Maxiter)
 
         ! Argumentos de la subrutina
