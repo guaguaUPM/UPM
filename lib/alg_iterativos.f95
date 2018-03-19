@@ -1,5 +1,4 @@
-
-subroutine matrizT_jacobi
+subroutine matrizT_jacobi (A, T, N)
     ! Argumentos de la subrutina
     integer, intent(in) :: N
     real(8), intent(in) :: A(N,N)
@@ -9,14 +8,18 @@ subroutine matrizT_jacobi
     real(8), allocatable :: L(:,:)
     real(8), allocatable :: D(:,:)
     real(8), allocatable :: U(:,:)
+    real(8), allocatable :: P1(:,:)
+    real(8), allocatable :: P2(:,:)
     integer :: j, k
 
     allocate(L(n,n))
     allocate(D(n,n))
     allocate(U(n,n))
     allocate(T(n,n))
-            
-    !Establecemos las matrices L, D y U para el algoritmo de la iteración
+    allocate(P1(n,n))
+    allocate(P2(n,n))
+
+    ! Establecemos las matrices L, D y U para el algoritmo de la iteración
     do j= 1, n
         do k=1, n
             if (k > j) then
@@ -28,28 +31,68 @@ subroutine matrizT_jacobi
             end if
         end do
     end do
-
-     ! DABA ERRORES DE COMPILACION   
                  
-    !Segun nos indica la formula reducida del método de Jacobi calculamos las matrices c y T
-    !T = matmul((-1.d0)*inversa(D,N),(U+L))
+    ! Calculamos T segun la expresion matematica
+    P2 = U + L
+    call inversa(D, P1, N)
+    P1 = (-1.d0)*P1
 
+    T = MATMUL(P1, P2)
 
 end subroutine matrizT_jacobi
 
-subroutine matrizT_gauss_seidel
+subroutine matrizT_gauss_seidel (A, T, N)
+    ! Argumentos de la subrutina
+    integer, intent(in) :: N
+    real(8), intent(in) :: A(N,N)
+    real(8), intent(out), allocatable :: T(:,:)
+            
+    ! Variables locales
+    real(8), allocatable :: L(:,:)
+    real(8), allocatable :: D(:,:)
+    real(8), allocatable :: U(:,:)
+    real(8), allocatable :: P1(:,:)
+    real(8), allocatable :: P2(:,:)
+    integer :: j, k
+
+    allocate(L(n,n))
+    allocate(D(n,n))
+    allocate(U(n,n))
+    allocate(T(n,n))
+    allocate(P1(n,n))
+    allocate(P2(n,n))
+
+    ! Establecemos las matrices L, D y U para el algoritmo de la iteración
+    do j= 1, n
+        do k=1, n
+            if (k > j) then
+                U(j,k) = A(j,k)
+            else if (k == j) then
+                D(j,k) = A(j,k)
+            else 
+                L(j,k) = A(j,k)
+            end if
+        end do
+    end do
+                 
+    ! Calculamos T segun la expresion matematica
+    P2 = U
+    call inversa(D+L, P1, N)
+    P1 = (-1.d0)*P1
+
+    T = MATMUL(P1, P2)
 
 end subroutine matrizT_gauss_seidel
 
-!ITERATIVOS REQUIEREN QUE EL SISTEMA CONVERJA
-!REQUIERE QUE NO EXISTAN CEROS EN LA DIAGONAL (PREVIO PIVOTAMIENTO) 
+! ITERATIVOS REQUIEREN QUE EL SISTEMA CONVERJA
+! REQUIERE QUE NO EXISTAN CEROS EN LA DIAGONAL (PREVIO PIVOTAMIENTO) 
 
 subroutine resolver_jacobi_tol (A, Xfinal, b, tol, N)
 
     ! Argumentos de la subrutina
     real(8), intent(in) :: A(N,N)          !
     real(8), intent(in) :: b(N)            !
-    real(8), intent(out):: Xfinal(N)       !
+    real(8), intent(out), allocatable:: Xfinal(:)       !
     real(8), intent(in) :: tol             !
     integer, intent(in) :: N               ! Dimensión del problema A(n,n) b(n) X(n)
 
@@ -59,6 +102,7 @@ subroutine resolver_jacobi_tol (A, Xfinal, b, tol, N)
     integer :: iter, i,j, maxiter
     real(8) :: sum1, normaX_X0, normaX
     
+    allocate(Xfinal(N))
     allocate(x0(N))
     allocate(x(N))
     
@@ -95,7 +139,7 @@ subroutine resolver_jacobi_iter (A, Xfinal, b, Maxiter, N)
         ! Argumentos de la subrutina
         real(8), intent(in) :: A(N,N)          !
         real(8), intent(in) :: b(N)            !
-        real(8), intent(out):: Xfinal(N)       !
+        real(8), intent(out), allocatable:: Xfinal(:)       !
         integer, intent(in) :: Maxiter         !
         integer, intent(in) :: N               ! Dimensión del problema A(n,n) b(n) X(n)
         
@@ -106,6 +150,7 @@ subroutine resolver_jacobi_iter (A, Xfinal, b, Maxiter, N)
         integer :: iter, i,j
         real(8) :: sum1
 
+        allocate(Xfinal(N))
         allocate(x0(N))
         allocate(x(N))
         
@@ -138,7 +183,7 @@ subroutine resolver_gauss_seidel_tol (A, Xfinal, b, tol, N)
     integer, intent(in) :: n               ! Dimensión del problema A(n,n) b(n) X(n)
     real(8), intent(in) :: A(n,n)          !
     real(8), intent(in) :: b(n)            !
-    real(8), intent(out) :: Xfinal(n)      !
+    real(8), intent(out), allocatable :: Xfinal(:)      !
     real(8), intent(in) :: tol             !
         
     ! Variables locales
@@ -146,7 +191,8 @@ subroutine resolver_gauss_seidel_tol (A, Xfinal, b, tol, N)
     real(8), allocatable :: x(:)
     real(8) :: sum1, sum2, normaX_X0, normaX
     integer :: iter, i, j, maxiter
-    
+
+    allocate(Xfinal(n))
     allocate(x0(n))
     allocate(x(n))
                 
@@ -185,15 +231,16 @@ subroutine resolver_gauss_seidel_iter (A, Xfinal, b, maxiter, N)
         integer, intent(in) :: n               ! Dimensión del problema A(n,n) b(n) X(n)
         real(8), intent(in) :: A(n,n)          !
         real(8), intent(in) :: b(n)            ! 
-        real(8), intent(out) :: Xfinal(n)      !
+        real(8), intent(out), allocatable :: Xfinal(:)      !
         integer, intent(in) :: maxiter
+
         ! Variables locales
-    
         real(8), allocatable :: x0(:)
         real(8), allocatable :: x(:)
         real(8) :: sum1, sum2
         integer :: iter, i, j
         
+        allocate(Xfinal(n))
         allocate(x0(n))
         allocate(x(n))
                     
