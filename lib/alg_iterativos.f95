@@ -5,40 +5,41 @@ subroutine convergencia (T, converge, N)
     real*8, intent(in)  :: T(N,N)
     logical, intent(out):: converge
 
-    call auto_potencia
+    real*8              :: autovalor
+
+    call auto_potencia_iter (T, autovalor, 60, 1.d0, N)
+
+    if(abs(autovalor) < 1.d0) converge = .true.
 
 end subroutine convergencia
+
 
 !ITERATIVOS REQUIEREN QUE EL SISTEMA CONVERJA
 !REQUIERE QUE NO EXISTAN CEROS EN LA DIAGONAL (PREVIO PIVOTAMIENTO) 
 
-subroutine resolver_jacobi_tol (A, Xfinal, b, tol)
+subroutine resolver_jacobi_tol (A, Xfinal, b, tol, N)
 
     ! Argumentos de la subrutina
-    real(8), intent(in) :: A(:,:)          !
-    real(8), intent(in) :: b(:)            ! DIMENSIONES ASUMIDAS
-    real(8), intent(out) :: Xfinal(:)    !
+    real(8), intent(in) :: A(N,N)          !
+    real(8), intent(in) :: b(N)            !
+    real(8), intent(out):: Xfinal(N)       !
     real(8), intent(in) :: tol             !
-    
+    integer, intent(in) :: N               ! Dimensión del problema A(n,n) b(n) X(n)
 
     ! Variables locales
-    integer :: n                     ! Dimensión del problema A(n,n) b(n) X(n)
     real(8), allocatable :: x0(:)
     real(8), allocatable :: x(:)
     integer :: iter, i,j, maxiter
-    real(8) :: sum1,normaXX0,normaX
+    real(8) :: sum1, normaX_X0, normaX
     
-    n = size(A,1)
-    allocate(x0(n))
-    allocate(x(n))
+    allocate(x0(N))
+    allocate(x(N))
     
     !Primera semilla (primer valor establecido de x para iniciar la iteración)
     x0 = 0.d0
     x  = 0.0d0
     maxiter = 999999
     
-   
-
     do iter = 1, maxiter
         do i=1,n
             sum1=0  
@@ -50,10 +51,10 @@ subroutine resolver_jacobi_tol (A, Xfinal, b, tol)
             x(i) = (1/A(i,i)) * (B(i) - sum1)    
         enddo
         
-        call norma2(normaXX0,X-x0,n)
+        call norma2(normaX_X0,X-x0,n)
         call norma2(normaX,x,n)
 
-        if (normaXX0/normaX<= tol) then
+        if (normaX_X0/normaX<= tol) then
             Xfinal = x
             return
         else 
@@ -61,26 +62,25 @@ subroutine resolver_jacobi_tol (A, Xfinal, b, tol)
         end if
     enddo    
 end subroutine resolver_jacobi_tol
-    
-subroutine resolver_jacobi_iter (A, Xfinal, b, Maxiter)
+
+subroutine resolver_jacobi_iter (A, Xfinal, b, Maxiter, N)
 
         ! Argumentos de la subrutina
-        real(8), intent(in) :: A(:,:)          !
-        real(8), intent(in) :: b(:)            ! DIMENSIONES ASUMIDAS
-        real(8), intent(out) :: Xfinal(:)    !
-        integer, intent(in) :: Maxiter            !
+        real(8), intent(in) :: A(N,N)          !
+        real(8), intent(in) :: b(N)            !
+        real(8), intent(out):: Xfinal(N)       !
+        integer, intent(in) :: Maxiter         !
+        integer, intent(in) :: N               ! Dimensión del problema A(n,n) b(n) X(n)
         
     
         ! Variables locales
-        integer :: n                     ! Dimensión del problema A(n,n) b(n) X(n)
         real(8), allocatable :: x0(:)
         real(8), allocatable :: x(:)
         integer :: iter, i,j
         real(8) :: sum1
-        
-        n = size(A,1)
-        allocate(x0(n))
-        allocate(x(n))
+
+        allocate(x0(N))
+        allocate(x(N))
         
         !Primera semilla (primer valor establecido de x para iniciar la iteración)
         x0 = 0.d0
@@ -106,18 +106,18 @@ end subroutine resolver_jacobi_iter
 
 subroutine resolver_gauss_seidel_tol (A, Xfinal, b, tol, N)
     implicit none
-    integer, intent(in) :: n                     ! Dimensión del problema A(n,n) b(n) X(n)
+
     ! Argumentos de la subrutina
+    integer, intent(in) :: n               ! Dimensión del problema A(n,n) b(n) X(n)
     real(8), intent(in) :: A(n,n)          !
-    real(8), intent(in) :: b(n)            ! DIMENSIONES ASUMIDAS
-    real(8), intent(out) :: Xfinal(:)    !
+    real(8), intent(in) :: b(n)            !
+    real(8), intent(out) :: Xfinal(n)      !
     real(8), intent(in) :: tol             !
         
     ! Variables locales
-
     real(8), allocatable :: x0(:)
     real(8), allocatable :: x(:)
-    real(8) :: sum1, sum2, normaXX0, normaX
+    real(8) :: sum1, sum2, normaX_X0, normaX
     integer :: iter, i, j, maxiter
     
     allocate(x0(n))
@@ -139,10 +139,10 @@ subroutine resolver_gauss_seidel_tol (A, Xfinal, b, tol, N)
             enddo                           
             x(i) = (1/A(i,i)) * (B(i) - sum1 - sum2)           
         enddo        
-            call norma2(normaXX0,X-x0,n)
+            call norma2(normaX_X0,X-x0,n)
             call norma2(normaX,x,n)
     
-            if (normaXX0/normaX<= tol) then
+            if (normaX_X0/normaX<= tol) then
                 Xfinal = x
                 return
             else 
@@ -153,11 +153,12 @@ end subroutine resolver_gauss_seidel_tol
 
 subroutine resolver_gauss_seidel_iter (A, Xfinal, b, maxiter, N)
         implicit none
-        integer, intent(in) :: n                     ! Dimensión del problema A(n,n) b(n) X(n)
+
         ! Argumentos de la subrutina
+        integer, intent(in) :: n               ! Dimensión del problema A(n,n) b(n) X(n)
         real(8), intent(in) :: A(n,n)          !
-        real(8), intent(in) :: b(n)            ! DIMENSIONES ASUMIDAS
-        real(8), intent(out) :: Xfinal(:)    !
+        real(8), intent(in) :: b(n)            ! 
+        real(8), intent(out) :: Xfinal(n)      !
         integer, intent(in) :: maxiter
         ! Variables locales
     
