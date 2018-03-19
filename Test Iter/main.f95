@@ -7,6 +7,8 @@ program autovalores
     write(*,*) "¿Que N desea?"
     read(*,*) N
     allocate(A(N,N))
+    allocate(B(N))
+    allocate(sol(N))
     call pedir_matrix(A,N)
     call pedir_vector(B,N)
     call write_AB(A,B,N)
@@ -17,7 +19,6 @@ program autovalores
     write(*,*) "Jacobi:", sol
     call resolver_gauss_seidel_tol(A, sol, B, tol, N)
     write(*,*) "Gauss-Seidel:", sol
-    call resolver_gauss_seidel_tol(A, B, sol, N)
+    call resolver_gauss(A, B, sol, N)
     write(*,*) "Gauss", sol
-
 end program autovalores

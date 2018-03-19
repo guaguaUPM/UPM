@@ -2,7 +2,7 @@ subroutine matrizT_jacobi (A, T, N)
     ! Argumentos de la subrutina
     integer, intent(in) :: N
     real(8), intent(in) :: A(N,N)
-    real(8), intent(out), allocatable :: T(:,:)
+    real(8), intent(out):: T(N,N)
             
     ! Variables locales
     real(8), allocatable :: L(:,:)
@@ -15,7 +15,6 @@ subroutine matrizT_jacobi (A, T, N)
     allocate(L(n,n))
     allocate(D(n,n))
     allocate(U(n,n))
-    allocate(T(n,n))
     allocate(P1(n,n))
     allocate(P2(n,n))
 
@@ -45,7 +44,7 @@ subroutine matrizT_gauss_seidel (A, T, N)
     ! Argumentos de la subrutina
     integer, intent(in) :: N
     real(8), intent(in) :: A(N,N)
-    real(8), intent(out), allocatable :: T(:,:)
+    real(8), intent(out):: T(N,N)
             
     ! Variables locales
     real(8), allocatable :: L(:,:)
@@ -58,7 +57,6 @@ subroutine matrizT_gauss_seidel (A, T, N)
     allocate(L(n,n))
     allocate(D(n,n))
     allocate(U(n,n))
-    allocate(T(n,n))
     allocate(P1(n,n))
     allocate(P2(n,n))
 
@@ -92,7 +90,7 @@ subroutine resolver_jacobi_tol (A, Xfinal, b, tol, N)
     ! Argumentos de la subrutina
     real(8), intent(in) :: A(N,N)          !
     real(8), intent(in) :: b(N)            !
-    real(8), intent(out), allocatable:: Xfinal(:)       !
+    real(8), intent(out):: Xfinal(n)       !
     real(8), intent(in) :: tol             !
     integer, intent(in) :: N               ! Dimensión del problema A(n,n) b(n) X(n)
 
@@ -102,7 +100,6 @@ subroutine resolver_jacobi_tol (A, Xfinal, b, tol, N)
     integer :: iter, i,j, maxiter
     real(8) :: sum1, normaX_X0, normaX
     
-    allocate(Xfinal(N))
     allocate(x0(N))
     allocate(x(N))
     
@@ -139,7 +136,7 @@ subroutine resolver_jacobi_iter (A, Xfinal, b, Maxiter, N)
         ! Argumentos de la subrutina
         real(8), intent(in) :: A(N,N)          !
         real(8), intent(in) :: b(N)            !
-        real(8), intent(out), allocatable:: Xfinal(:)       !
+        real(8), intent(out):: Xfinal(n)       !
         integer, intent(in) :: Maxiter         !
         integer, intent(in) :: N               ! Dimensión del problema A(n,n) b(n) X(n)
         
@@ -150,7 +147,6 @@ subroutine resolver_jacobi_iter (A, Xfinal, b, Maxiter, N)
         integer :: iter, i,j
         real(8) :: sum1
 
-        allocate(Xfinal(N))
         allocate(x0(N))
         allocate(x(N))
         
@@ -183,7 +179,7 @@ subroutine resolver_gauss_seidel_tol (A, Xfinal, b, tol, N)
     integer, intent(in) :: n               ! Dimensión del problema A(n,n) b(n) X(n)
     real(8), intent(in) :: A(n,n)          !
     real(8), intent(in) :: b(n)            !
-    real(8), intent(out), allocatable :: Xfinal(:)      !
+    real(8), intent(out):: Xfinal(n)      !
     real(8), intent(in) :: tol             !
         
     ! Variables locales
@@ -192,7 +188,6 @@ subroutine resolver_gauss_seidel_tol (A, Xfinal, b, tol, N)
     real(8) :: sum1, sum2, normaX_X0, normaX
     integer :: iter, i, j, maxiter
 
-    allocate(Xfinal(n))
     allocate(x0(n))
     allocate(x(n))
                 
@@ -231,7 +226,7 @@ subroutine resolver_gauss_seidel_iter (A, Xfinal, b, maxiter, N)
         integer, intent(in) :: n               ! Dimensión del problema A(n,n) b(n) X(n)
         real(8), intent(in) :: A(n,n)          !
         real(8), intent(in) :: b(n)            ! 
-        real(8), intent(out), allocatable :: Xfinal(:)      !
+        real(8), intent(out):: Xfinal(n)      !
         integer, intent(in) :: maxiter
 
         ! Variables locales
@@ -240,7 +235,6 @@ subroutine resolver_gauss_seidel_iter (A, Xfinal, b, maxiter, N)
         real(8) :: sum1, sum2
         integer :: iter, i, j
         
-        allocate(Xfinal(n))
         allocate(x0(n))
         allocate(x(n))
                     
