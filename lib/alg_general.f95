@@ -155,39 +155,16 @@ subroutine norma2 (norma, vector, n)
         
 end subroutine norma2
 
-subroutine matrizT (A, T, N)
-    ! Argumentos de la subrutina
+subroutine convergencia (T, converge, N)
+    implicit none
     integer, intent(in) :: N
-    real(8), intent(in) :: A(N,N)
-    real(8), intent(out), allocatable :: T(:,:)
-            
-    ! Variables locales
-    real(8), allocatable :: L(:,:)
-    real(8), allocatable :: D(:,:)
-    real(8), allocatable :: U(:,:)
-    integer :: j, k
-
-    allocate(L(n,n))
-    allocate(D(n,n))
-    allocate(U(n,n))
-    allocate(T(n,n))
-            
-    !Establecemos las matrices L, D y U para el algoritmo de la iteración
-    do j= 1, n
-        do k=1, n
-            if (k > j) then
-                U(j,k) = A(j,k)
-            else if (k == j) then
-                D(j,k) = A(j,k)
-            else 
-                L(j,k) = A(j,k)
-            end if
-        end do
-    end do
-
-     ! DABA ERRORES DE COMPILACION   
-                 
-    !Segun nos indica la formula reducida del método de Jacobi calculamos las matrices c y T
-    !T = matmul((-1.d0)*inversa(D,N),(U+L))
+    real*8, intent(in)  :: T(N,N)
+    logical, intent(out):: converge
     
-end subroutine matrizT
+    real*8              :: autovalor
+    
+    call auto_potencia_iter (T, autovalor, 60, 1.d0, N)
+    
+    if(abs(autovalor) < 1.d0) converge = .true.
+    
+end subroutine convergencia
