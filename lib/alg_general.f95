@@ -69,9 +69,9 @@ subroutine inversa (matriz, c, n)
     !-----------------------------------------------------------
     ! input ...
     ! matrix(n,n) - array of coefficients for matrix A
-    ! n      - dimension
+    ! n           - dimension
     ! output ...
-    ! c(n,n) - inverse matrix of A
+    ! c(n,n)      - inverse matrix of A
     !===========================================================
     implicit none 
     integer, intent(in)     :: n
