@@ -161,9 +161,10 @@ subroutine convergencia (T, converge, N)
     real*8, intent(in)  :: T(N,N)
     logical, intent(out):: converge
     
-    real*8              :: autovalor
-    
-    call auto_potencia_iter (T, autovalor, 60, 1.d0, N)
+    real*8              :: autovalor, q0(N)
+
+    q0 = 1.0d0
+    call auto_potencia_iter (T, autovalor, 60, q0, N)
     
     if(abs(autovalor) < 1.d0) converge = .true.
     
