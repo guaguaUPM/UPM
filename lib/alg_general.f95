@@ -61,82 +61,84 @@ subroutine pivotar (A_ENTRADA, A_SALIDA, B_ENTRADA, B_SALIDA, PIVOTE, TAMANO)
     end do
 end subroutine pivotar
 
-function inversa (U, N)
-    implicit none
-
-    integer, intent(in)            :: N
-    real(8), intent(in)            :: U(N,N)
-
-    real(8)                        :: inversa (N,N)
-    real(8)                        :: B(N,2*N)
-    real(8)                        :: d, k
-    integer                        :: i, j
-
-       
-    d=0
-    inversa=0.d0
-    B=0
-            
-    do i=1, n
-        do j=1, n
-            d=0
-            d=U(i,j)
-            B(i,j)=d
-        end do 
-    end do 
+subroutine inversa (matriz, c, n)
+    !============================================================
+    ! Inverse matrix
+    ! Method: Based on Doolittle LU factorization for Ax=b
+    ! Alex G. December 2009
+    !-----------------------------------------------------------
+    ! input ...
+    ! matrix(n,n) - array of coefficients for matrix A
+    ! n           - dimension
+    ! output ...
+    ! c(n,n)      - inverse matrix of A
+    !===========================================================
+    implicit none 
+    integer, intent(in)     :: n
+    real*8, intent(in)      :: matriz(n,n)
+    real*8, intent(out)     :: c(n,n)
+    real*8                  :: a(n,n), L(n,n), U(n,n), b(n), d(n), x(n)
+    real*8 :: coeff
+    integer :: i, j, k
         
-    d=0
-    do i=1,n
-        do j=n+1,2*n
-            if (i+n==j) then 
-                B(i,j)=1
-            end if 
-        end do  
-    end do 
-           
-    !Triangulación Inferior  
-    do i=1, n-1
-        !if(abs(B(i,i))<epsilon(1.d0)) STOP 
-        do j=i+1, n
-            k=0
-            k=B(j,i)/B(i,i)
-            B(j,:)=B(j,:)-k*B(i,:)
-        end do 
-    end do 
+    ! step 0: initialization for matrices L and U and b
+    ! Fortran 90/95 aloows such operations on matrices
+    a=matriz
+    L=0.d0
+    U=0.d0
+    b=0.d0
         
-    k=0
-
-    !Triangular superior   
-    do i=n, 2, -1
-        do j=i-1, 1, -1
-            k=0
-            k=B(j,i)/B(i,i)
-            B(j,:)=B(j,:)-k*B(i,:)
-        end do 
-    end do
-            
-            
-    !Dividir para tener la identidad a la izquierda
-    do i=1, n
-        do j=1, n
-                if (i==j) then 
-                k=0
-                k=B(i,j)
-                B(i,:)=B(i,:)/k
-            end if 
+    ! step 1: forward elimination
+    do k=1, n-1
+        do i=k+1,n
+            coeff=a(i,k)/a(k,k)
+            L(i,k) = coeff
+            do j=k+1,n
+                a(i,j) = a(i,j)-coeff*a(k,j)
+            end do
         end do
-    end do 
-            
-    !Lo pasamos a la matriz inversa como una 3x3
-    do i=1, n
-        do j=n+1, 2*n
-        d=0
-        d=B(i,j)
-        inversa(i,j-n)=d
-        end do 
-    end do 
-                    
-end function
+    end do
+        
+    ! Step 2: prepare L and U matrices 
+    ! L matrix is a matrix of the elimination coefficient
+    ! + the diagonal elements are 1.0
+    do i=1,n
+        L(i,i) = 1.0
+    end do
+    ! U matrix is the upper triangular part of A
+    do j=1,n
+        do i=1,j
+        U(i,j) = a(i,j)
+        end do
+    end do
+        
+    ! Step 3: compute columns of the inverse matrix C
+    do k=1,n
+        b(k)=1.0
+        d(1) = b(1)
+        ! Step 3a: Solve Ld=b using the forward substitution
+        do i=2,n
+            d(i)=b(i)
+            do j=1,i-1
+              d(i) = d(i) - L(i,j)*d(j)
+            end do
+        end do
+        ! Step 3b: Solve Ux=d using the back substitution
+        x(n)=d(n)/U(n,n)
+        do i = n-1,1,-1
+            x(i) = d(i)
+            do j=n,i+1,-1
+              x(i)=x(i)-U(i,j)*x(j)
+            end do
+            x(i) = x(i)/u(i,i)
+        end do
+        ! Step 3c: fill the solutions x(n) into column k of C
+        do i=1,n
+            c(i,k) = x(i)
+        end do
+        b(k)=0.0
+    end do
+end subroutine inversa
 
 subroutine norma2 (norma, vector, n)
     implicit none
