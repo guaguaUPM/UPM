@@ -1,7 +1,47 @@
 !REQUISITOS: A SEA MATRIZ CUADRADA, TODOS LOS AUTOVALORES DE A SEAN REALES 
 !   Y QUE ESTOS SEAN UN CONJUNTO ORDENADO
 
-subroutine auto_potencia (A, AUTOVALOR, TOL, Q0, N)
+subroutine auto_potencia_iter (A, AUTOVALOR, MAXITER, Q0, N)
+    !CALCULA EL AUTOVALOR MAS GRANDE EN VALOR ABSOLUTO
+    implicit none
+
+    ! Variables de entrada/salida
+    integer, intent(in) :: N, MAXITER
+    real*8, intent(in)  :: A(N,N), Q0(N)   !SELECCIONAR UN q0 (1.d0 por lo general)
+    real*8, intent(out) :: AUTOVALOR
+
+    ! Variables propias
+    real*8 :: Q(N), Q_ANTERIOR(N), AUTOVECTOR(N), norma
+    integer :: i, iter
+
+    iter = MAXITER
+
+    Q = Q0
+    call norma2(norma,Q,N)
+    if (norma /= 1.d0) then
+        Q = Q/norma
+    endif
+
+    !   CALCULO DEL AUTOVECTOR
+    do i = 1, maxiter
+
+        Q_ANTERIOR = Q
+
+        Q = matmul(A,Q)
+
+        call norma2(norma,Q,N)
+        Q = Q/norma
+
+    enddo
+    
+    AUTOVECTOR = Q
+
+    !   CALCULO DEL AUTOVALOR ASOCIADO (coef. de Rayleigh)
+    AUTOVALOR = DOT_PRODUCT(AUTOVECTOR, matmul(A, AUTOVECTOR)) / DOT_PRODUCT(AUTOVECTOR, AUTOVECTOR)
+
+end subroutine auto_potencia_iter
+
+subroutine auto_potencia_tol (A, AUTOVALOR, TOL, Q0, N)
     !CALCULA EL AUTOVALOR MAS GRANDE EN VALOR ABSOLUTO
     implicit none
 
@@ -57,22 +97,22 @@ subroutine auto_potencia (A, AUTOVALOR, TOL, Q0, N)
     !   CALCULO DEL AUTOVALOR ASOCIADO (coef. de Rayleigh)
     AUTOVALOR = DOT_PRODUCT(AUTOVECTOR, matmul(A, AUTOVECTOR)) / DOT_PRODUCT(AUTOVECTOR, AUTOVECTOR)
 
-end subroutine auto_potencia
+end subroutine auto_potencia_tol
 
-subroutine auto_potencia_inversa (A, AUTOVALOR, TOL, Q0, N)
+subroutine auto_potencia_inversa_iter (A, AUTOVALOR, MAXITER, Q0, N)
     !CALCULA EL AUTOVALOR MAS PEQUEÑO EN VALOR ABSOLUTO
     implicit none
 
     ! Variables de entrada/salida
-    integer, intent(in) :: N
-    real*8, intent(in)  :: A(N,N), TOL, Q0(N)    !SELECCIONAR UN q0 (1.d0 por lo general)
+    integer, intent(in) :: N, MAXITER
+    real*8, intent(in)  :: A(N,N), Q0(N)    !SELECCIONAR UN q0 (1.d0 por lo general)
     real*8, intent(out) :: AUTOVALOR
 
     ! Variables propias
     real*8 :: Q(N), Q_ANTERIOR(N), norma, AUTOVECTOR(N)
-    integer :: i, maxiter
+    integer :: i, iter
 
-    maxiter = 60
+    iter = MAXITER
 
     Q = Q0
     call norma2(norma,Q,N)
@@ -97,4 +137,4 @@ subroutine auto_potencia_inversa (A, AUTOVALOR, TOL, Q0, N)
     !   CALCULO DEL AUTOVALOR ASOCIADO (coef. de Rayleigh)
     AUTOVALOR = DOT_PRODUCT(AUTOVECTOR, matmul(A, AUTOVECTOR)) / DOT_PRODUCT(AUTOVECTOR, AUTOVECTOR)
 
-end subroutine auto_potencia_inversa
+end subroutine auto_potencia_inversa_iter
