@@ -12,9 +12,10 @@ Repositorio para los trabajos de grupo de Infórmatica del Grado de Ingeniería 
 
 ## Uso de los códigos:
 
-SOLO COMPATIBLE CON LINUX/MACOS. Para poder usar la ibrería donde se guardan las subrutinas comunes, primero crear la carpeta donde se guardará:
+SOLO COMPATIBLE CON LINUX/MACOS. La compilación depende de que la carpeta se llame guaguaUPM, no UPM. También hay que crear la carpeta donde se guardará la librería:
 
 ```
+cd .. && mv UPM guaguaUPM
 mkdir $HOME/libDIOS
 ```
 
