@@ -2,6 +2,6 @@ program main
 use funciones
 implicit none
 
-call represtarR1_R1(campana,-10.d0,10.d0,1000)
+call represtarR2_R1(paraboloide,-3.d0,3.d0,-3.d0,3.d0,10,10)
 
 end program main
