@@ -24,4 +24,10 @@ contains
       
         campana = exp(-(X**2))
     end function campana
+    function campana_gorda(X,Y)
+        real*8 :: X, Y
+        real*8 :: campana_gorda
+        
+        campana_gorda = exp(-(X**2) -(Y**2))
+    end function campana_gorda
 end module funciones
