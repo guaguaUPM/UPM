@@ -51,9 +51,31 @@ subroutine resolver_LU (A,B,X,N)
     integer, intent(in) :: N
     real*8, intent(in) :: A(N,N), B(N)
     real*8, intent(out) :: X(N)
-    real*8 :: L(N,N), U(N,N), Y(N)
+    real*8 :: L(N,N), U(N,N), Y(N), B_NORMALIZADA(N)
+    integer :: i
 
     call LU_factorizar(A,L,U,N)
-    call gauss_sustituir(L,B,Y,N, .FALSE.)
+    write(*,*) "Descomposicion LU:"
+    call write_A(L,N)
+    call write_A(U,N)
+
+    write(*,*) "L*U=A"
+    call write_A(matmul(L,U),N)
+
+    B_NORMALIZADA = B
+    do i = 1, N
+        B_NORMALIZADA(i) = B_NORMALIZADA(i) / L(i,i)
+        L(i,:) = L(i,:) / L(i,i)
+    end do
+    write(*,*) "Normalizacion de L:"
+    call write_AB(L,B_NORMALIZADA,N)
+
+    write(*,*) "Se resuelve:"
+    call write_AB(L,B_NORMALIZADA,N)
+    call gauss_sustituir(L,B_NORMALIZADA,Y,N, .FALSE.)
+    write(*,*) Y
+    
+    write(*,*) "Se resuelve"
+    call write_AB(U,Y,N)
     call gauss_sustituir(U,Y,X,N, .TRUE.)
 end subroutine resolver_LU

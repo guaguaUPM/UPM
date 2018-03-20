@@ -14,5 +14,9 @@ for line in open('ref.dat', 'r'):
 
 plt.plot(X, Y, 'b')
 plt.plot(U, V, 'r')
-plt.savefig('desviacion.pdf', format='pdf', dpi=900)
+plt.gca().invert_xaxis()
+ax = plt.gca()
+ax.set_xscale('log')
+# ax.set_yscale('log')
+# plt.savefig('desviacion.pdf', format='pdf', dpi=900)
 plt.show()
