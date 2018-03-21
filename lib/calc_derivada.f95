@@ -40,7 +40,7 @@ subroutine derivada1_prog2(FUNCION,ABCISA,M,INCREMENTO)
     end interface
     real*8, intent(in) :: ABCISA, INCREMENTO
     real*8, intent(out) :: M
-    M = (-FUNCION(ABCISA + incremento+2.d0*incremento) + 4.d0*FUNCION(ABCISA+incremento)-3*FUNCION(ABCISA))/(2.d0*incremento)
+    M = (-FUNCION(ABCISA+2.d0*incremento) + 4.d0*FUNCION(ABCISA+incremento) - 3.d0*FUNCION(ABCISA))/(2.d0*incremento)
 end subroutine derivada1_prog2
 
 subroutine derivada2_prog1(FUNCION,ABCISA,M,INCREMENTO)
