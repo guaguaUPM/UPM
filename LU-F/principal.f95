@@ -34,7 +34,8 @@ call ordenacion(L, d, d)
 write(*,*) 'U es'
 call ordenacion(U, d, d)
 
-
+write(*,*) A
+write(*,*) matmul(L,U)
 
 test=MATMUL(L,U)
 write(*,*) 'test'

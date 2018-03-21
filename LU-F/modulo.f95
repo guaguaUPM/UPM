@@ -90,24 +90,13 @@ end subroutine LOWER
         integer :: i, j, k
         real(8) :: C(d)
         real(8) ::k2
-        do i=1, d 
-            do j=1, d 
-    
-                if(i==j) then
-                    A(i,j)=100*(i+j)
-                else 
-                    A(i,j)=i-j
-                endif
-    
-            enddo
-        enddo
 
-        do k=1, d 
-            k2=k
-            C(k)=k2
-        enddo
-
-        B=MATMUL(A,C)
+        A(1,1) = 1.d0
+        A(1,2) = 2.d0
+        A(2,1) = 3.d0
+        A(2,2) = 4.d0
+        B(1) = 6.d0
+        B(2) = 7.d0
     end subroutine rellenoA
         
 end module linearalgebra

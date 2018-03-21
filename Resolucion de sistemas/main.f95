@@ -21,12 +21,14 @@ call resolver_gauss(A,B,X,N)
 write(*,*) "Resolucion por Gauss:"
 write(*,*) X
 
+call resolver_LU(A,B,X,N)
+write(*,*) "Resolucion por LU:"
+write(*,*) X
+
 call resolver_LAPACK(A,B,X,N)
 write(*,*) "Resolucion por LAPACK:"
 write(*,*) X
 
-call resolver_LU(A,B,X,N)
-write(*,*) "Resolucion por LU:"
-write(*,*) X
+
 
 end program main
