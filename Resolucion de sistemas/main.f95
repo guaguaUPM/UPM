@@ -25,6 +25,14 @@ call resolver_LU(A,B,X,N)
 write(*,*) "Resolucion por LU:"
 write(*,*) X
 
+call resolver_jacobi_iter (A,B,X,N,10000)
+write(*,*) "Resolución por Jacobi, 10000 iteraciones"
+write(*,*) X
+
+call resolver_gauss_seidel_iter (A,B,X,N,10000)
+write(*,*) "Resolución por Gauss-Seidel, 10000 iteraciones"
+write(*,*) X
+
 call resolver_LAPACK(A,B,X,N)
 write(*,*) "Resolucion por LAPACK:"
 write(*,*) X

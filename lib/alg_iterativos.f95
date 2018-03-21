@@ -131,7 +131,7 @@ subroutine resolver_jacobi_tol (A, Xfinal, b, tol, N)
     enddo    
 end subroutine resolver_jacobi_tol
 
-subroutine resolver_jacobi_iter (A, Xfinal, b, Maxiter, N)
+subroutine resolver_jacobi_iter (A, B, Xfinal, N, Maxiter)
 
         ! Argumentos de la subrutina
         real(8), intent(in) :: A(N,N)          !
@@ -219,7 +219,7 @@ subroutine resolver_gauss_seidel_tol (A, Xfinal, b, tol, N)
     enddo      
 end subroutine resolver_gauss_seidel_tol
 
-subroutine resolver_gauss_seidel_iter (A, Xfinal, b, maxiter, N)
+subroutine resolver_gauss_seidel_iter (A, B,Xfinal, N, maxiter)    
         implicit none
 
         ! Argumentos de la subrutina
