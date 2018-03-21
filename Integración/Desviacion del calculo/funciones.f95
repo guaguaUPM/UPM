@@ -18,16 +18,22 @@ contains
 
         paraboloide = X**2 + Y**2 + 2
     end function paraboloide
+    function f001(X)
+        real*8 :: X
+        real*8 :: f001
+      
+        f001 = X*sin(X)
+    end function f001
+    function seno(X)
+        real*8 :: X
+        real*8 :: seno
+      
+        seno = sin(X)
+    end function seno
     function campana(X)
         real*8 :: X
         real*8 :: campana
-      
+        
         campana = exp(-(X**2))
     end function campana
-    function campana_gorda(X,Y)
-        real*8 :: X, Y
-        real*8 :: campana_gorda
-        
-        campana_gorda = exp(-(X**2) -(Y**2))
-    end function campana_gorda
 end module funciones

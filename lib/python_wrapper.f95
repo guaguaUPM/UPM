@@ -43,7 +43,7 @@ subroutine represtarR2_R1(FUNCION,INICIO_X,FIN_X,INICIO_Y,FIN_Y,PARTICIONES_X, P
         posX = INICIO_X + i*incremento_x
         do j=0, PARTICIONES_Y
             posY = INICIO_Y + j*incremento_y
-            write(10,*) int(posX), int(posY), int(FUNCION(posX,posY))
+            write(10,*) posX, posY, FUNCION(posX,posY)
         end do
     end do
     close(10)
