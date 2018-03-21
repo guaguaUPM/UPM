@@ -1,3 +1,14 @@
+! Calculo de integrales como suma de areas. Estas areas se van haciendo pequenas a medida que aumentan las particiones.
+! FUNCION (real8 -> real8) Pues eso
+! X1 (real8) Punto de la IZQUIERDA donde comenzar la integral
+! X2 (real8) Punto de la DERECHA donde terminar la integral
+! PARTICIONES (int) Numero de rectangulitos para ajustar la funcion. A partir de 300 el resultado suele ser bueno
+! Area (real8) Salida, integral calculada
+
+! Reimann -> Las areas son rectangulos con sus verices superior izq coincidentes con la funcion
+! Trapecio -> Los rectangulos pasan continuamente unidos por lineas rectas (la que consigue una mejor aproximacion con menos calculos)
+! Simpson -> Se interpola un polinomio en cada particion y se integra
+
 subroutine integral_riemann(FUNCION,X1,X2,PARTICIONES,AREA)
     implicit none
     interface
