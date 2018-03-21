@@ -6,7 +6,7 @@ real*8 :: m, x0
 
 write(*,*) "En que punto desea la derivada?"
 read(*,*) x0
-call derivada1_prog1(seno,x0,m,1.d-7)
+call derivada1_cent2(seno,x0,m,1.d-20)
 write(*,*) "La derivada primera centrada vale:", m
 write(*,*) "El valor exacto es:", cos(x0)
 

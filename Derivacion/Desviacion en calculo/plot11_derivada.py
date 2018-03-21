@@ -12,8 +12,9 @@ for line in open('ref.dat', 'r'):
   U.append(values[0])
   V.append(values[1])
 
-plt.plot(X, Y, 'b')
 plt.plot(U, V, 'r')
+plt.plot(X, Y, 'b')
+
 plt.gca().invert_xaxis()
 ax = plt.gca()
 ax.set_xscale('log')
