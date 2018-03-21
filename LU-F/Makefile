@@ -13,7 +13,7 @@ RM = del
 SRC  = modulo.f95 principal.f95 
 
 OBJ  = $(SRC:.f95=.o)
-EXE  = exe
+EXE  = exe.exe
 
 .SUFFIXES: .f95 .o
 
