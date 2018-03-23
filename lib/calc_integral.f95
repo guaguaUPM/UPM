@@ -43,9 +43,9 @@ subroutine integral_trapcio(FUNCION,X1,X2,PARTICIONES,AREA)
     end interface
     real*8, intent(in) :: X1,X2
     integer, intent(in) :: PARTICIONES
-    real*8, intent(out) :: AREA, SUMATORIO
+    real*8, intent(out) :: AREA
 
-    real*8 :: incremento
+    real*8 :: incremento, SUMATORIO
     integer :: i
 
     incremento = (X2-X1)/(PARTICIONES*1.d0)
