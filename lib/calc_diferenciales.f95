@@ -7,7 +7,7 @@ subroutine matrizcontorno (MATRIZ, NINTERVALOS, X1, X2)
     ! ARGUMENTOS
     real*8, intent(in)  :: X1, X2
     integer, intent(in) :: NINTERVALOS
-    real*8, intent(out) :: MATRIZ(N,N)
+    real*8, intent(out) :: MATRIZ(NINTERVALOS,NINTERVALOS)
 
     ! VARIABLES LOCALES
     real*8              :: incremento
