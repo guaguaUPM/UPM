@@ -23,7 +23,7 @@ allocate(CONT2(n,n))
 allocate(MATPROBLEMA(N))
 allocate(Xfinal(N))
 ! CALCULO DE PARCIAL DE T RESPECTO X (T´=MCONT*T)
-call matrizcontorno(CONT1, N, 1, 3)
+call matrizcontorno(CONT1, N, T1, T2)
 call write_A(Cont1,N)
 
 stop
