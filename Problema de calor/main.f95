@@ -4,9 +4,9 @@
 program calor
 implicit none
 
-real*8, allocatable :: CONT1(:,:), CONT2(:,:), MATPROBLEMA(:,:)
+real*8, allocatable :: CONT1(:,:), CONT2(:,:), MATPROBLEMA(:), Xfinal(:)
 real*8              :: T1, T2 !T1 corresponde a la temperatura en el extremo izq de la barra, T2 a la del extremo derecho de la barra
-real*8              :: k_Al, k,Ac
+real*8              :: k_Al, k,k_Ac
 integer             :: N
 
 k_Al = 209.3d0 !W/mK
@@ -18,6 +18,7 @@ T2 = 298.15d0 !K
 write(*,*) "Introduzca el numero de particiones deseado para la función T"
 read(*,*) N
 
+
 ! CALCULO DE PARCIAL DE T RESPECTO X (T´=MCONT*T)
 call matrizcontorno(CONT1, N, T1, T2)
 
@@ -26,12 +27,18 @@ call matrizcontorno(CONT2, N, T1, T2)
 
 ! MATRIZ PROBLEMA
 
+MATPROBLEMA = T2
+MATPROBLEMA(1) = T1
+
+!Resolver sistema
+call resolver_gauss_seidel_iter(CONT2,Xfinal,MATPROBLEMA,N,1000)
 
 
+write(*,*) MATPROBLEMA
 
+write(*,*)
 
-
-
+write(*,*) Xfinal
 
 
 
