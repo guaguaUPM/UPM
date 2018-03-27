@@ -18,13 +18,16 @@ T2 = 298.15d0 !K
 write(*,*) "Introduzca el numero de particiones deseado para la función T"
 read(*,*) N
 
-
+allocate(CONT1(n,n))
+allocate(CONT2(n,n))
 ! CALCULO DE PARCIAL DE T RESPECTO X (T´=MCONT*T)
 call matrizcontorno(CONT1, N, T1, T2)
+call write_A(Cont1,N)
 
+write(*,*) "HOLIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII"
 ! CALCULO DE PARCIAL DE K*T´ RESPECTO DE X [(K*T´)´= MCONT*(K*T´)]
 call matrizcontorno(CONT2, N, T1, T2)
-
+call write_A(Cont2,N)
 ! MATRIZ PROBLEMA (El extremo esta en la temperatura del horno, el resto esta a temp ambiente)
 
 MATPROBLEMA = T2
@@ -34,7 +37,7 @@ MATPROBLEMA(1) = T1
 call resolver_gauss_seidel_iter(CONT2,Xfinal,MATPROBLEMA,N,1000)
 
 
-write(*,*) MATPROBLEMA
+call write_A(Cont1,N)
 
 write(*,*)
 
