@@ -22,7 +22,7 @@ read(*,*) N
 call matrizcontorno(CONT1, N, T1, T2)
 
 ! CALCULO DE PARCIAL DE K*T´ RESPECTO DE X [(K*T´)´= MCONT*(K*T´)]
-call matrizcontorno(CONT2, N, ?, ?)
+call matrizcontorno(CONT2, N, T1, T2)
 
 ! MATRIZ PROBLEMA
 
