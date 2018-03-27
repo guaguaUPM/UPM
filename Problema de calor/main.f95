@@ -25,7 +25,7 @@ call matrizcontorno(CONT1, N, T1, T2)
 ! CALCULO DE PARCIAL DE K*T´ RESPECTO DE X [(K*T´)´= MCONT*(K*T´)]
 call matrizcontorno(CONT2, N, T1, T2)
 
-! MATRIZ PROBLEMA
+! MATRIZ PROBLEMA (El extremo esta en la temperatura del horno, el resto esta a temp ambiente)
 
 MATPROBLEMA = T2
 MATPROBLEMA(1) = T1
