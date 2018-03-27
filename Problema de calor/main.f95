@@ -23,16 +23,15 @@ allocate(CONT2(n,n))
 allocate(MATPROBLEMA(N))
 allocate(Xfinal(N))
 ! CALCULO DE PARCIAL DE T RESPECTO X (T´=MCONT*T)
-call matrizcontorno(CONT1, N, T1, T2)
+call matrizcontorno(CONT1, N, 1, 3)
 call write_A(Cont1,N)
+
+stop
 
 write(*,*) "Matriz contorno 1 arriba 2 abajo"
 ! CALCULO DE PARCIAL DE K*T´ RESPECTO DE X [(K*T´)´= MCONT*(K*T´)]
-Cont2 = cont1
-Cont1 = k_Al * Cont1
 
-Cont2 = matmul(Cont2,cont1)
-
+cont2 = matmul(cont1,cont1)*k_Al
 call write_A(Cont2,N)
 ! MATRIZ PROBLEMA (El extremo esta en la temperatura del horno, el resto esta a temp ambiente)
 
