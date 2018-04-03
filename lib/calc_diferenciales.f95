@@ -14,7 +14,6 @@ subroutine matrizcontorno (MATRIZ, PARTICIONES, X1, X2)
     integer             :: i, j
 
     incremento = abs((X2-X1)/(PARTICIONES*1.d0))
-
     MATRIZ = 0.d0
     MATRIZ(1,2) = 1/(incremento*1.d0)
     MATRIZ(1,1) = -1/(incremento*1.d0)
