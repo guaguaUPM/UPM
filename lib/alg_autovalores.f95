@@ -51,7 +51,7 @@ subroutine auto_potencia_tol (A, AUTOVALOR, TOL, Q0, N)
     real*8, intent(out) :: AUTOVALOR
 
     ! Variables propias
-    real*8 :: Q(N), Q_ANTERIOR(N), AUTOVECTOR(N), norma, resto(N), sumaQ, sumaQ_ant
+    real*8 :: Q(N), Q_ANTERIOR(N), AUTOVECTOR(N), norma, resto(N)
     integer :: i, j, maxiter
 
     maxiter = 999999
@@ -64,9 +64,6 @@ subroutine auto_potencia_tol (A, AUTOVALOR, TOL, Q0, N)
     
     !   CALCULO DEL AUTOVECTOR
     do i = 1, maxiter
-
-        sumaQ = 0.d0
-        sumaQ_ant = 0.d0
 
         Q_ANTERIOR = Q
 
@@ -139,8 +136,8 @@ subroutine auto_potencia_inversa_tol (A, AUTOVALOR, TOL, Q0, N)
     real*8, intent(out) :: AUTOVALOR
     
     ! Variables propias
-    real*8 :: Q(N), Q_ANTERIOR(N), norma, AUTOVECTOR(N)
-    integer :: i, iter
+    real*8 :: Q(N), Q_ANTERIOR(N), norma, AUTOVECTOR(N), resto(N)
+    integer :: i, j, maxiter
     
     maxiter = 999999
     
