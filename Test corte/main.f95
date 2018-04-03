@@ -11,7 +11,7 @@ read(*,*) x(2)
 write(*,*) "¿Que toleracia desea?"
 read(*,*) tol
 
-call corte_biseccion(logaritmo,x(1),x(2),tol,corte)
+call corte_biseccion(xcubo,x(1),x(2),tol,corte)
 
 write(*,*) corte
 
