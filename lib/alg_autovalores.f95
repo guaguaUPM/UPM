@@ -51,7 +51,7 @@ subroutine auto_potencia_tol (A, AUTOVALOR, TOL, Q0, N)
     real*8, intent(out) :: AUTOVALOR
 
     ! Variables propias
-    real*8 :: Q(N), Q_ANTERIOR(N), AUTOVECTOR(N), norma, resto, sumaQ, sumaQ_ant
+    real*8 :: Q(N), Q_ANTERIOR(N), AUTOVECTOR(N), norma, resto(N), sumaQ, sumaQ_ant
     integer :: i, j, maxiter
 
     maxiter = 999999
@@ -84,11 +84,9 @@ subroutine auto_potencia_tol (A, AUTOVALOR, TOL, Q0, N)
         !read(*,*)
         
         do j= 1, N
-            sumaQ = sumaQ + abs(Q(j))
-            sumaQ_ant = sumaQ_ant + abs(Q_ANTERIOR(j))
+            resto(j) = abs( Q(j) - Q_ANTERIOR(j) )
         enddo
-        resto = sumaQ - sumaQ_ant
-        if( abs(resto) <tol) exit
+        if( maxval(resto) <tol) exit
 
     enddo
     
