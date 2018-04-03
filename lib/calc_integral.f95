@@ -45,15 +45,18 @@ subroutine integral_trapcio(FUNCION,X1,X2,PARTICIONES,AREA)
     integer, intent(in) :: PARTICIONES
     real*8, intent(out) :: AREA
 
-    real*8 :: incremento
+    real*8 :: incremento, SUMATORIO
     integer :: i
 
     incremento = (X2-X1)/(PARTICIONES*1.d0)
     AREA=0.d0
-    do i = 0, PARTICIONES-1
+    SUMATORIO=0.d0
+    do i = 1, PARTICIONES-1
         ! Se calcula el area como suma de trapcios (una de sus caras es la media de las dos diferentes)
-        AREA = AREA + incremento*(FUNCION(X1 + i*incremento) + FUNCION(X1 + (i+1)*incremento))/2.d0
+        SUMATORIO = SUMATORIO + FUNCION(X1+i*incremento)
     end do
+
+    AREA = incremento*( ((FUNCION(X1) + FUNCION(X2))/2.d0) + SUMATORIO )
 
 end subroutine integral_trapcio
 
