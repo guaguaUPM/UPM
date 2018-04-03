@@ -9,6 +9,8 @@ real*8              :: T1, T2 !T1 corresponde a la temperatura en el extremo izq
 real*8              :: k_Al, k,k_Ac
 integer             :: N,i,j
 
+real*8 :: incremento_representar
+
 k_Al = 209.3d0 !W/mK
 k_Ac = 16.3d0 !W/mK
 ! PARA MH COGER UNA T3 DIVISION AC Y AL Y IGUALAR LOS PROBLEMAS DE CONTORNO
@@ -76,5 +78,14 @@ write(*,*) Xfinal
 !allocate(matriz(n,n))
 !call matrizcontorno(matriz, n, x1, x2)
 !call write_A(matriz, n)
+
+write(*,*) "¿Representar? Si: 0, No: cualquier otro entero"
+read(*,*) i
+if(i==0) then
+  incremento_representar = (T2-T1)/((N-1)*1.d0)
+  write(*,*) incremento_representar
+  call datos_a_puntos(Xfinal,incremento_representar,T1,N)
+  call SYSTEM("python plot.py")
+end if
 
 end program calor
