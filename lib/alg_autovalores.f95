@@ -62,10 +62,6 @@ subroutine auto_potencia_tol (A, AUTOVALOR, TOL, Q0, N)
         Q = Q/norma
     endif
     
-    !DEBUG
-    !write(*,*) Q
-    !read(*,*)
-
     !   CALCULO DEL AUTOVECTOR
     do i = 1, maxiter
 
@@ -78,10 +74,6 @@ subroutine auto_potencia_tol (A, AUTOVALOR, TOL, Q0, N)
 
         call norma2(norma,Q,N)
         Q = Q/norma
-
-        !DEBUG
-        !write(*,*) Q
-        !read(*,*)
         
         do j= 1, N
             resto(j) = abs( Q(j) - Q_ANTERIOR(j) )
@@ -125,7 +117,7 @@ subroutine auto_potencia_inversa_iter (A, AUTOVALOR, MAXITER, Q0, N)
 
         call resolver_gauss (A, Q_ANTERIOR, Q, N)
 
-        call norma2(norma,Q,N)
+        call norma2(norma, Q, N)
         Q = Q/norma
 
     enddo
@@ -133,6 +125,6 @@ subroutine auto_potencia_inversa_iter (A, AUTOVALOR, MAXITER, Q0, N)
     AUTOVECTOR = Q
 
     !   CALCULO DEL AUTOVALOR ASOCIADO (coef. de Rayleigh)
-    AUTOVALOR = DOT_PRODUCT(AUTOVECTOR, matmul(A, AUTOVECTOR)) / DOT_PRODUCT(AUTOVECTOR, AUTOVECTOR)
+    AUTOVALOR = DOT_PRODUCT(AUTOVECTOR, matmul(A, AUTOVECTOR)) / (DOT_PRODUCT(AUTOVECTOR, AUTOVECTOR)*1.d0)
 
 end subroutine auto_potencia_inversa_iter

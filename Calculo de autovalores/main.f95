@@ -14,9 +14,9 @@ program autovalores
     call write_A(A,N)
     ! -----------------------------------------
 
-    tol = EPSILON(autovalor_max)
-    call auto_potencia(A, autovalor_max, tol, q0, N)
-    call auto_potencia_inversa(A, autovalor_min, tol, q0, N)
+    tol = 0.000005
+    call auto_potencia_iter(A, autovalor_max, 100000, q0, N)
+    call auto_potencia_inversa_iter(A, autovalor_min, 1000, q0, N)
 
     write(*,*) "Autovalor Maximo:", autovalor_max
     write(*,*) "Autovalor Minimo:", autovalor_min
