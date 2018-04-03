@@ -115,7 +115,7 @@ subroutine auto_potencia_inversa_iter (A, AUTOVALOR, MAXITER, Q0, N)
 
         Q_ANTERIOR = Q
 
-        call resolver_gauss (A, Q_ANTERIOR, Q, N)
+        call resolver_LAPACK (A, Q_ANTERIOR, Q, N)
 
         call norma2(norma, Q, N)
         Q = Q/norma
