@@ -20,13 +20,15 @@ read(*,*) N
 
 allocate(CONT1(n,n))
 allocate(CONT2(n,n))
+allocate(MATPROBLEMA(N))
+allocate(Xfinal(N))
 ! CALCULO DE PARCIAL DE T RESPECTO X (T´=MCONT*T)
 call matrizcontorno(CONT1, N, T1, T2)
 call write_A(Cont1,N)
 
-write(*,*) "HOLIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII"
+write(*,*) "Matriz contorno 1 arriba 2 abajo"
 ! CALCULO DE PARCIAL DE K*T´ RESPECTO DE X [(K*T´)´= MCONT*(K*T´)]
-call matrizcontorno(CONT2, N, T1, T2)
+Cont2 = matmul(Cont1,cont1)*k_Al
 call write_A(Cont2,N)
 ! MATRIZ PROBLEMA (El extremo esta en la temperatura del horno, el resto esta a temp ambiente)
 
@@ -34,14 +36,14 @@ MATPROBLEMA = T2
 MATPROBLEMA(1) = T1
 
 !Resolver sistema
-call resolver_gauss_seidel_iter(CONT2,Xfinal,MATPROBLEMA,N,1000)
+call resolver_gauss_seidel_iter(CONT2,Xfinal,MATPROBLEMA,N,1000000)
 
+write(*,*) "Solucion"
+call write_A(Xfinal,N)
 
-call write_A(Cont1,N)
+!write(*,*)
 
-write(*,*)
-
-write(*,*) Xfinal
+!write(*,*) Xfinal
 
 
 
