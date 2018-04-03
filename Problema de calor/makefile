@@ -1,5 +1,5 @@
 # Programa por defecto. Añadir modulos a la izquierda
-SRC  = main.f95
+SRC  = puntos.f95 main.f95
 
 # Compilador fortran
 FC = gfortran
