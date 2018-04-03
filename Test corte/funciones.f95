@@ -36,4 +36,9 @@ contains
 
         logaritmo = log(x)
     end function logaritmo
+    function xcubo(x)
+        real*8 :: x
+        real*8 :: xcubo
+        xcubo = x**3
+    end function xcubo
 end module funciones
