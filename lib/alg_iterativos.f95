@@ -82,8 +82,6 @@ subroutine matrizT_gauss_seidel (A, T, N)
 
 end subroutine matrizT_gauss_seidel
 
-! ITERATIVOS REQUIEREN QUE EL SISTEMA CONVERJA
-! REQUIERE QUE NO EXISTAN CEROS EN LA DIAGONAL (PREVIO PIVOTAMIENTO) 
 
 subroutine resolver_jacobi_tol (A, Xfinal, b, tol, N)
 
