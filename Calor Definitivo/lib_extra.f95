@@ -28,7 +28,6 @@ subroutine matrizcontorno (MATRIZ, PARTICIONES, X1, X2)
           MATRIZ(i,i-1) = -1/(2.d0*incremento)
       enddo
   enddo
-
 end subroutine
 
 end module lib_extra

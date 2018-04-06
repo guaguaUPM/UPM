@@ -40,7 +40,6 @@ contains
     P1 = (-1.d0)*P1
 
     T = MATMUL(P1, P2)
-
   end subroutine matrizT_gauss_seidel
 
   subroutine inversa(matriz, c, n)
@@ -174,7 +173,6 @@ contains
 
     !   CALCULO DEL AUTOVALOR ASOCIADO (coef. de Rayleigh)
     AUTOVALOR = DOT_PRODUCT(AUTOVECTOR, matmul(A, AUTOVECTOR))/(DOT_PRODUCT(AUTOVECTOR, AUTOVECTOR)*1.d0)
-
   end subroutine auto_potencia_iter
 
   subroutine norma2(norma, vector, n)
@@ -189,7 +187,6 @@ contains
       norma = norma + vector(i)**2
     end do
     norma = sqrt(norma)
-
   end subroutine norma2
 
   subroutine resolver_gauss_seidel_tol(A, Xfinal, b, tol, N)
