@@ -27,22 +27,26 @@ allocate(Identidad(N,N))
 allocate(Identidad2(N,N))
 ! CALCULO DE PARCIAL DE T RESPECTO X (T´=MCONT*T)
 call matrizcontorno(CONT1, N, T1, T2)
-call write_A(Cont1,N)
+!call write_A(Cont1,N)
 
 
 
-write(*,*) "Matriz contorno 1 arriba 2 abajo"
+!write(*,*) "Matriz contorno 1 arriba 2 abajo"
 ! CALCULO DE PARCIAL DE K*T´ RESPECTO DE X [(K*T´)´= MCONT*(K*T´)]
 Identidad=0
 do i=1,n
+  if (i <= n/2 ) then
   Identidad(i,i) = k_Ac
+  else 
+  Identidad(i,i) = k_Al
+  endif
 enddo
-call write_A(Identidad,n)
+!call write_A(Identidad,n)
 
 
 
 cont3 = matmul(identidad,cont1)
-call write_A(cont3,n)
+!call write_A(cont3,n)
 
 cont2 = matmul(cont1,cont3)
 
@@ -52,17 +56,18 @@ MATPROBLEMA = 0
 MATPROBLEMA(1)= T1
 MATPROBLEMA(N)= T2
 
-call write_A(Cont2,N)
+!call write_A(Cont2,N)
 
 cont2(1,:) = 0
 cont2(1,1) = 1
 cont2(n,:) = 0
 cont2(n,n) = 1
-call write_AB(Cont2,MATPROBLEMA,N)
+!call write_AB(Cont2,MATPROBLEMA,N)
 
 !Resolver sistema
-!call resolver_gauss_seidel_iter(CONT2,Xfinal,MATPROBLEMA,N,100)
-call resolver_gauss(Cont2,MATPROBLEMA,Xfinal,N)
+!call resolver_jacobi_iter(CONT2,Xfinal,MATPROBLEMA,N,1000)
+call resolver_lapack(Cont2,MATPROBLEMA,Xfinal,N)
+!call resolver_LU(Cont2,MATPROBLEMA,Xfinal,N)
 write(*,*) "Solucion"
 write(*,*) Xfinal
 
