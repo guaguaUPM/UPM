@@ -6,5 +6,8 @@ for line in open('puntos.dat', 'r'):
   X.append(values[0])
   Y.append(values[1])
 
+plt.rc('grid', linestyle='dotted', color='grey')
 plt.plot(X, Y)
+plt.grid(True)
+plt.savefig('plot.png')
 plt.show()
