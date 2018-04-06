@@ -35,7 +35,7 @@ write(*,*) "Matriz contorno 1 arriba 2 abajo"
 ! CALCULO DE PARCIAL DE K*T´ RESPECTO DE X [(K*T´)´= MCONT*(K*T´)]
 Identidad=0
 do i=1,n
-  Identidad(i,i) = k_Al
+  Identidad(i,i) = k_Ac
 enddo
 call write_A(Identidad,n)
 
@@ -85,7 +85,7 @@ write(*,*) Xfinal
 write(*,*) "¿Representar? Si: 0, No: cualquier otro entero"
 read(*,*) i
 if(i==0) then
-  call datos_a_puntos(Xfinal, (T2-T1)/((N-1)*1.d0) ,T1,N)
+  call datos_a_puntos(Xfinal,N)
   call SYSTEM("python plot.py")
 end if
 
