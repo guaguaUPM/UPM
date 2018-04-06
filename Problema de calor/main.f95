@@ -10,6 +10,7 @@ real*8              :: k_Al, k,k_Ac
 integer             :: N,i,j
 
 k_Al = 209.3d0 !W/mK
+
 k_Ac = 16.3d0 !W/mK
 ! PARA MH COGER UNA T3 DIVISION AC Y AL Y IGUALAR LOS PROBLEMAS DE CONTORNO
 T1 = 500.0d0 !K
