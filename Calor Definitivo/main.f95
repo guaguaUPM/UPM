@@ -6,20 +6,20 @@ use puntos
 use lib_extra
 use lib_iterativos
 use lib_LU
+use lib_gauss
 
 implicit none
 
-real*8, allocatable :: CONTORNO1(:,:), CONTORNO2(:,:), B(:), TEMPERATURA(:), MATRIZ_K(:,:), matriz_t(:,:)
+real*8, allocatable :: CONTORNO1(:,:), CONTORNO2(:,:), B(:), TEMPERATURA(:), MATRIZ_K(:,:), matriz_t(:,:), matriz_t2(:,:)
 real*8              :: T1, T2, k_Al, k_ACERO, tol_iterativos
 ! T1 corresponde a la temperatura en el extremo izq de la barra
 ! T2 a la del extremo derecho de la barra
 integer             :: N, i, j
-logical             :: converge
+logical             :: converge, converge2, pivotarsi
 
 k_Al = 209.3d0   !W/mK
 k_ACERO = 16.3d0 !W/mK
 
-! PARA MH COGER UNA T3 DIVISION AC Y AL Y IGUALAR LOS PROBLEMAS DE CONTORNO
 T1 = 500.0d0  !K
 T2 = 298.15d0 !K
 
@@ -33,6 +33,7 @@ allocate(CONTORNO1(n,n))
 allocate(CONTORNO2, mold=CONTORNO1)
 allocate(MATRIZ_K,  mold=CONTORNO1)
 allocate(matriz_t,  mold=CONTORNO1)
+allocate(matriz_t2,  mold=CONTORNO1)
 allocate(B(N))
 allocate(TEMPERATURA, mold=B)
 
@@ -52,11 +53,10 @@ do i=1,n
 enddo
 CONTORNO2 = matmul(CONTORNO1,matmul(MATRIZ_K,CONTORNO1))
 
-! VECTOR PROBLEMA (El extremo esta en la temperatura del horno, el resto esta a temp ambiente)
+! VECTOR PROBLEMA
 B = 0.d0
 B(1)= T1
 B(N)= T2
-
 
 CONTORNO2(1,:) = 0.d0
 CONTORNO2(1,1) = 1.d0
@@ -68,9 +68,11 @@ write(*,*) "¿Que metodo desea para resolver el sistema?"
 write(*,*)
 write(*,*) "0: Gauss-Seidel"
 write(*,*) "1: Gauss-Seidel comprobando antes la convergencia"
-write(*,*) "3: Jacobi"
-write(*,*) "4: Jacobi comprobando antes la convergencia"
-write(*,*) "Cualquier otro entero: Factorizacion LU"
+write(*,*) "2: Jacobi"
+write(*,*) "3: Jacobi comprobando antes la convergencia"
+write(*,*) "4: Factorizacion LU sin pivote"
+write(*,*) "5: Gauss"
+write(*,*) "Cualquier otro entero: Iterativos si posible, LU en caso negativo y Gauss en caso de pivote necesario"
 write(*,*)
 read(*,*) i
 
@@ -79,31 +81,56 @@ select case(i)
     call resolver_gauss_seidel_tol(CONTORNO2, TEMPERATURA, B, tol_iterativos, N)
 
   case(1)
-    ! ARREGLAR
     call matrizT_gauss_seidel(CONTORNO2, matriz_t, N)
     call convergencia(matriz_t, converge, N)
     if (converge) then
       call resolver_gauss_seidel_tol(CONTORNO2, TEMPERATURA, B, tol_iterativos, N)
     else
       write(*,*) "NO CONVERGE"
-      call exit
+      return
     end if
 
   case(2)
+    call resolver_jacobi_tol(CONTORNO2, TEMPERATURA, B, tol_iterativos, N)
+
+  case(3)
     call matrizT_jacobi(CONTORNO2, matriz_t, N)
     call convergencia(matriz_t, converge, N)
     if (converge) then
       call resolver_jacobi_tol(CONTORNO2, TEMPERATURA, B, tol_iterativos, N)
     else
       write(*,*) "NO CONVERGE"
-      call exit
+      return
     end if
 
-  case(3)
-    call resolver_jacobi_tol(CONTORNO2, TEMPERATURA, B, tol_iterativos, N)
+  case(4)
+    call resolver_LU(CONTORNO2,B,TEMPERATURA,N)
+
+  case(5)
+    call resolver_gauss(CONTORNO2,B,TEMPERATURA,N)
 
   case default
-    call resolver_LU(CONTORNO2,B,TEMPERATURA,N)
+    call matrizT_gauss_seidel(CONTORNO2, matriz_t, N)
+    call matrizT_jacobi(CONTORNO2, matriz_t2, N)
+    call convergencia(matriz_t, converge, N)
+    call convergencia(matriz_t2, converge2, N)
+    do j=1, N
+      if (CONTORNO2(i,i)==0.d0) pivotarsi=.true.
+    end do
+    if (converge) then 
+      write(*,*) "RESOLUCION POR GAUSS-SEIDEL"
+      call resolver_gauss_seidel_tol(CONTORNO2, TEMPERATURA, B, tol_iterativos, N)
+    else if (converge2) then
+      write(*,*) "GAUSS-SEIDEL NO CONVERGE, RESOLVIENDO POR JACOBI"
+      call resolver_jacobi_tol(CONTORNO2, TEMPERATURA, B, tol_iterativos, N)
+    else if (.not. pivotarsi) then
+      write(*,*) "ITERATIVOS NO POSIBLE, PROBANDO LU"
+      call resolver_LU(CONTORNO2,B,TEMPERATURA,N)
+    else
+      write(*,*) "ITERATIVOS NI LU POSIBLES, PROBANDO GAUSS CON PIVOTE"
+      call resolver_gauss(CONTORNO2,B,TEMPERATURA,N)
+    end if
+    
 end select
 
 
