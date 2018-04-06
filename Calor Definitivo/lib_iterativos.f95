@@ -36,7 +36,7 @@ contains
 
     ! Calculamos T segun la expresion matematica
     P2 = U
-    call inversa(D + L, P1, N)
+    call inversa((D + L), P1, N)
     P1 = (-1.d0)*P1
 
     T = MATMUL(P1, P2)
@@ -130,9 +130,12 @@ contains
     real*8              :: autovalor, q0(N)
 
     q0 = 1.0d0
-    call auto_potencia_iter(T, autovalor, 100, q0, N)
-    converge = .false.
-    if (abs(autovalor) < 1.d0) converge = .true.
+    call auto_potencia_iter(T, autovalor, 60, q0, N)
+    if (abs(autovalor) < 1.d0) then
+      converge = .true.
+    else
+      converge = .false.
+    end if
 
   end subroutine convergencia
 
