@@ -8,7 +8,7 @@ subroutine datos_a_puntos(VECTOR,N)
 
     open(unit=10,file='puntos.dat',status='unknown',action='write')
     do i = 1, N
-        write(10,*) Vector(N), i
+        write(10,*) i, VECTOR(i)
     end do
     close(10)
 end subroutine datos_a_puntos
