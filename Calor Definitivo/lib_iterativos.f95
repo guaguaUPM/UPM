@@ -130,7 +130,7 @@ contains
     real*8              :: autovalor, q0(N)
 
     q0 = 1.0d0
-    call auto_potencia_iter(T, autovalor, 60, q0, N)
+    call auto_potencia_iter(T, autovalor, 100, q0, N)
     converge = .false.
     if (abs(autovalor) < 1.d0) converge = .true.
 
