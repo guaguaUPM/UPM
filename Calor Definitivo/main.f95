@@ -71,6 +71,7 @@ write(*,*) "1: Gauss-Seidel comprobando antes la convergencia"
 write(*,*) "3: Jacobi"
 write(*,*) "4: Jacobi comprobando antes la convergencia"
 write(*,*) "Cualquier otro entero: Factorizacion LU"
+write(*,*)
 read(*,*) i
 
 select case(i)
@@ -112,6 +113,7 @@ read(*,*) i
 if(i==0) then
   call datos_a_puntos(TEMPERATURA,N)
   call SYSTEM("python plot.py")
+  write(*,*) "IMAGEN plot.png CREADA"
 else
   write(*,*) TEMPERATURA
 end if

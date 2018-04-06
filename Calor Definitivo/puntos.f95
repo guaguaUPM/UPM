@@ -7,7 +7,6 @@ subroutine datos_a_puntos(VECTOR,N)
 
     integer :: i
 
-
     open(unit=10,file='puntos.dat',status='unknown',action='write')
     do i = 1, N
         write(10,*) i, VECTOR(i)
