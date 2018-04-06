@@ -1,101 +1,5 @@
-module lib_port
+module lib_iterativos
 contains
-
-  subroutine matrizcontorno(MATRIZ, PARTICIONES, X1, X2)
-    ! SUBRUTINA QUE CALCULA UNA MATRIZ DE CONTORNO GENERICA DADO EL
-    ! NUMERO DE PARTICIONES EN LOS QUE SE QUIERA DISCRETIZAR NUESTRA VARIABLE
-    ! Y EL TAMAÑO DEL INCREMENTO (DEDUCIDO A TRAVES DEL PUNTO INICIAL Y FINAL)
-    implicit none
-
-    ! ARGUMENTOS
-    real*8, intent(in)  :: X1, X2
-    integer, intent(in) :: PARTICIONES
-    real*8, intent(out) :: MATRIZ(PARTICIONES, PARTICIONES)
-
-    ! VARIABLES LOCALES
-    real*8              :: incremento
-    integer             :: i, j
-
-    incremento = abs((X2 - X1)/(PARTICIONES*1.d0))
-    MATRIZ = 0.d0
-    MATRIZ(1, 2) = 1/(incremento*1.d0)
-    MATRIZ(1, 1) = -1/(incremento*1.d0)
-    MATRIZ(PARTICIONES, PARTICIONES) = 1/(incremento*1.d0)
-    MATRIZ(PARTICIONES, PARTICIONES - 1) = -1/(incremento*1.d0)
-    do i = 2, PARTICIONES - 1
-      do j = 2, PARTICIONES - 1
-        MATRIZ(i, i + 1) = 1/(2.d0*incremento)
-        MATRIZ(i, i - 1) = -1/(2.d0*incremento)
-      enddo
-    enddo
-  end subroutine
-
-  subroutine convergencia(T, converge, N)
-    implicit none
-    integer, intent(in) :: N
-    real*8, intent(in)  :: T(N, N)
-    logical, intent(out):: converge
-
-    real*8              :: autovalor, q0(N)
-
-    q0 = 1.0d0
-    call auto_potencia_iter(T, autovalor, 60, q0, N)
-    converge = .false.
-    if (abs(autovalor) < 1.d0) converge = .true.
-  end subroutine convergencia
-
-  subroutine auto_potencia_iter(A, AUTOVALOR, MAXITER, Q0, N)
-    !CALCULA EL AUTOVALOR MAS GRANDE EN VALOR ABSOLUTO
-    implicit none
-
-    ! Variables de entrada/salida
-    integer, intent(in) :: N, MAXITER
-    real*8, intent(in)  :: A(N, N), Q0(N) !SELECCIONAR UN q0 (1.d0 por lo general)
-    real*8, intent(out) :: AUTOVALOR
-
-    ! Variables propias
-    real*8 :: Q(N), Q_ANTERIOR(N), AUTOVECTOR(N), norma
-    integer :: i, iter
-
-    iter = MAXITER
-
-    Q = Q0
-    call norma2(norma, Q, N)
-    if (norma /= 1.d0) then
-      Q = Q/norma
-    endif
-
-    !   CALCULO DEL AUTOVECTOR
-    do i = 1, maxiter
-
-      Q_ANTERIOR = Q
-
-      Q = matmul(A, Q)
-
-      call norma2(norma, Q, N)
-      Q = Q/norma
-
-    enddo
-
-    AUTOVECTOR = Q
-
-    !   CALCULO DEL AUTOVALOR ASOCIADO (coef. de Rayleigh)
-    AUTOVALOR = DOT_PRODUCT(AUTOVECTOR, matmul(A, AUTOVECTOR))/(DOT_PRODUCT(AUTOVECTOR, AUTOVECTOR)*1.d0)
-  end subroutine auto_potencia_iter
-
-  subroutine norma2(norma, vector, n)
-    implicit none
-    integer, intent(in)  :: n
-    real(8), intent(in)  :: vector(n)
-    real(8), intent(out) :: norma
-    integer :: i
-
-    norma = 0.d0
-    do i = 1, n
-      norma = norma + vector(i)**2
-    end do
-    norma = sqrt(norma)
-  end subroutine norma2
 
   subroutine matrizT_gauss_seidel(A, T, N)
     ! Argumentos de la subrutina
@@ -218,40 +122,111 @@ contains
     end do
   end subroutine inversa
 
-  subroutine resolver_jacobi_tol(A, Xfinal, b, tol, N)
+  subroutine convergencia(T, converge, N)
+    implicit none
+    integer, intent(in) :: N
+    real*8, intent(in)  :: T(N, N)
+    logical, intent(out):: converge
+
+    real*8              :: autovalor, q0(N)
+
+    q0 = 1.0d0
+    call auto_potencia_iter(T, autovalor, 60, q0, N)
+    converge = .false.
+    if (abs(autovalor) < 1.d0) converge = .true.
+
+  end subroutine convergencia
+
+  subroutine auto_potencia_iter(A, AUTOVALOR, MAXITER, Q0, N)
+    !CALCULA EL AUTOVALOR MAS GRANDE EN VALOR ABSOLUTO
+    implicit none
+
+    ! Variables de entrada/salida
+    integer, intent(in) :: N, MAXITER
+    real*8, intent(in)  :: A(N, N), Q0(N) !SELECCIONAR UN q0 (1.d0 por lo general)
+    real*8, intent(out) :: AUTOVALOR
+
+    ! Variables propias
+    real*8 :: Q(N), Q_ANTERIOR(N), AUTOVECTOR(N), norma
+    integer :: i, iter
+
+    iter = MAXITER
+
+    Q = Q0
+    call norma2(norma, Q, N)
+    if (norma /= 1.d0) then
+      Q = Q/norma
+    endif
+
+    !   CALCULO DEL AUTOVECTOR
+    do i = 1, maxiter
+
+      Q_ANTERIOR = Q
+
+      Q = matmul(A, Q)
+
+      call norma2(norma, Q, N)
+      Q = Q/norma
+
+    enddo
+
+    AUTOVECTOR = Q
+
+    !   CALCULO DEL AUTOVALOR ASOCIADO (coef. de Rayleigh)
+    AUTOVALOR = DOT_PRODUCT(AUTOVECTOR, matmul(A, AUTOVECTOR))/(DOT_PRODUCT(AUTOVECTOR, AUTOVECTOR)*1.d0)
+
+  end subroutine auto_potencia_iter
+
+  subroutine norma2(norma, vector, n)
+    implicit none
+    integer, intent(in)  :: n
+    real(8), intent(in)  :: vector(n)
+    real(8), intent(out) :: norma
+    integer :: i
+
+    norma = 0.d0
+    do i = 1, n
+      norma = norma + vector(i)**2
+    end do
+    norma = sqrt(norma)
+
+  end subroutine norma2
+
+  subroutine resolver_gauss_seidel_tol(A, Xfinal, b, tol, N)
+    implicit none
 
     ! Argumentos de la subrutina
-    real(8), intent(in) :: A(N, N) !
-    real(8), intent(in) :: b(N) !
+    integer, intent(in) :: n ! Dimensión del problema A(n,n) b(n) X(n)
+    real(8), intent(in) :: A(n, n) !
+    real(8), intent(in) :: b(n) !
     real(8), intent(out):: Xfinal(n) !
     real(8), intent(in) :: tol !
-    integer, intent(in) :: N ! Dimensión del problema A(n,n) b(n) X(n)
 
     ! Variables locales
     real(8), allocatable :: x0(:)
     real(8), allocatable :: x(:)
+    real(8) :: sum1, sum2, normaX_X0, normaX
     integer :: iter, i, j, maxiter
-    real(8) :: sum1, normaX_X0, normaX
 
-    allocate (x0(N))
-    allocate (x(N))
+    allocate (x0(n))
+    allocate (x(n))
 
     !Primera semilla (primer valor establecido de x para iniciar la iteración)
-    x0 = 0.d0
+    x0 = 0.0d0
     x = 0.0d0
-    maxiter = 999999
-
-    do iter = 1, maxiter
+    maxiter = 9999999 !Numero de iteraciones
+    do iter = 1, maxiter !Iteraciones
       do i = 1, n
         sum1 = 0
-        do j = 1, n
-          if (j /= i) then
-            sum1 = sum1 + A(i, j)*x0(j)
-          endif
+        sum2 = 0
+        do j = 1, i - 1
+          sum1 = sum1 + A(i, j)*x(j)
         enddo
-        x(i) = (1/A(i, i))*(B(i) - sum1)
+        do j = i + 1, n
+          sum2 = sum2 + A(i, j)*x0(j)
+        enddo
+        x(i) = (1/A(i, i))*(B(i) - sum1 - sum2)
       enddo
-
       call norma2(normaX_X0, X - x0, n)
       call norma2(normaX, x, n)
 
@@ -262,6 +237,6 @@ contains
         x0 = x
       end if
     enddo
-  end subroutine resolver_jacobi_tol
+  end subroutine resolver_gauss_seidel_tol
 
-end module lib_port
+end module lib_iterativos

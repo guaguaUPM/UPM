@@ -1,5 +1,5 @@
 # Programa por defecto. Añadir modulos a la izquierda
-SRC  = puntos.f95 lib_port.f95 main.f95
+SRC  = puntos.f95 lib_extra.f95 lib_iterativos.f95 lib_LU.f95 main.f95
 
 # Compilador fortran
 FC = gfortran
