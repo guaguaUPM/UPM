@@ -4,7 +4,7 @@
 program calor
 implicit none
 
-real*8, allocatable :: CONT1(:,:), CONT2(:,:), MATPROBLEMA(:), Xfinal(:), Identidad(:,:)
+real*8, allocatable :: CONT1(:,:), CONT2(:,:),cont3(:,:), MATPROBLEMA(:), Xfinal(:), Identidad(:,:),Identidad2(:,:)
 real*8              :: T1, T2 !T1 corresponde a la temperatura en el extremo izq de la barra, T2 a la del extremo derecho de la barra
 real*8              :: k_Al, k,k_Ac
 integer             :: N,i,j
@@ -20,9 +20,11 @@ read(*,*) N
 
 allocate(CONT1(n,n))
 allocate(CONT2(n,n))
+allocate(CONT3(n,n))
 allocate(MATPROBLEMA(N))
 allocate(Xfinal(N))
 allocate(Identidad(N,N))
+allocate(Identidad2(N,N))
 ! CALCULO DE PARCIAL DE T RESPECTO X (T´=MCONT*T)
 call matrizcontorno(CONT1, N, T1, T2)
 call write_A(Cont1,N)
@@ -33,15 +35,16 @@ write(*,*) "Matriz contorno 1 arriba 2 abajo"
 ! CALCULO DE PARCIAL DE K*T´ RESPECTO DE X [(K*T´)´= MCONT*(K*T´)]
 Identidad=0
 do i=1,n
- do j=1,n
-   if (i==j) then
-    Identidad(i,j) = k_al
-   endif
- enddo
+  Identidad(i,i) = k_Al
 enddo
 call write_A(Identidad,n)
 
-cont2 = matmul(cont1,(matmul(cont1,identidad)))
+
+
+cont3 = matmul(identidad,cont1)
+call write_A(cont3,n)
+
+cont2 = matmul(cont1,cont3)
 
 ! MATRIZ PROBLEMA (El extremo esta en la temperatura del horno, el resto esta a temp ambiente)
 
@@ -49,20 +52,19 @@ MATPROBLEMA = 0
 MATPROBLEMA(1)= T1
 MATPROBLEMA(N)= T2
 
-
 call write_A(Cont2,N)
 
 cont2(1,:) = 0
-cont2(1,1) = T1
+cont2(1,1) = 1
 cont2(n,:) = 0
-cont2(n,n) = T2
+cont2(n,n) = 1
+call write_AB(Cont2,MATPROBLEMA,N)
+
 !Resolver sistema
 !call resolver_gauss_seidel_iter(CONT2,Xfinal,MATPROBLEMA,N,100)
-call resolver_lapack(Cont2,MATPROBLEMA,Xfinal,N)
+call resolver_gauss(Cont2,MATPROBLEMA,Xfinal,N)
 write(*,*) "Solucion"
 write(*,*) Xfinal
-
-!write(*,*) Xfinal
 
 
 
