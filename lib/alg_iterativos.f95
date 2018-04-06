@@ -152,7 +152,7 @@ subroutine resolver_jacobi_iter (A, B, Xfinal, N, Maxiter)
         
         !Primera semilla (primer valor establecido de x para iniciar la iteración)
         x0 = 0.d0
-        x  = 0.0d0
+        x  = 0.d0
         
         do iter = 1, maxiter
             do i=1,n

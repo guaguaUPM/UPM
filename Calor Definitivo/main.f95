@@ -2,6 +2,8 @@
 ! SE EMPLEA LA MATRIZ DE CONTORNO AL CUADRADO (DERIVADA SEGUNDA) Y SE RESUELVE EL SISTEMA POR EL METODO
 ! MAS EFICAZ
 program calor
+use puntos
+use lib_port
 implicit none
 
 real*8, allocatable :: CONT1(:,:), CONT2(:,:),cont3(:,:), MATPROBLEMA(:), Xfinal(:), Identidad(:,:),Identidad2(:,:)
@@ -79,10 +81,10 @@ write(*,*) abrazafarolas
 !write(*,*) "Solucion"
 !write(*,*) Xfinal
 if (abrazafarolas) then
-  call resolver_jacobi_tol (CONT2, Xfinal, MATPROBLEMA, sqrt(epsilon(T1)), N)
+  call resolver_jacobi_tol(CONT2, Xfinal, MATPROBLEMA, sqrt(epsilon(T1)), N)
 else 
   write(*,*) "No converge por iterativos, usando LU"
-  call resolver_LU(Cont2,MATPROBLEMA,Xfinal,N)
+  ! call resolver_LU(Cont2,MATPROBLEMA,Xfinal,N)
 end if
 
 
