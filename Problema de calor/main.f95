@@ -37,9 +37,9 @@ call matrizcontorno(CONT1, N, T1, T2)
 Identidad=0
 do i=1,n
   if (i <= n/2 ) then
-  Identidad(i,i) = k_Ac
+    Identidad(i,i) = k_Ac
   else 
-  Identidad(i,i) = k_Al
+    Identidad(i,i) = k_Al
   endif
 enddo
 !call write_A(Identidad,n)
@@ -69,8 +69,8 @@ cont2(n,n) = 1
 !call resolver_jacobi_iter(CONT2,Xfinal,MATPROBLEMA,N,1000)
 call resolver_lapack(Cont2,MATPROBLEMA,Xfinal,N)
 !call resolver_LU(Cont2,MATPROBLEMA,Xfinal,N)
-write(*,*) "Solucion"
-write(*,*) Xfinal
+!write(*,*) "Solucion"
+!write(*,*) Xfinal
 
 
 
