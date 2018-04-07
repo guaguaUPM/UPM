@@ -15,7 +15,7 @@ real*8              :: T1, T2, k_Al, k_ACERO, tol_iterativos
 ! T1 corresponde a la temperatura en el extremo izq de la barra
 ! T2 a la del extremo derecho de la barra
 integer             :: N, i, j
-logical             :: converge, converge2, pivotarsi
+logical             :: converge, converge2, pivotarsi, diagfilas, diagcol
 
 k_Al = 209.3d0   !W/mK
 k_ACERO = 16.3d0 !W/mK
@@ -62,6 +62,12 @@ CONTORNO2(1,:) = 0.d0
 CONTORNO2(1,1) = 1.d0
 CONTORNO2(n,:) = 0.d0
 CONTORNO2(n,n) = 1.d0
+
+!debug
+call convergencia_diag_col(CONTORNO2,diagcol,N)
+call convergencia_diag_filas(CONTORNO2,diagfilas,N)
+write(*,*) diagfilas
+write(*,*) diagcol
 
 ! Resulcion final
 write(*,*) "¿Que metodo desea para resolver el sistema?"

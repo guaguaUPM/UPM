@@ -344,7 +344,7 @@ contains
         sumafilas = sumafilas + abs(A(i,j))
       end do
       if (abs(A(i,i))<sumafilas) then
-        "Matriz no diagonalmente dominante por filas"
+        write(*,*) "Matriz no diagonalmente dominante por filas"
         return
       end if
     end do
@@ -365,13 +365,13 @@ contains
   
     do j=1, N
       do i=1, j-1
-        sumacol = sumafilas + abs(A(i,j))
+        sumacol = sumacol + abs(A(i,j))
       end do
       do i=j+1, N
-        sumacol = sumafilas + abs(A(i,j))
+        sumacol = sumacol + abs(A(i,j))
       end do
-      if (abs(A(i,i))<sumacol) then
-        "Matriz no diagonalmente dominante por columnas"
+      if (abs(A(j,j))<sumacol) then
+        write(*,*) "Matriz no diagonalmente dominante por columnas"
         return
       end if
     end do
