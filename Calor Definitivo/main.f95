@@ -82,7 +82,7 @@ select case(i)
 
   case(1)
     call matrizT_gauss_seidel(CONTORNO2, matriz_t, N)
-    call convergencia(matriz_t, converge, N)
+    call convergencia_pot(matriz_t, converge, N)
     if (converge) then
       call resolver_gauss_seidel_tol(CONTORNO2, TEMPERATURA, B, tol_iterativos, N)
     else
@@ -95,7 +95,7 @@ select case(i)
 
   case(3)
     call matrizT_jacobi(CONTORNO2, matriz_t, N)
-    call convergencia(matriz_t, converge, N)
+    call convergencia_pot(matriz_t, converge, N)
     if (converge) then
       call resolver_jacobi_tol(CONTORNO2, TEMPERATURA, B, tol_iterativos, N)
     else
@@ -112,8 +112,8 @@ select case(i)
   case default
     call matrizT_gauss_seidel(CONTORNO2, matriz_t, N)
     call matrizT_jacobi(CONTORNO2, matriz_t2, N)
-    call convergencia(matriz_t, converge, N)
-    call convergencia(matriz_t2, converge2, N)
+    call convergencia_pot(matriz_t, converge, N)
+    call convergencia_pot(matriz_t2, converge2, N)
     do j=1, N
       if (CONTORNO2(i,i)==0.d0) pivotarsi=.true.
     end do

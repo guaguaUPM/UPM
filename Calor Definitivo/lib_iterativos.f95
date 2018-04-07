@@ -121,7 +121,7 @@ contains
     end do
   end subroutine inversa
 
-  subroutine convergencia(T, converge, N)
+  subroutine convergencia_pot(T, converge, N)
     implicit none
     integer, intent(in) :: N
     real*8, intent(in)  :: T(N, N)
@@ -137,7 +137,7 @@ contains
       converge = .false.
     end if
 
-  end subroutine convergencia
+  end subroutine convergencia_pot
 
   subroutine auto_potencia_iter(A, AUTOVALOR, MAXITER, Q0, N)
     !CALCULA EL AUTOVALOR MAS GRANDE EN VALOR ABSOLUTO
@@ -324,5 +324,59 @@ contains
       end if
     enddo
   end subroutine resolver_jacobi_tol
+
+  subroutine convergencia_diag_filas(A,converge,N)
+    implicit none
+    integer, intent(in) :: N
+    real*8, intent(in)  :: A(N, N)
+    logical, intent(out):: converge
+
+    integer :: i, j
+    real*8 :: sumafilas
+
+    converge = .false.
+
+    do i=1, N
+      do j=1, i-1
+        sumafilas = sumafilas + abs(A(i,j))
+      end do
+      do j=i+1, N
+        sumafilas = sumafilas + abs(A(i,j))
+      end do
+      if (abs(A(i,i))<sumafilas) then
+        "Matriz no diagonalmente dominante por filas"
+        return
+      end if
+    end do
+    converge = .true.
+
+  end subroutine convergencia_diag_filas
+  
+  subroutine convergencia_diag_col(A,converge,N)
+    implicit none
+    integer, intent(in) :: N
+    real*8, intent(in)  :: A(N, N)
+    logical, intent(out):: converge
+  
+    integer :: i, j
+    real*8 :: sumacol
+  
+    converge = .false.
+  
+    do j=1, N
+      do i=1, j-1
+        sumacol = sumafilas + abs(A(i,j))
+      end do
+      do i=j+1, N
+        sumacol = sumafilas + abs(A(i,j))
+      end do
+      if (abs(A(i,i))<sumacol) then
+        "Matriz no diagonalmente dominante por columnas"
+        return
+      end if
+    end do
+    converge = .true.
+  
+  end subroutine convergencia_diag_col
 
 end module lib_iterativos
