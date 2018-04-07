@@ -34,7 +34,7 @@ rewind 10
 do i=1, TAMANO
     read(10,*) PUNTO(i,1), PUNTO(i,2)
 end do
-    
+
 close(10) ! Se cierra para evitar memory leaks
 
 
