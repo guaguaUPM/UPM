@@ -15,11 +15,14 @@ integer              :: TAMANO, orden_polinomio,      i,l,k
 real*8, allocatable  :: PUNTO(:,:), argumento(:), B(:), M(:,:), IPIV_lapack(:,:)
 real*8               :: error, buffer, incremento, x
 
-!MODIFICACION PARA PROBLEMA DE CALOR
-! Cambiar el nombre del archivo:
+! -------------
+! A CAMBIAR
+call SYSTEM('cp ./TERMO/puntos.mod.dat puntos.dat')
+!
+! -------------
 
 ! Se abre el archivo
-open(unit=10, file='./CALOR/puntos.100A.txt', status='old')
+open(unit=10, file='puntos.dat', status='old', action='read')
 
 ! Se comprueba el tamano del archivo
 TAMANO = 0
