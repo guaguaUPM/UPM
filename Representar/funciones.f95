@@ -34,6 +34,6 @@ contains
         real*8 :: X
         real*8 :: TERMO
 
-        TERMO = 116.8031022d0 * exp(66.72613746d0/(X*1.d0))
+        TERMO = 0.0044571857150 * exp(3722.5870242822825/(X*1.d0))
     end function TERMO
 end module funciones
