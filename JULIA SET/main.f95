@@ -45,6 +45,7 @@ do i=1, N
 end do
 
 call write_A_int(COLOR,N)
+call array_a_colores(COLOR,N)
 
 deallocate(CONDICION)
 end program main
