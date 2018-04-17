@@ -7,9 +7,9 @@ integer :: max_iter
 
 write(*,*) "FUNCION:  x^3 - e"
 ! -------------
-write(*,*) "Usando el modo bissecion, introduzca los dos puntos de contorno:"
-read(*,*) x(1)
-read(*,*) x(2)
+!write(*,*) "Usando el modo bissecion, introduzca los dos puntos de contorno:"
+!read(*,*) x(1)
+!read(*,*) x(2)
 write(*,*) "¿Que toleracia desea?"
 read(*,*) tol
 
