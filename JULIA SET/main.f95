@@ -1,4 +1,5 @@
 program main
+use funciones
 
 integer :: N, i
 real*8, allocatable  :: CONDICION(:,:,:)
