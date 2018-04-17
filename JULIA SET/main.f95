@@ -2,6 +2,7 @@ program main
 use funciones
 use representar
 use newton
+use lib_gauss
 
 implicit none
 integer :: N, i, j
@@ -32,7 +33,9 @@ end do
 
 do i=1, N
     do j=1, N
-        call corte_newton_raphson_sistemas(F, jacobiano, CONDICION(i,j,1), CONDICION(i,j,2), 2, 10.d-7, 500, corte)
+        write(*,*)"CONDICION", CONDICION(i,j,1), CONDICION(i,j,2)
+        call corte_newton_raphson_sistemas(FUNCION1, FUNCION2, jacobiano, CONDICION(i,j,1), CONDICION(i,j,2), 2, 10.d-7, 500, corte)
+        write(*,*) corte
         if (abs(corte(2)) < 10.d-5) then
             COLOR(i,j) = 1
         else if (corte(2) > 0.d0 ) then

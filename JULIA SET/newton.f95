@@ -1,25 +1,30 @@
 module newton
-implicit none
+use lib_gauss
+    implicit none
 
 contains
 
-subroutine corte_newton_raphson_sistemas(f, J, x, y, N, tol, max_iter, corte)
+subroutine corte_newton_raphson_sistemas(f1,f2, J, x, y, N, tol, max_iter, corte)
     real*8,intent(in)   :: x, y, tol 
     integer,intent(in)  :: max_iter, N
     real*8, intent(out) :: Corte(N)
 
     interface
-        function f(x, y)
-            real*8 :: x, y 
-            real*8 :: f(2)
+        function f1(x, y)
+            real*8, intent(in) :: x, y 
+            real*8 :: f1
+        end function
+        function f2(x, y)
+            real*8 :: f2
+            real*8, intent(in)  :: x, y 
         end function
         function J(x, y)
-            real*8 :: x, y 
+            real*8, intent(in) :: x, y 
             real*8 :: J(2,2)
         end function
     end interface
 
-    real*8 :: So(2), S1(2), normaS_So, normaS, Yn(N)
+    real*8 :: So(2), S1(2), normaS_So, normaS, Yn(N), BUFFER(2)
     integer :: i
     So(1) = x 
     S1(1) = x
@@ -29,7 +34,9 @@ subroutine corte_newton_raphson_sistemas(f, J, x, y, N, tol, max_iter, corte)
 
     do i = 1, max_iter
         
-        call resolver_LAPACK (J(So(1),So(2)), f(So(1), So(2)), Yn, N)
+        BUFFER(1) = f1(So(1), So(2))
+        BUFFER(2) = f2(So(1), So(2))  
+        call resolver_GAUSS ( J(So(1),So(2)), BUFFER, Yn, N)
         S1 = So-Yn
 
         call norma2(normaS_So, S1-So, N)
