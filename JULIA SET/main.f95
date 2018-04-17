@@ -1,6 +1,8 @@
 program main
 use funciones
+use representar
 
+implicit none
 integer :: N, i
 real*8, allocatable  :: CONDICION(:,:,:)
 real*8 :: incremento
@@ -25,6 +27,8 @@ call write_A(CONDICION(:,:,1),N)
 write(*,*) "Coordenadas Y:"
 call write_A(CONDICION(:,:,2),N)
 end if
+
+call array_a_colores(CONDICION(:,:,1), N)
 
 deallocate(CONDICION)
 end program main

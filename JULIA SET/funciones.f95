@@ -2,6 +2,7 @@ module funciones
 contains
 
 function jacobiano(X,Y)
+    implicit none
     real*8 :: jacobiano(2,2)
     real*8, intent(in) :: X, Y
 
@@ -13,6 +14,7 @@ function jacobiano(X,Y)
 end function jacobiano
 
 function F(X,Y)
+    implicit none
     real*8 :: F(2)
     real*8,intent(in) :: X, Y
 
