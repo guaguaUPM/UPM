@@ -4,8 +4,8 @@ implicit none
 contains
 
 subroutine corte_newton_raphson_sistemas(f, J, x, y, N, tol, max_iter, corte)
-    real*8,intent(in)   :: x, y, N, tol 
-    integer,intent(in)  :: max_iter
+    real*8,intent(in)   :: x, y, tol 
+    integer,intent(in)  :: max_iter, N
     real*8, intent(out) :: Corte(N)
 
     interface
@@ -19,21 +19,22 @@ subroutine corte_newton_raphson_sistemas(f, J, x, y, N, tol, max_iter, corte)
         end function
     end interface
 
-    real*8 :: So(2), S1(2), normaS-So, normaS, Y(N)
+    real*8 :: So(2), S1(2), normaS_So, normaS, Yn(N)
+    integer :: i
     So(1) = x 
     S1(1) = x
     So(2) = y
     S1(2) = y
 
 
-    do iter = 1, max_iter
+    do i = 1, max_iter
         
-        call resolver_LAPACK (J(So(1),So(2)), f(So(1), So(2)), Y, N)
-        S1 = So-Y
+        call resolver_LAPACK (J(So(1),So(2)), f(So(1), So(2)), Yn, N)
+        S1 = So-Yn
 
-        call norma2(normaS-So, S1-So, N)
-        call norma2(normaS, S, N)
-        if (normaS-So/normaS <= tol) then
+        call norma2(normaS_So, S1-So, N)
+        call norma2(normaS, S1, N)
+        if (normaS_So/normaS <= tol) then
             Corte = S1
             return
           else
