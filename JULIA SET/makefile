@@ -1,5 +1,5 @@
 # Programa por defecto. Añadir modulos a la izquierda
-SRC  = representar.f95 funciones.f95 main.f95
+SRC  = representar.f95 funciones.f95 newton.f95 main.f95
 
 # Compilador fortran
 FC = gfortran
