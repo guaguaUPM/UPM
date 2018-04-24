@@ -50,7 +50,7 @@ DO i = 1, N
    
       sol(1) = x(i)
       sol(2) = y(j)
-      CALL Newton_Jac_ana(FUNCION,JF,sol,2,1000,1.d-2)
+      CALL corte_newton_raphson_sistemas(FUNCION1,FUNCION2, Jacobiano, x, y, 2, 1.d-2, 1000, sol)
       
       WRITE(10,*) x(i), y(j), sol(1)+sol(2)
          ! Las soluciones del problema son: 
