@@ -9,8 +9,9 @@
 !
 PROGRAM fractales
 
-USE funciones 
-USE nolineal 
+use funciones
+use newton
+use lib_gauss
 IMPLICIT NONE 
 
 !///////////////////////////
