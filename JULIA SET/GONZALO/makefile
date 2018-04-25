@@ -1,5 +1,5 @@
 # Programa por defecto. Añadir modulos a la izquierda
-SRC  = funciones.f95 lib_gauss.f95 newton.f95 Fractales.f90
+SRC  = funciones.f95 newton.f95 Fractales.f90
 
 # Compilador fortran
 FC = gfortran

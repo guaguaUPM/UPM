@@ -4,7 +4,7 @@ import scipy.interpolate
 
 N = 100 #number of points for plotting/interpolation
 
-x, y, z = np.genfromtxt(r'file.dat', unpack=True)
+x, y, z = np.genfromtxt(r'valores.dat', unpack=True)
 
 
 xi = np.linspace(x.min(), x.max(), N)
