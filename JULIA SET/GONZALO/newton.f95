@@ -10,7 +10,7 @@ subroutine corte_newton_raphson_sistemas(f1,f2, J, x0, y0, tol, max_iter, corte)
     real*8, intent(out) :: corte(2)
     real*8              :: x, y, corte_anterior(2)
     integer             :: IPIV(2,2), info
-    real*8 :: normaA, normaB, BUFFER(2)
+    real*8              :: normaA, normaB, BUFFER(2)
     integer :: i
 
     interface
@@ -33,6 +33,7 @@ subroutine corte_newton_raphson_sistemas(f1,f2, J, x0, y0, tol, max_iter, corte)
 
     do i = 1, max_iter
         
+        !write(*,*) i
         ! Se resuelve J(Xi) * M = F(Xi)
         BUFFER(1) = f1(corte(1),corte(2))
         BUFFER(2) = f2(corte(1),corte(2))
@@ -44,6 +45,7 @@ subroutine corte_newton_raphson_sistemas(f1,f2, J, x0, y0, tol, max_iter, corte)
 
         call norma2(normaA, corte-corte_anterior, 2)
         call norma2(normaB, corte, 2)
+        ! write(*,*) normaA/normaB
         if (normaA/normaB <= tol) then
             exit
         end if
