@@ -9,7 +9,7 @@ function jacobiano(X,Y)
     jacobiano(1,1) = 3*(X**2) - 3*(Y**2)
     jacobiano(2,1) = 6*X*Y
 
-    jacobiano(1,2) = jacobiano(2,1)
+    jacobiano(1,2) = 6*X*Y
     jacobiano(2,2) = 3*(X**2) - 3*(Y**2)
 end function jacobiano
 
@@ -26,7 +26,7 @@ function FUNCION2(X,Y)
     real*8 :: FUNCION2
     real*8,intent(in) :: X, Y
    
-    FUNCION2 = 3*(X**2)*Y - Y**3
+    FUNCION2 = 3*(X**2)*Y - Y**3 
 end function FUNCION2
 
 end module funciones
