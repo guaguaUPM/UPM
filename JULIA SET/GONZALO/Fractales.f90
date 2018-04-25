@@ -29,16 +29,17 @@ REAL(8)               :: sol(2)
 ! Inicializacion de variables
 write(*,*) "¿Que tamano desea?" 
 read(*,*) N
-
-incremento = 2/(1.d0*(N-1))
 allocate(x(N))
 allocate(y(N))
 
-! Inicializacion de variables a cero
+
+! Malla de puntos de puntos iniciales
+incremento = 2/(1.d0*(N-1))
 DO i = 0, N-1 
     x(i+1) =  -1d0 + (i)*incremento
     y(i+1) = 1d0 - (i)*incremento
 ENDDO 
+
 
 OPEN(unit=10,file='valores.dat',status='unknown',action='write')
 
@@ -63,5 +64,7 @@ DO i = 1, N
 ENDDO 
 
 CLOSE(10)
+
+call SYSTEM("python plotARRAY.py")
 
 END PROGRAM fractales   
