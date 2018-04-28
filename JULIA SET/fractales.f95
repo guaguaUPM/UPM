@@ -41,7 +41,7 @@ OPEN(unit=10,file='valores.dat',status='unknown',action='write')
 
 DO i = 1, N 
    DO j = 1, N 
-      CALL newton_raphson_2D(x(i), y(j), 1.d-4, 100, sol)
+      CALL newton_raphson_2D(x(i), y(j), 1.d-6, 1000, sol)
       WRITE(10,*) x(i), y(j), sol(1) + sol(2)
          ! Las soluciones del problema son: 
          ! 1: c^(1/3)
