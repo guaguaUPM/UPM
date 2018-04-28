@@ -19,7 +19,6 @@ INTEGER :: N                                    ! Dimension de la discretizacion
 REAL(8), ALLOCATABLE  :: x(:), y(:)             ! Vectores con los valores de la malla 
 REAL(8)               :: incremento             ! Distancia espacial entre nodos
 INTEGER               :: i,j                    ! Variable auxiliar
-
 REAL(8)               :: sol(2)
 
 
@@ -32,11 +31,9 @@ allocate(y(N))
 ! Malla de puntos de puntos iniciales
 incremento = 2/(1.d0*(N-1))
 DO i = 0, N-1 
-    x(i+1) =  -1d0 + (i)*incremento
+    x(i+1) = -1d0 + (i)*incremento
     y(i+1) = 1d0 - (i)*incremento
 ENDDO 
-
-
 
 OPEN(unit=10,file='valores.dat',status='unknown',action='write')
 
