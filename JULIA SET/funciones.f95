@@ -1,32 +1,25 @@
 module funciones
 contains
 
-function jacobiano(X,Y)
+subroutine funcion(X,F)
     implicit none
-    real*8 :: jacobiano(2,2)
-    real*8, intent(in) :: X, Y
+    real*8, intent(in)  :: X(2)
+    real*8, intent(out) :: F(2)
 
-    jacobiano(1,1) = 3*(X**2) - 3*(Y**2)
-    jacobiano(2,1) = 6*X*Y
+    F(1) = X(1)**3 - 3.d0*X(1)*(X(2)**2) - 1.d0/3.d0
+    F(2) = 3.d0*(X(1)**2)*X(2) - X(2)**3 - 1.d0/3.d0
+end subroutine funcion
 
-    jacobiano(1,2) = jacobiano(2,1)
-    jacobiano(2,2) = 3*(X**2) - 3*(Y**2)
-end function jacobiano
-
-function FUNCION1(X,Y)
+subroutine jacobiano(X,J)
     implicit none
-    real*8 :: FUNCION1
-    real*8,intent(in) :: X, Y
+    real*8, intent(out) :: J(2,2)
+    real*8, intent(in)  :: X(2)
 
-    FUNCION1 = X**3 - 3*X*(Y**2) - 1.d0/3.d0
-end function FUNCION1
+    J(1,1) = 3.d0*(X(1)**2) - 3.d0*(X(2)**2)
+    J(2,1) = 6.d0*X(1)*X(2)
 
-function FUNCION2(X,Y)
-    implicit none
-    real*8 :: FUNCION2
-    real*8,intent(in) :: X, Y
-   
-    FUNCION2 = 3*(X**2)*Y - Y**3
-end function FUNCION2
+    J(1,2) = -6.d0*X(1)*X(2)
+    J(2,2) = 3d0*(X(1)**2) - 3.d0*(X(2)**2)
+end subroutine jacobiano
 
 end module funciones

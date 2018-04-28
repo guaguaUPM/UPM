@@ -1,69 +1,47 @@
 module newton
-use lib_gauss
-    implicit none
+use funciones
+implicit none
 
 contains
 
-subroutine corte_newton_raphson_sistemas(f1,f2, J, x, y, N, tol, max_iter, corte)
-    real*8,intent(in)   :: x, y, tol 
-    integer,intent(in)  :: max_iter, N
-    real*8, intent(out) :: Corte(N)
-
-    interface
-        function f1(x, y)
-            real*8, intent(in) :: x, y 
-            real*8 :: f1
-        end function
-        function f2(x, y)
-            real*8 :: f2
-            real*8, intent(in)  :: x, y 
-        end function
-        function J(x, y)
-            real*8, intent(in) :: x, y 
-            real*8 :: J(2,2)
-        end function
-    end interface
-
-    real*8 :: So(2), S1(2), normaS_So, normaS, Yn(N), BUFFER(2)
-    integer :: i
-    So(1) = x 
-    S1(1) = x
-    So(2) = y
-    S1(2) = y
-
-
-    do i = 1, max_iter
-        
-        BUFFER(1) = f1(So(1), So(2))
-        BUFFER(2) = f2(So(1), So(2))  
-        call resolver_GAUSS ( J(So(1),So(2)), BUFFER, Yn, N)
-        S1 = So-Yn
-
-        call norma2(normaS_So, S1-So, N)
-        call norma2(normaS, S1, N)
-        if (normaS_So/normaS <= tol) then
-            Corte = S1
-            return
-          else
-            So = S1
-        end if
-    enddo
-
-end subroutine corte_newton_raphson_sistemas
-
-subroutine norma2 (norma, vector, n)
+subroutine newton_raphson_2D(X0, Y0, TOL, MAX_ITER, SOLUCION)
     implicit none
-    integer, intent(in)  :: n
-    real(8), intent(in)  :: vector(n)
-    real(8), intent(out) :: norma
-    integer :: i
-        
-    norma = 0.d0
-    do i = 1, n
-        norma = norma+vector(i)**2
-    end do
-    norma = sqrt(norma) 
-            
-end subroutine norma2
+    real*8,intent(in)   :: X0, Y0, TOL
+    integer,intent(in)  :: MAX_ITER
+    real*8, intent(out) :: SOLUCION(2)
 
+    real*8              :: solucion_anterior(2), f(2), j(2,2)
+    integer             :: IPIV(2,2), info
+    integer :: i
+
+    SOLUCION(1) = X0
+    SOLUCION(2) = Y0
+
+    do i = 1, MAX_ITER
+        
+        ! 1 --------------------
+        ! Se resuelve J(Xi) * M = F(Xi)
+
+        ! f(SOLUCION)
+        call funcion(SOLUCION, f)
+        ! j(SOLUCION)
+        call jacobiano(SOLUCION, j)
+
+        ! j(solucion) * Y = f(SOLUCION)
+        ! f pasa a ser el valor de Y por el funcionamiento de dgesv
+        call DGESV(2,1,j,2,IPIV,f,2,info)
+
+        ! Se guarda el valor de Xn antes de conseguir el valor de Xn+1
+        solucion_anterior = SOLUCION
+
+        ! 2 --------------------
+        ! Se evalua Xn+1 = = Xn - Yn. Recordar que f no es el valor de la funcion, sino la solucion de la ecuacion anterior
+        SOLUCION = SOLUCION - f
+
+        ! Calculo del error relativo ||Xn+1 - Xn||, que despejando es ||-Yn||, sin importar el signo
+        if (sqrt(f(1)**2 + f(2)**2) <= TOL) then
+            exit
+        end if
+    end do
+end subroutine newton_raphson_2D
 end module newton

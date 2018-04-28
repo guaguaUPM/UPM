@@ -1,20 +1,19 @@
-from matplotlib import mpl,pyplot
 import numpy as np
+import matplotlib.pyplot as plt
+import scipy.interpolate
 
-# make values from -5 to 5, for this example
-zvals = np.random.rand(100,100)*10-5
+N = 100 #number of points for plotting/interpolation
 
-# make a color map of fixed colors
-cmap = mpl.colors.ListedColormap(['blue','black','red'])
-bounds=[-6,-2,2,6]
-norm = mpl.colors.BoundaryNorm(bounds, cmap.N)
+x, y, z = np.genfromtxt(r'valores.dat', unpack=True)
 
-# tell imshow about color map so that only set colors are used
-img = pyplot.imshow(zvals,interpolation='nearest',
-                    cmap = cmap,norm=norm)
 
-# make a color bar
-pyplot.colorbar(img,cmap=cmap,
-                norm=norm,boundaries=bounds,ticks=[-5,0,5])
+xi = np.linspace(x.min(), x.max(), N)
+yi = np.linspace(y.min(), y.max(), N)
+zi = scipy.interpolate.griddata((x, y), z, (xi[None,:], yi[:,None]), method='nearest')
 
-pyplot.show()
+fig = plt.figure()
+plt.contourf(xi,yi,zi)
+plt.xlabel("X")
+plt.ylabel("Y")
+plt.show()
+
