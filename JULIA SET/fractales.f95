@@ -1,6 +1,10 @@
 ! Trabajo relizado por el Grupo 3, M6. 2018
 ! Participantes del grupo:
-! · Fernando Ayats Llamas
+! · Fernando Ayats
+! · Alejandro Cervigini
+! · Alvaro Gonzalez
+! · Francisco Javier Lorenzo
+! · Jae-Wook Jeong
 
 program fractales
 use newton
