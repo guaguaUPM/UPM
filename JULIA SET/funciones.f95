@@ -1,6 +1,9 @@
 module funciones
 contains
 
+! Funciones problema. Modificar la definicion matematica, dejando los nombres 'funcion' y 'jacobiano'
+! Al ser el Grupo 3, C = 1/3
+
 subroutine funcion(X,F)
     implicit none
     real*8, intent(in)  :: X(2)

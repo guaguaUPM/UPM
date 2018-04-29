@@ -5,7 +5,7 @@ SRC  = funciones.f95 newton.f95 fractales.f95
 FC = gfortran
 # Argumentos de compilacion (Bounds para matrices y O3 para velocidad) 
 #                                                    Descomentar para usar LAPACK/BLAS
-FFLAGS = -fbounds-check  -L$$HOME/libDIOS -lDIOS  -L/usr/lib -llapack -L/usr/lib -lblas
+FFLAGS = -O3 -L/usr/lib -llapack -L/usr/lib -lblas # -L$$HOME/libDIOS -lDIOS  
 
 OBJ  = $(SRC:.f95=.o)
 EXE  = run.out
@@ -17,9 +17,10 @@ nolib: $(OBJ) default
 %.o : %.f95
 	$(FC) $(FFLAGS) -c $<
 
-main : $(OBJ)
-	while [[ $$PWD != '/' && $${PWD##*/} != 'guaguaUPM' ]]; do cd ..; done; cd lib; make; cd ~-
-	$(FC) $(OBJ) $(FFLAGS) -o $(EXE)
+# Desactivado para la entrga. Compila la liberia que usamos en los trabajos pero que aqui no hace falta
+# main : $(OBJ)
+# 	while [[ $$PWD != '/' && $${PWD##*/} != 'guaguaUPM' ]]; do cd ..; done; cd lib; make; cd ~-
+# 	$(FC) $(OBJ) $(FFLAGS) -o $(EXE)
 
 default : $(OBJ)
 	$(FC) $(OBJ) $(FFLAGS) -o $(EXE)

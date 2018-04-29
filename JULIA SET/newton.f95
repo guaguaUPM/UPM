@@ -11,8 +11,7 @@ subroutine newton_raphson_2D(X0, Y0, TOL, MAX_ITER, SOLUCION)
     real*8, intent(out) :: SOLUCION(2)
 
     real*8              :: solucion_anterior(2), f(2), j(2,2)
-    integer             :: IPIV(2,2), info
-    integer :: i
+    integer             :: IPIV(2,2), info, i                 ! Variables dummy para la resulocion por LAPACK; auxiliar
 
     SOLUCION(1) = X0
     SOLUCION(2) = Y0
@@ -44,4 +43,5 @@ subroutine newton_raphson_2D(X0, Y0, TOL, MAX_ITER, SOLUCION)
         end if
     end do
 end subroutine newton_raphson_2D
+
 end module newton
