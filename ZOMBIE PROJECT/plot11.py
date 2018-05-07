@@ -1,11 +1,17 @@
 import matplotlib.pyplot as plt
 
-T, S, Z = [], []
-for line in open('T_S_Z_R.dat', 'r'):
+X, Y = [], []
+for line in open('T_S.dat', 'r'):
   values = [float(s) for s in line.split()]
-  T.append(values[0])
-  S.append(values[1])
-  R.append(values[1])
+  X.append(values[0])
+  Y.append(values[1])
 
-plt.plot(T,S,'r-',T,Z,'b-')
+U, V = [], []
+for line in open('T_Z.dat', 'r'):
+  values = [float(s) for s in line.split()]
+  U.append(values[0])
+  V.append(values[1])
+
+
+plt.plot(X,Y,'r-',U,V,'b-')
 plt.show()

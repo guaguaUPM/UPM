@@ -31,7 +31,9 @@ subroutine resolver_EDO(DS,DZ,DR,N,S0,Z0,R0,TInicial,TFinal)
 
     incremento = (TFinal-TInicial)/(N*1.d0)
 
-    open(unit=10,file='T_S_Z_R.dat',status='old',action='write',Access='append')
+    open(unit=11,file='T_S.dat',status='old',action='write',Access='append')
+    open(unit=12,file='T_Z.dat',status='old',action='write',Access='append')
+    open(unit=13,file='T_R.dat',status='old',action='write',Access='append')
 
     S = S0
     Z = Z0
@@ -58,14 +60,18 @@ subroutine resolver_EDO(DS,DZ,DR,N,S0,Z0,R0,TInicial,TFinal)
         
         t = t + incremento
 
-        write(10,*) t,S,Z,R
+        write(11,*) t,S
+        write(12,*) t,Z
+        write(13,*) t,R
         !write(*,*) X
 
         S_anterior = S
         Z_anterior = Z
         R_anterior = R
     end do
-    close(10)
+    close(11)
+    close(12)
+    close(13)
 
     S0 = S
     Z0 = Z

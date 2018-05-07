@@ -23,6 +23,11 @@ do i=1, ataques
     read(*,*) TIEMPOS(i)
 end do
 
+call SYSTEM("rm *.dat")
+call SYSTEM("touch T_S.dat")
+call SYSTEM("touch T_Z.dat")
+call SYSTEM("touch T_R.dat")
+
 do i=1, ataques
     call resolver_EDO(s_prima, z_prima, r_prima,200, S,Z,R,TIEMPOS(i-1),TiEMPOS(i))
     Z = Z - k*i*Z
