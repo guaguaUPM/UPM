@@ -20,12 +20,10 @@ subroutine resolver_EDO(DERIVADA,N,X0)
     X = X0
     do i = 1, N
         m = DERIVADA(X(1))
-
         X(2) = m * X(1) + X(2)
-        X(1) = X(1) + incremento
-
         write(*,*) X
         write(10,*) X
+        X(1) = X(1) + incremento
     end do
     close(10)
 end subroutine
