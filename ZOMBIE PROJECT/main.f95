@@ -29,7 +29,7 @@ call SYSTEM("touch T_Z.dat")
 call SYSTEM("touch T_R.dat")
 
 do i=1, ataques
-    call resolver_EDO(s_prima, z_prima, r_prima,200, S,Z,R,TIEMPOS(i-1),TiEMPOS(i))
+    call resolver_EDO(s_prima, z_prima, r_prima,20000, S,Z,R,TIEMPOS(i-1),TiEMPOS(i))
     Z = Z - k*i*Z
 end do
 
