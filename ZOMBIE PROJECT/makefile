@@ -1,5 +1,5 @@
 # Programa por defecto. Añadir modulos a la izquierda
-SRC  = euler.f95 main.f95
+SRC  = funciones.f95 euler.f95 main.f95
 
 # Compilador fortran
 FC = gfortran
