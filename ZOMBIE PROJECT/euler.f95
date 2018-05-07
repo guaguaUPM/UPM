@@ -57,7 +57,7 @@ subroutine resolver_EDO(DS,DZ,DR,N,S0,Z0,R0,TInicial,TFinal)
         
         t = t + incremento
 
-        write(10,*) t,S,Z,R
+        write(10,*) t,Z,S,R
         !write(*,*) X
 
         S_anterior = S
