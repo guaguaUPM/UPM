@@ -5,9 +5,9 @@ implicit none
 
 real*8 :: X0(2)
 
-X0(1) = 1
-X0(2) = 2
+X0(1) = 0
+X0(2) = 1
 
-call resolver_EDO(exponencial,500,X0)
+call resolver_EDO(exponencial,50,X0, 5.d0)
 
 end program main

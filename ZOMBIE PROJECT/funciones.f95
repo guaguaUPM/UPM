@@ -6,4 +6,9 @@ contains
 
         exponencial = exp(X)
     end function exponencial
+    function coseno(X)
+        real*8 :: X
+        real*8 :: coseno
+        conseno = cos(X)
+    end function coseno
 end module funciones

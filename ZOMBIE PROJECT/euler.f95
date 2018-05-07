@@ -1,9 +1,9 @@
 module euler
 contains
-subroutine resolver_EDO(DERIVADA,N,X0)
+subroutine resolver_EDO(DERIVADA,N,X0,Yfinal)
     implicit none
     integer, intent(in) :: N
-    real*8, intent(in)  :: X0(2)
+    real*8, intent(in)  :: X0(2), Yfinal
     interface
         function DERIVADA(X)
         real*8 :: X
@@ -14,7 +14,7 @@ subroutine resolver_EDO(DERIVADA,N,X0)
     integer :: i
     real*8  :: X(2), incremento
 
-    incremento = (X0(2) - X0(1)) / (N*1.d0)
+    incremento = (Yfinal - X0(1)) / (N*1.d0)
 
     open(unit=10,file='valores.dat',status='unknown',action='write')
     X = X0
@@ -23,6 +23,7 @@ subroutine resolver_EDO(DERIVADA,N,X0)
         X(2) = DERIVADA(X(1)) * X(1) + X(2)
         
         write(10,*) X
+        write(*,*) X
         X(1) = X(1) + incremento
     end do
     close(10)
