@@ -18,6 +18,7 @@ subroutine resolver_EDO(DERIVADA,N,X0,Yfinal)
 
     open(unit=10,file='valores.dat',status='unknown',action='write')
     X = X0
+    write(10,*) X
     do i = 1, N+1
          
         X(2) = DERIVADA(X(1)) * incremento + X(2)
