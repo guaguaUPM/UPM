@@ -12,16 +12,16 @@ subroutine resolver_EDO(DERIVADA,N,X0)
     end interface
 
     integer :: i
-    real*8  :: X(2), m, incremento
+    real*8  :: X(2), incremento
 
     incremento = (X0(2) - X0(1)) / (N*1.d0)
 
     open(unit=10,file='valores.dat',status='unknown',action='write')
     X = X0
-    do i = 1, N
-        m = DERIVADA(X(1))
-        X(2) = m * X(1) + X(2)
-        write(*,*) X
+    do i = 1, N+1
+         
+        X(2) = DERIVADA(X(1)) * X(1) + X(2)
+        
         write(10,*) X
         X(1) = X(1) + incremento
     end do
