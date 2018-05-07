@@ -9,6 +9,6 @@ contains
     function coseno(X)
         real*8 :: X
         real*8 :: coseno
-        conseno = cos(X)
+        coseno = cos(X)
     end function coseno
 end module funciones
