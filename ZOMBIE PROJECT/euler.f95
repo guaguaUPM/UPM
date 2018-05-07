@@ -19,14 +19,14 @@ subroutine resolver_EDO(DERIVADA,N,X0,Yfinal)
     open(unit=10,file='valores.dat',status='unknown',action='write')
     X = X0
     write(10,*) X
-    write(*,*) X, incremento, "H"
+    !write(*,*) X, incremento, "H"
     do i = 1, N+1
          
         !write(*,*) DERIVADA(X(1)), DERIVADA(X(1))*incremento, X(2), "COS", cos(x(1))
         X(2) = DERIVADA(X(1)) * incremento + X(2)
         X(1) = X(1) + incremento
         write(10,*) X
-        write(*,*) X
+        !write(*,*) X
 
     end do
     close(10)
