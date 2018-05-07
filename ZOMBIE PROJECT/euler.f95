@@ -5,7 +5,7 @@ subroutine resolver_EDO(DERIVADA,N,X0)
     integer, intent(in) :: N
     real*8, intent(in)  :: X0(2)
     interface
-        function DERIVDA(X)
+        function DERIVADA(X)
         real*8 :: X
         real*8 :: DERIVADA
         end function
