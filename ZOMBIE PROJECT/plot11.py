@@ -13,5 +13,5 @@ for line in open('T_Z.dat', 'r'):
   V.append(values[1])
 
 
-plt.plot(X,Y,'r-',U,V,'b-')
+plt.plot(U,V,'b-')
 plt.show()
