@@ -46,7 +46,9 @@ subroutine resolver_EDO(DS,DZ,DR,N,S0,Z0,R0,TInicial,TFinal)
     t = TInicial
 
 
-    write(10,*) t, S, Z, R
+    write(11,*) t,S
+    write(12,*) t,Z
+    write(13,*) t,R
     !write(*,*) X, incremento, "H"
     do i = 1, N+1
          
