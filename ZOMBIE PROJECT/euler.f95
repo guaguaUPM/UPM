@@ -3,7 +3,8 @@ contains
 subroutine resolver_EDO(DS,DZ,DR,N,S0,Z0,R0,TInicial,TFinal)
     implicit none
     integer, intent(in) :: N
-    real*8, intent(in)  :: S0, R0, Z0, TInicial, TFinal
+    real*8, intent(inout) :: S0, R0, Z0 
+    real*8, intent(in)  :: TInicial, TFinal
     interface
         function DS(S,Z)
             real*8 :: S,Z
@@ -30,7 +31,7 @@ subroutine resolver_EDO(DS,DZ,DR,N,S0,Z0,R0,TInicial,TFinal)
 
     incremento = (TFinal-TInicial)/(N*1.d0)
 
-    open(unit=10,file='T_S_Z_R.dat',status='unknown',action='write')
+    open(unit=10,file='T_S_Z_R.dat',status='old',action='write',Access='append')
 
     S = S0
     Z = Z0
@@ -65,5 +66,10 @@ subroutine resolver_EDO(DS,DZ,DR,N,S0,Z0,R0,TInicial,TFinal)
         R_anterior = R
     end do
     close(10)
+
+    S0 = S
+    Z0 = Z
+    R0 = R
+
 end subroutine
 end module

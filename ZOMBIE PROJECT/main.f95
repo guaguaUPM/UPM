@@ -3,7 +3,26 @@ use zombies
 use euler
 implicit none
 
+integer :: ataques, i
+real*8 :: S,Z,R
+real*8, allocatable  :: TIEMPOS(:)
 
-call resolver_EDO(s_prima, z_prima, r_prima,200, 500.d0, 0.d0, 0.d0, 0.d0, 2.5d0)
+S = 500.d0
+Z = 0.d0
+R = 0.d0
+
+write(*,*) "¿Cuantos ataques a los zombies quieres?"
+read(*,*) ataques
+allocate(TIEMPOS(0:ataques))
+
+TIEMPOS(0) = 0.d0
+do i=1, ataques
+    write(*,*) "¿Que tiempo desea para el ataque numero", i
+    read(*,*) TIEMPOS(i)
+end do
+
+do i=1, ataques
+    call resolver_EDO(s_prima, z_prima, r_prima,200, S,Z,R,TIEMPOS(i-1),TiEMPOS(i))
+end do
 
 end program main
