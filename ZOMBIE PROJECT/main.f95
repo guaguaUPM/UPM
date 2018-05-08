@@ -1,3 +1,16 @@
+! Mayo 2018
+! Trabajo hecho por el Grupo 3 de Informática del M6.
+! Integrantes:
+!  Fernando Ayats Llamas
+!  Ale
+!  Fran
+!  Alv
+!  Lucs 
+
+! A partir de un modelo de ecuaciones diferenciales, se simula un apocalipsis zombie y el crecimiento y decrecimiento de la poblacion
+! de humanos, zombies, y muertos. Dependiendo de unos parametros, los resultados seran diferentes.
+
+
 program main
 use zombies
 use euler
