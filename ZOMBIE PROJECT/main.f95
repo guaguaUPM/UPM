@@ -1,6 +1,7 @@
 program main
 use zombies
 use euler
+use clean
 implicit none
 
 integer :: ataques, i
@@ -23,11 +24,7 @@ do i=1, ataques
     read(*,*) TIEMPOS(i)
 end do
 
-call SYSTEM("rm *.dat")
-call SYSTEM("touch T_S.dat")
-call SYSTEM("touch T_Z.dat")
-call SYSTEM("touch T_R.dat")
-
+call create_and_clean
 do i=1, ataques
     call resolver_EDO(s_prima, z_prima, r_prima,500, S,Z,R,TIEMPOS(i-1),TiEMPOS(i))
     Z = Z - k*i*Z

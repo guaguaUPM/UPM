@@ -1,11 +1,5 @@
 import matplotlib.pyplot as plt
 
-X, Y = [], []
-for line in open('T_S.dat', 'r'):
-  values = [float(s) for s in line.split()]
-  X.append(values[0])
-  Y.append(values[1])
-
 U, V = [], []
 for line in open('T_Z.dat', 'r'):
   values = [float(s) for s in line.split()]
