@@ -6,7 +6,7 @@ module zombies
 ! (Con prima se indica que es la derivada, el ratio de incremento de estas variables)
 ! 
 ! Tambien se usan cuatro variables que pueden cambiarse que definen el comportamiento durante el tiempo:
-! PI    = Ratio de naciiento (0 a corto plazo)
+! PI    = Ratio de nacimientos (0 a corto plazo)
 ! BETA  = Ratio de transmision
 ! DELTA = Ratio de muerte por muerte natural
 ! CHI   = Ratio de transformacion de humano a zombie
@@ -45,5 +45,5 @@ contains
 
         r_prima = DELTA*S + ALPHA*S*Z - CHI*R
     end function
-        
+
 end module
