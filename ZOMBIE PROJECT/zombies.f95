@@ -1,5 +1,18 @@
 module zombies
+! Este modulo contiene las funciones en forma analitica del modelo que estamos usando.
+! S = Numero de susceptibles a convertirse en zombies
+! Z = Numero de Zombies
+! R = Numero de muertos
+! (Con prima se indica que es la derivada, el ratio de incremento de estas variables)
+! 
+! Tambien se usan cuatro variables que pueden cambiarse que definen el comportamiento durante el tiempo:
+! PI    = Ratio de naciiento (0 a corto plazo)
+! BETA  = Ratio de transmision
+! DELTA = Ratio de muerte por muerte natural
+! CHI   = Ratio de transformacion de humano a zombie
+
 contains
+
     function s_prima(S,Z)
         implicit none
         real*8 :: S, Z, s_prima, PI, BETA, DELTA
@@ -32,4 +45,5 @@ contains
 
         r_prima = DELTA*S + ALPHA*S*Z - CHI*R
     end function
+        
 end module
