@@ -10,38 +10,34 @@ module zombies
 ! BETA  = Ratio de transmision
 ! DELTA = Ratio de muerte por muerte natural
 ! CHI   = Ratio de transformacion de humano a zombie
+! ALPHA = Ratio de muerte de zombies eliminados por los humanos
+
+implicit none
+real*8,parameter :: PI    = 0.0d0  ,&
+                    BETA  = 5.5d-3 ,&
+                    DELTA = 1.0d-4 ,&
+                    CHI   = 9.0d2  ,&
+                    ALPHA = 7.5d-3
 
 contains
 
     function s_prima(S,Z)
         implicit none
-        real*8 :: S, Z, s_prima, PI, BETA, DELTA
-
-        PI = 0.0d0
-        BETA = 0.0055d0
-        DELTA = 0.0001d0
+        real*8 :: S, Z, s_prima
 
         s_prima = PI - BETA*S*Z - DELTA*S
     end function s_prima
 
     function z_prima(S,Z,R)
         implicit none
-        real*8 :: z_prima, S,Z,R,BETA,CHI,ALPHA
-
-        BETA = 0.0055d0
-        CHI = 0.09d3
-        ALPHA = 0.0075d0
+        real*8 :: z_prima, S,Z,R
 
         z_prima = BETA*S*Z + CHI*R - ALPHA*S*Z
     end function
 
     function r_prima(S,Z,R)
         implicit none
-        real*8 :: r_prima, S,Z,R, ALPHA, CHI, DELTA
-
-        ALPHA = 0.0075d0
-        CHI = 0.09d3
-        DELTA = 0.0001d0
+        real*8 :: r_prima, S,Z,R
 
         r_prima = DELTA*S + ALPHA*S*Z - CHI*R
     end function
