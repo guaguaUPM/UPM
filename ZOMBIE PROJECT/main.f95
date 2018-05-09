@@ -8,7 +8,7 @@
 !  Lucs 
 
 ! A partir de un modelo de ecuaciones diferenciales, se simula un apocalipsis zombie y el crecimiento y decrecimiento de la poblacion
-! de humanos, zombies, y muertos. Dependiendo de unos parametros, los resultados seran diferentes.
+! de humanos, zombies, y muertos. Dependiendo de unos parametros, los resultados seran diferentes. CAMBIAR EN zombies.f95
 
 
 program main
