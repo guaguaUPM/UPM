@@ -11,7 +11,7 @@ module zombies
 ! DELTA = Ratio de muerte por muerte natural
 ! CHI   = Ratio de transformacion de humano a zombie
 
-contains
+contains 
 
     function s_prima(S,Z)
         implicit none
@@ -29,7 +29,7 @@ contains
         real*8 :: z_prima, S,Z,R,BETA,CHI,ALPHA
 
         BETA = 0.0055d0
-        CHI = 0.09d3
+        CHI = 0.09d0
         ALPHA = 0.0075d0
 
         z_prima = BETA*S*Z + CHI*R - ALPHA*S*Z
@@ -40,7 +40,7 @@ contains
         real*8 :: r_prima, S,Z,R, ALPHA, CHI, DELTA
 
         ALPHA = 0.0075d0
-        CHI = 0.09d3
+        CHI = 0.09d0
         DELTA = 0.0001d0
 
         r_prima = DELTA*S + ALPHA*S*Z - CHI*R
