@@ -7,18 +7,17 @@ module zombies
 ! 
 ! Tambien se usan cuatro variables que pueden cambiarse que definen el comportamiento durante el tiempo:
 ! PI    = Ratio de nacimientos (0 a corto plazo)
-! BETA  = Ratio de transmision de humano a zombie
-! DELTA = Ratio de muerte humana natural
-! CHI   = Ratio de transformacion de humano a zombie
 ! ALPHA = Ratio de muerte de zombies eliminados por los humanos
+! BETA  = Ratio de transmision de humano a zombie
+! CHI   = Ratio de transformacion de humano a zombie
+! DELTA = Ratio de muerte humana natural
 
 implicit none
-real*8,parameter :: PI    = 0.0d0  ,&
+real*8,parameter :: PI    = 0.0d0    ,&
+                    ALPHA = 0.0075d0 ,&
                     BETA  = 0.0055d0 ,&
-                    DELTA = 0.0001d0 ,&
-                    CHI   = 0.09d0 ,&
-                    ALPHA = 0.0075d0
-
+                    CHI   = 0.09d0   ,&
+                    DELTA = 0.0001d0
 contains 
 
     function s_prima(S,Z)

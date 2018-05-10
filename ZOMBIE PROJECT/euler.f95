@@ -39,9 +39,9 @@ subroutine resolver_EDO(DS,DZ,DR,N,S0,Z0,R0,TInicial,TFinal)
     Z = Z0
     R = R0
 
-    S_anterior = S
-    Z_anterior = Z
-    R_anterior = R
+    S_anterior = S0
+    Z_anterior = Z0
+    R_anterior = R0
 
     t = TInicial
 
