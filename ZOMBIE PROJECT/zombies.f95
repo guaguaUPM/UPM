@@ -16,7 +16,7 @@ implicit none
 real*8,parameter :: PI    = 0.0d0    ,&
                     ALPHA = 0.0075d0 ,&
                     BETA  = 0.0055d0 ,&
-                    CHI   = 0.09d3   ,&
+                    CHI   = 0.09d0    ,&
                     DELTA = 0.0001d0
 contains 
 

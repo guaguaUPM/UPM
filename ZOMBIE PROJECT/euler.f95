@@ -1,8 +1,7 @@
 module euler
 contains
-subroutine resolver_EDO(DS,DZ,DR,N,S0,Z0,R0,TInicial,TFinal)
+subroutine resolver_EDO(DS,DZ,DR,S0,Z0,R0,TInicial,TFinal)
     implicit none
-    integer, intent(in) :: N
     real*8, intent(inout) :: S0, R0, Z0 
     real*8, intent(in)  :: TInicial, TFinal
     interface
@@ -26,10 +25,10 @@ subroutine resolver_EDO(DS,DZ,DR,N,S0,Z0,R0,TInicial,TFinal)
         end function
     end interface
     
-    integer :: i
+    integer :: i, N
     real*8  :: S,Z,R, incremento, t, S_anterior, Z_anterior, R_anterior
 
-    incremento = (TFinal-TInicial)/(N*1.d0)
+    incremento = 0.01d0
 
     open(unit=11,file='T_S.dat',status='old',action='write',Access='append')
     open(unit=12,file='T_Z.dat',status='old',action='write',Access='append')
@@ -49,7 +48,7 @@ subroutine resolver_EDO(DS,DZ,DR,N,S0,Z0,R0,TInicial,TFinal)
     write(11,*) t,S
     write(12,*) t,Z
     write(13,*) t,R
-    do i = 1, N+1
+    do while (t<TFinal)
          
         S = DS(S_anterior,Z_anterior) * incremento + S_anterior
         Z = DZ(S_anterior,Z_anterior,R_anterior) * incremento + Z_anterior
@@ -64,6 +63,8 @@ subroutine resolver_EDO(DS,DZ,DR,N,S0,Z0,R0,TInicial,TFinal)
         S_anterior = S
         Z_anterior = Z
         R_anterior = R
+
+
     end do
     close(11)
     close(12)

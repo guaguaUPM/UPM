@@ -40,7 +40,7 @@ end do
 
 call create_and_clean
 do i=1, ataques
-    call resolver_EDO(s_prima, z_prima, r_prima,20000, S,Z,R,TIEMPOS(i-1),TiEMPOS(i))
+    call resolver_EDO(s_prima, z_prima, r_prima,S,Z,R,TIEMPOS(i-1),TiEMPOS(i))
     deltaZ = k*i*Z
     Z = Z - deltaZ
     R = R + deltaZ
