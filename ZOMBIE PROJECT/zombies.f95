@@ -12,6 +12,7 @@ module zombies
 ! CHI   = Ratio de transformacion de humano a zombie
 ! DELTA = Ratio de muerte humana natural
 
+
 implicit none
 real*8,parameter :: PI    = 0.0d0    ,&
                     ALPHA = 0.0075d0 ,&
