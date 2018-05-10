@@ -8,7 +8,7 @@
 !  Lucs 
 
 ! A partir de un modelo de ecuaciones diferenciales, se simula un apocalipsis zombie y el crecimiento y decrecimiento de la poblacion
-! de humanos, zombies, y muertos. Dependiendo de unos parametros, los resultados seran diferentes.
+! de humanos, zombies, y muertos. Dependiendo de unos parametros, los resultados seran diferentes. CAMBIAR EN zombies.f95
 
 
 program main
@@ -18,7 +18,7 @@ use clean
 implicit none
 
 integer :: ataques, i
-real*8 :: S,Z,R, k, delta
+real*8 :: S,Z,R, k, deltaZ
 real*8, allocatable  :: TIEMPOS(:)
 
 S = 500.d0
@@ -37,12 +37,13 @@ do i=1, ataques
     read(*,*) TIEMPOS(i)
 end do
 
+    
 call create_and_clean
 do i=1, ataques
     call resolver_EDO(s_prima, z_prima, r_prima,20000, S,Z,R,TIEMPOS(i-1),TiEMPOS(i))
-    delta = k*i*Z
-    Z = Z - delta
-    R = R + delta
+    deltaZ = k*i*Z
+    Z = Z - deltaZ
+    R = R + deltaZ
 end do
 
 end program main
