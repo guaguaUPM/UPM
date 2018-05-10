@@ -16,7 +16,7 @@ implicit none
 real*8,parameter :: PI    = 0.0d0    ,&
                     ALPHA = 0.0075d0 ,&
                     BETA  = 0.0055d0 ,&
-                    CHI   = 0.09d0   ,&
+                    CHI   = 0.09d3   ,&
                     DELTA = 0.0001d0
 contains 
 
@@ -36,7 +36,7 @@ contains
 
     function r_prima(S,Z,R)
         implicit none
-        real*8 :: r_prima, S,Z,R, ALPHA, CHI, DELTA
+        real*8 :: r_prima, S,Z,R
 
         r_prima = DELTA*S + ALPHA*S*Z - CHI*R
     end function

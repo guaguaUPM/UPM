@@ -49,13 +49,8 @@ subroutine resolver_EDO(DS,DZ,DR,N,S0,Z0,R0,TInicial,TFinal)
     write(11,*) t,S
     write(12,*) t,Z
     write(13,*) t,R
-    !write(*,*) X, incremento, "H"
     do i = 1, N+1
          
-        !write(*,*) DERIVADA(X(1)), DERIVADA(X(1))*incremento, X(2), "COS", cos(x(1))
-        !X(2) = DERIVADA(X(1)) * incremento + X(2)
-        !X(1) = X(1) + incremento
-
         S = DS(S_anterior,Z_anterior) * incremento + S_anterior
         Z = DZ(S_anterior,Z_anterior,R_anterior) * incremento + Z_anterior
         R = DR(S_anterior,Z_anterior,R_anterior) * incremento + R_anterior
@@ -65,7 +60,6 @@ subroutine resolver_EDO(DS,DZ,DR,N,S0,Z0,R0,TInicial,TFinal)
         write(11,*) t,S
         write(12,*) t,Z
         write(13,*) t,R
-        !write(*,*) X
 
         S_anterior = S
         Z_anterior = Z
