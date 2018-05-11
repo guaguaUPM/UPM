@@ -16,8 +16,8 @@ module zombies
 implicit none
 real*8,parameter :: PI    = 0.0d0    ,&
                     ALPHA = 7.5d-3 ,&
-                    BETA  = 5.5d-2 ,&
-                    CHI   = 9.d-3    ,&
+                    BETA  = 5.5d-3 ,&
+                    CHI   = 9.d-2    ,&
                     DELTA = 1.0d-4
 contains 
 
