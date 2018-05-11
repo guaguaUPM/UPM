@@ -35,10 +35,10 @@ if (i==0) then
     ataques = 4
     allocate(TIEMPOS(0:ataques))
     TIEMPOS(0) = 0.d0
-    TIEMPOS(1) = 2.5
-    TIEMPOS(2) = 5
-    TIEMPOS(3) = 7.5
-    TIEMPOS(4) = 10
+    TIEMPOS(1) = 25
+    TIEMPOS(2) = 50
+    TIEMPOS(3) = 60
+    TIEMPOS(4) = 80
 else
     write(*,*) "¿Cuantos ataques a los zombies quieres?"
     read(*,*) ataques
