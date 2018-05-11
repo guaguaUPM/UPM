@@ -9,16 +9,16 @@ module zombies
 ! PI    = Ratio de nacimientos (0 a corto plazo)
 ! ALPHA = Ratio de muerte de zombies eliminados por los humanos
 ! BETA  = Ratio de transmision de humano a zombie
-! CHI   = Ratio de transformacion de humano a zombie
-! DELTA = Ratio de muerte humana natural
+! CHI   = Ratio de resurrecion de muerto a zombie
+! DELTA = Ratio de muerte humana por otras causas
 
 
 implicit none
 real*8,parameter :: PI    = 0.0d0    ,&
-                    ALPHA = 0.0075d0 ,&
-                    BETA  = 0.0055d0 ,&
-                    CHI   = 0.09d0    ,&
-                    DELTA = 0.0001d0
+                    ALPHA = 7.5d-3 ,&
+                    BETA  = 5.5d-2 ,&
+                    CHI   = 9.d-3    ,&
+                    DELTA = 1.0d-4
 contains 
 
     function s_prima(S,Z)

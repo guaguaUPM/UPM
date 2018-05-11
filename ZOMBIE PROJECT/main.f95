@@ -27,16 +27,29 @@ R = 0.d0
 
 k = 0.25d0
 
-write(*,*) "¿Cuantos ataques a los zombies quieres?"
-read(*,*) ataques
-allocate(TIEMPOS(0:ataques))
 
-TIEMPOS(0) = 0.d0
-do i=1, ataques
-    write(*,*) "¿Que tiempo desea para el ataque numero", i
-    read(*,*) TIEMPOS(i)
-end do
+write(*,*) "¿Desea usar una plantilla preestablecida de ataques? 0=Si, Cualquier otro entero=No"
+read(*,*)  i
 
+if (i==0) then
+    ataques = 4
+    allocate(TIEMPOS(0:ataques))
+    TIEMPOS(0) = 0.d0
+    TIEMPOS(1) = 2.5
+    TIEMPOS(2) = 5
+    TIEMPOS(3) = 7.5
+    TIEMPOS(4) = 10
+else
+    write(*,*) "¿Cuantos ataques a los zombies quieres?"
+    read(*,*) ataques
+    allocate(TIEMPOS(0:ataques))
+
+    TIEMPOS(0) = 0.d0
+    do i=1, ataques
+        write(*,*) "¿Que tiempo desea para el ataque numero", i
+        read(*,*) TIEMPOS(i)
+    end do
+end if
 
 call create_and_clean
 do i=1, ataques
