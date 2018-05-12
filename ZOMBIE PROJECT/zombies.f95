@@ -14,7 +14,7 @@ module zombies
 
 
 implicit none
-real*8,parameter :: PI    = 0.0d0    ,&
+real*8:: PI    = 0.0d0    ,&
                     ALPHA = 7.5d-3 ,&
                     BETA  = 5.5d-3 ,&
                     CHI   = 9.d-2    ,&
@@ -41,5 +41,27 @@ contains
 
         r_prima = DELTA*S + ALPHA*S*Z - CHI*R
     end function
+
+
+    function s_prima2(Z)
+        implicit none
+        real*8 :: Z, s_prima2
+
+        s_prima2 = - BETA*Z - DELTA
+    end function s_prima2
+
+    function z_prima2(S)
+        implicit none
+        real*8 :: S, z_prima2
+
+        z_prima2 = BETA*S - ALPHA*S
+    end function z_prima2
+
+    function r_prima2
+        implicit none
+        real*8 :: r_prima
+
+        r_prima2 = -CHI
+    end function r_prima2
 
 end module
