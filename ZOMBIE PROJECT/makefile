@@ -11,15 +11,15 @@ OBJ  = $(SRC:.f95=.o)
 EXE  = run.out
 .DEFAULT_GOAL := nolib
 .SUFFIXES: .f95 .o
-all: $(OBJ) main
+#all: $(OBJ) main
 nolib: $(OBJ) default
 
 %.o : %.f95
 	$(FC) $(FFLAGS) -c $<
 
-main : $(OBJ)
-	while [[ $$PWD != '/' && $${PWD##*/} != 'guaguaUPM' ]]; do cd ..; done; cd lib; make; cd ~-
-	$(FC) $(OBJ) $(FFLAGS) -o $(EXE)
+#main : $(OBJ)
+#	while [[ $$PWD != '/' && $${PWD##*/} != 'guaguaUPM' ]]; do cd ..; done; cd lib; make; cd ~-
+#	$(FC) $(OBJ) $(FFLAGS) -o $(EXE)
 
 default : $(OBJ)
 	$(FC) $(OBJ) $(FFLAGS) -o $(EXE)
