@@ -115,6 +115,7 @@ subroutine resolver_EDO_backward(DS,DZ,DR,DS2,DZ2,DR2,S0,Z0,R0,TInicial,TFinal)
     real*8  :: S,Z,R, incremento(2), t, S_prev(2), Z_prev(2), R_prev(2)
     real*8  :: G, GPRIMA, tol
 
+    ! IMPORTANTE
     ! La componente 1 es para las iteraciones de Backward y la 2 para la resolucion de Newton
     
     incremento(1) = 0.01d0
@@ -129,7 +130,6 @@ subroutine resolver_EDO_backward(DS,DZ,DR,DS2,DZ2,DR2,S0,Z0,R0,TInicial,TFinal)
     S = S0
     Z = Z0
     R = R0
-
     S_prev = S0
     Z_prev = Z0
     R_prev = R0
@@ -144,9 +144,10 @@ subroutine resolver_EDO_backward(DS,DZ,DR,DS2,DZ2,DR2,S0,Z0,R0,TInicial,TFinal)
         
         ! Metodo de Euler que resuelve G(S) = S - incremento*DS(S,Z) - S_anterior(1)
 
+        !S = 0.d0
+        !S_prev(2) = S
         do j=1, max_iter
-            ! S_anterior(2) - G(S_anterior(2)) / G'(S_anterior(2)
-            G = S_prev(2) - incremento(2)*DS( S_prev(2), Z_prev(1)) - S_prev(1)
+            G = S_prev(2) - incremento(2)*DS(S_prev(2), Z_prev(1)) - S_prev(1)
             GPRIMA = 1 - incremento(2)*DS2(Z_prev(1))
 
             S = S_prev(2) - G/GPRIMA
@@ -155,8 +156,10 @@ subroutine resolver_EDO_backward(DS,DZ,DR,DS2,DZ2,DR2,S0,Z0,R0,TInicial,TFinal)
             S_prev(2) = S
         end do
 
+        !Z = 0.d0
+        !Z_prev(2) = Z
         do j=1, max_iter
-            G =  Z_prev(2) - incremento(2)*DZ( S_prev(1), Z_prev(2),R_prev(1)) - Z_prev(1)
+            G =  Z_prev(2) - incremento(2)*DZ(S_prev(1), Z_prev(2),R_prev(1)) - Z_prev(1)
             GPRIMA = 1 - incremento(2)*DZ2(S_prev(1))
 
             Z = Z_prev(2) - G/GPRIMA
@@ -165,8 +168,10 @@ subroutine resolver_EDO_backward(DS,DZ,DR,DS2,DZ2,DR2,S0,Z0,R0,TInicial,TFinal)
             Z_prev(2) = Z
         end do
 
+        !R = 0.d0
+        !R_prev(2) = R
         do j=1, max_iter
-            G =  R_prev(2) - incremento(2)*DR( S_prev(1), Z_prev(1),R_prev(2)) - R_prev(1)
+            G =  R_prev(2) - incremento(2)*DR(S_prev(1), Z_prev(1),R_prev(2)) - R_prev(1)
             GPRIMA = 1 - incremento(2)*DR2()
 
             R = R_prev(2) - G/GPRIMA
@@ -186,6 +191,13 @@ subroutine resolver_EDO_backward(DS,DZ,DR,DS2,DZ2,DR2,S0,Z0,R0,TInicial,TFinal)
         R_prev = R
 
     end do
+    close(11)
+    close(12)
+    close(13)
+
+    S0 = S
+    Z0 = Z
+    R0 = R
     
 end subroutine
 
