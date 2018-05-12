@@ -5,7 +5,7 @@ module zombies
 ! R = Numero de muertos
 ! (Con prima se indica que es la derivada, el ratio de incremento de estas variables)
 ! 
-! Tambien se usan cuatro variables que pueden cambiarse que definen el comportamiento durante el tiempo:
+! Tambien se usan cinco variables que pueden cambiarse que definen el comportamiento durante el tiempo:
 ! PI    = Ratio de nacimientos (0 a corto plazo)
 ! ALPHA = Ratio de muerte de zombies eliminados por los humanos
 ! BETA  = Ratio de transmision de humano a zombie
