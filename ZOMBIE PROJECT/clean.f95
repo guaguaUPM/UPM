@@ -3,6 +3,8 @@ contains
 subroutine create_and_clean
     implicit none
 
+    ! Con status='replace' se crea el archivo si no existia, o se restea en el caso contrario.
+
     open(11, file='T_S.dat', status='replace')
     close(11)
 

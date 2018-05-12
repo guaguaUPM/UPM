@@ -79,4 +79,5 @@ do i=1, ataques
     R = R + deltaZ
 end do
 
+deallocate(TIEMPOS)
 end program main
