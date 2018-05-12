@@ -4,7 +4,7 @@
 !  Fernando Ayats Llamas
 !  Ale
 !  Fran
-!  Alv
+!  Alvaro Gonzalez Villarreal
 !  Lucs 
 
 ! A partir de un modelo de ecuaciones diferenciales, se simula un apocalipsis zombie y el crecimiento y decrecimiento de la poblacion
