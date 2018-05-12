@@ -106,13 +106,14 @@ subroutine resolver_EDO_backward(DS,DZ,DR,DS2,DZ2,DR2,S0,Z0,R0,TInicial,TFinal)
             real*8 :: S
             real*8 :: DZ2
         end function
-        function DR2
+        function DR2()
             real*8 :: DR2
         end function
     end interface
         
-    integer :: i,j N, max_iter
-    real*8  :: S,Z,R, incremento(2), t, S_anterior(2), Z_anterior(2), R_anterior(2), G, G_anterior
+    integer :: i,j, N, max_iter
+    real*8  :: S,Z,R, incremento(2), t, S_prev(2), Z_prev(2), R_prev(2)
+    real*8  :: G, GPRIMA
 
     ! La componente 1 es para las iteraciones de Backward y la 2 para la resolucion de Euler
     
@@ -128,9 +129,9 @@ subroutine resolver_EDO_backward(DS,DZ,DR,DS2,DZ2,DR2,S0,Z0,R0,TInicial,TFinal)
     Z = Z0
     R = R0
 
-    S_anterior(1) = S0
-    Z_anterior(1) = Z0
-    R_anterior(1) = R0
+    S_prev = S0
+    Z_prev = Z0
+    R_prev = R0
 
     t = TInicial
 
@@ -144,35 +145,41 @@ subroutine resolver_EDO_backward(DS,DZ,DR,DS2,DZ2,DR2,S0,Z0,R0,TInicial,TFinal)
 
         do j=1, max_iter
             ! S_anterior(2) - G(S_anterior(2)) / G'(S_anterior(2)
-            S = S_anterior(2) - ( S_anterior(2) - incremento(2)*DS( S_anterior(2), Z_anterior(1)) - S_anterior(1)) )/ &
-            (1 - incremento(2)*DS2(Z_anterior(1)))
+            G = S_prev(2) - incremento(2)*DS( S_prev(2), Z_prev(1)) - S_prev(1)
+            GPRIMA = 1 - incremento(2)*DS2(Z_prev(1))
 
-            S_anterior(2) = S
+            S = S_prev(2) - G/GPRIMA
+
+            S_prev(2) = S
         end do
 
         do j=1, max_iter
-            Z = Z_anterior(2) - ( Z_anterior(2) - incremento(2)*DZ( S_anterior(1), Z_anterior(2),R_anterior(1)) - Z_anterior(1)) )/ &
-            (1 - incremento(2)*DZ2(S_anterior(1)))
+            G =  Z_prev(2) - incremento(2)*DZ( S_prev(1), Z_prev(2),R_prev(1)) - Z_prev(1)
+            GPRIMA = 1 - incremento(2)*DZ2(S_prev(1))
 
-            Z_anterior(2) = Z
+            Z = Z_prev(2) - G/GPRIMA
+
+            Z_prev(2) = Z
         end do
 
         do j=1, max_iter
-            R = R_anterior(2) - ( R_anterior(2) - incremento(2)*DR( S_anterior(1), Z_anterior(1),R_anterior(2)) - R_anterior(1)) )/ &
-            (1 - incremento(2)*DR2)
+            G =  R_prev(2) - incremento(2)*DR( S_prev(1), Z_prev(1),R_prev(2)) - R_prev(1)
+            GPRIMA = 1 - incremento(2)*DR2()
 
-            R_anterior(2) = R
+            R = R_prev(2) - G/GPRIMA
+
+            R_prev(2) = R
         end do
 
-        t = t + incremento
+        t = t + incremento(1)
 
         write(11,*) t,S
         write(12,*) t,Z
         write(13,*) t,R
 
-        S_anterior(1) = S
-        Z_anterior(1) = Z
-        R_anterior(1) = R
+        S_prev(1) = S
+        Z_prev(1) = Z
+        R_prev(1) = R
 
     end do
     

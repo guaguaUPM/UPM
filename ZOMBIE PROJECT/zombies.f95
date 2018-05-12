@@ -57,9 +57,9 @@ contains
         z_prima2 = BETA*S - ALPHA*S
     end function z_prima2
 
-    function r_prima2
+    function r_prima2()
         implicit none
-        real*8 :: r_prima
+        real*8 :: r_prima2
 
         r_prima2 = -CHI
     end function r_prima2
