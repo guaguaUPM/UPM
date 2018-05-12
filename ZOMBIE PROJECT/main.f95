@@ -12,8 +12,8 @@
 ! Nuestra version usa grandes ataques contra zombies, que se pueden introducir manualmente o mediante una plantilla ya hecha.
 
 ! NOTA
-! El tiempo hemos elegido medirlo en AÑOS
-! El numero de zombies, humanos y retirados no tienen ningun factor de conversion, es decir S=500 son 500 humanos.
+! El TIEMPO hemos elegido medirlo en AÑOS
+! El NUMERO de zombies, humanos y retirados no tienen ningun factor de conversion, es decir S=500 son 500 humanos.
 
 
 program main
