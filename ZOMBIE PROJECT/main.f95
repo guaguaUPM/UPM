@@ -14,6 +14,8 @@
 ! NOTA
 ! El TIEMPO hemos elegido medirlo en AÑOS
 ! El NUMERO de zombies, humanos y retirados no tienen ningun factor de conversion, es decir S=500 son 500 humanos.
+!  Aunque esto ultimo deberia ser en numeros enteros, se conseidera esta resolucion como un promedio y una resolucion mas rigurosa deberia transformar estos resultados
+!  decimales, pero hemos decidido no contemplarlo.
 
 
 program main
