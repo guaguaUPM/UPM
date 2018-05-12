@@ -115,7 +115,7 @@ subroutine resolver_EDO_backward(DS,DZ,DR,DS2,DZ2,DR2,S0,Z0,R0,TInicial,TFinal)
     real*8  :: S,Z,R, incremento(2), t, S_prev(2), Z_prev(2), R_prev(2)
     real*8  :: G, GPRIMA, tol
 
-    ! La componente 1 es para las iteraciones de Backward y la 2 para la resolucion de Euler
+    ! La componente 1 es para las iteraciones de Backward y la 2 para la resolucion de Newton
     
     incremento(1) = 0.01d0
     incremento(2) = 0.001d0
