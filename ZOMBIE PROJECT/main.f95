@@ -11,6 +11,10 @@
 ! de humanos, zombies, y muertos. Dependiendo de unos parametros, los resultados seran diferentes. CAMBIAR EN zombies.f95.
 ! Nuestra version usa grandes ataques contra zombies, que se pueden introducir manualmente o mediante una plantilla ya hecha.
 
+! NOTA
+! El tiempo hemos elegido medirlo en AÑOS
+! El numero de zombies, humanos y retirados no tienen ningun factor de conversion, es decir S=500 son 500 humanos.
+
 
 program main
 use zombies
