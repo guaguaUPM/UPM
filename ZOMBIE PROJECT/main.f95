@@ -2,7 +2,7 @@
 ! Trabajo hecho por el Grupo 3 de Informática del M6.
 ! Integrantes:
 !  Fernando Ayats Llamas
-!  Ale
+!  Alejandro Cervigni Sebastián
 !  Fran
 !  Alvaro Gonzalez Villarreal
 !  Lucs 
