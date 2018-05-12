@@ -49,10 +49,10 @@ if (i==0) then
     ataques = 4
     allocate(TIEMPOS(0:ataques))
     TIEMPOS(0) = 0.d0
-    TIEMPOS(1) = 25
-    TIEMPOS(2) = 50
-    TIEMPOS(3) = 60
-    TIEMPOS(4) = 80
+    TIEMPOS(1) = 60
+    TIEMPOS(2) = 90
+    TIEMPOS(3) = 120
+    TIEMPOS(4) = 200
 else
     write(*,*) "¿Cuantos ataques a los zombies quieres?"
     read(*,*) ataques
@@ -82,6 +82,12 @@ do i=1, ataques
     deltaZ = k*i*Z
     Z = Z - deltaZ
     R = R + deltaZ
+
+    if(Z<0) then
+        write(*,*) "Zombies negativos"
+        EXIT   
+    endif
+
 end do
 
 deallocate(TIEMPOS)

@@ -14,9 +14,9 @@ module zombies
 
 
 implicit none
-real*8:: PI    = 0.0d0    ,&
+real*8:: PI    = 0.1d-2   ,&
                     ALPHA = 7.5d-3 ,&
-                    BETA  = 5.5d-3 ,&
+                    BETA  = 9.5d-3 ,&
                     CHI   = 9.d-2    ,&
                     DELTA = 1.0d-4
 contains 
