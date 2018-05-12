@@ -71,7 +71,10 @@ call create_and_clean
 ! ==========================
 ! RESOLUCION DEL SISTEMA DE ECUACIONES DIFERECIALES
 do i=1, ataques
+    ! Forward Euler
     !call resolver_EDO(s_prima, z_prima, r_prima,S,Z,R,TIEMPOS(i-1),TiEMPOS(i))
+
+    ! Backward Euler
     call resolver_EDO_backward(s_prima,z_prima,r_prima,s_prima2,z_prima2,r_prima2,&
     & S,Z,R,TIEMPOS(i-1),TiEMPOS(i))
 

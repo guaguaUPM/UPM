@@ -43,6 +43,7 @@ contains
     end function
 
 
+    ! d(DS)/dS, d(DZ)/dZ, d(DR)/dR; para backward euler
     function s_prima2(Z)
         implicit none
         real*8 :: Z, s_prima2
