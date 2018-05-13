@@ -27,7 +27,7 @@ contains
                 30 CONTINUE
                 read(69,*) line
                 ! write(*,*) line(1:1) ! DEBUG
-                if(line(1:1) .EQ. '!') goto 30
+                if(line(1:1) .EQ. '#') goto 30
                 read(line,*) PARAM(i)
                 ! write(*,*) PARAM(i) ! DEBUG
             end do
