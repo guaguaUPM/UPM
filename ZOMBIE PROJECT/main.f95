@@ -38,9 +38,9 @@ Z = 0.d0
 R = 0.d0
 
 ! Factor que multiplica al numero de zombies elimindaos con cada ataque
-k = 0.25d0
+! k = 0.25d0
 
-
+call leer_parametros(PARAM,k)
 
 ! ==========================
 ! CONFIGUTRACION DE LOS ATAQUES
@@ -71,8 +71,6 @@ end if
 
 ! Reset a los archivos que almacenan los datos  de la resolucion, ya que si no se añadirian a los de una ejecucion anterior
 call create_and_clean
-call leer_parametros(PARAM)
-
 
 ! ==========================
 ! RESOLUCION DEL SISTEMA DE ECUACIONES DIFERECIALES

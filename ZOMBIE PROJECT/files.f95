@@ -15,10 +15,10 @@ contains
         close(23)
     end subroutine create_and_clean
 
-    subroutine leer_parametros(PARAM)
+    subroutine leer_parametros(PARAM,K)
         implicit none
-        real*8, intent(inout) :: PARAM(5)
-        character (len=200)   :: line
+        real*8, intent(inout) :: PARAM(5), K
+        character (len=200) :: line
         integer :: info, i
 
         open(unit=69,file='PARAM.conf',status='old',action='read',iostat=info)
@@ -31,6 +31,10 @@ contains
                 read(line,*) PARAM(i)
                 ! write(*,*) PARAM(i) ! DEBUG
             end do
+            40 CONTINUE
+            read(69,*) line
+            if(line(1:1) .EQ. '#') goto 40
+            read(line,*) K
         else 
             write(*,*) "Ha habido un error en la lectura del archivo"
             write(*,*) "Si se ha borrado o esta corrupto, reestablecer el original"
