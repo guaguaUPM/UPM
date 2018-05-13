@@ -19,7 +19,7 @@ contains
         implicit none
         real*8 :: S, Z, s_prima, PARAM(5)
 
-        s_prima = PARAM(5) - PARAM(2)*S*Z - PARAM(3)*S
+        s_prima = PARAM(5)*S - PARAM(2)*S*Z - PARAM(3)*S
     end function s_prima
 
     function z_prima(S,Z,R,PARAM)
@@ -42,7 +42,7 @@ contains
         implicit none
         real*8 :: Z, s_prima2, PARAM(5)
 
-        s_prima2 = - PARAM(2)*Z - PARAM(3)
+        s_prima2 = PARAM(5) - PARAM(2)*Z - PARAM(3)
     end function s_prima2
 
     function z_prima2(S,PARAM)
