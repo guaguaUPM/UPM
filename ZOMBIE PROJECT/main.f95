@@ -98,6 +98,8 @@ do i=1, ataques
     endif
 
 end do
-write(*,*) z,s,r
+write(*,*) "Zombies finales:", Z
+write(*,*) "Humanos finales:", S
+write(*,*) "Retirados finales:", R
 deallocate(TIEMPOS)
 end program main
