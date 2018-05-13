@@ -1,5 +1,5 @@
 # Programa por defecto. Añadir modulos a la izquierda
-SRC  = zombies.f95 euler.f95 clean.f95 main.f95
+SRC  = files.f95 zombies.f95 euler.f95  main.f95
 
 # Compilador fortran
 FC = gfortran

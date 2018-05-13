@@ -21,15 +21,16 @@
 program main
 use zombies
 use euler
-use clean
+use files
 implicit none
 
 integer :: ataques, i
-real*8 :: S,Z,R, k, deltaZ
+real*8 :: S,Z,R, k, deltaZ, PARAM(5)
 real*8, allocatable  :: TIEMPOS(:)
 
 ! ==========================
 ! VALORES INICIALES
+! ==========================
 
 ! Numero de Zombies, Susceptibles y Retirados al inicio
 S = 500.d0
@@ -40,8 +41,11 @@ R = 0.d0
 k = 0.25d0
 
 
+
 ! ==========================
 ! CONFIGUTRACION DE LOS ATAQUES
+! ==========================
+
 write(*,*) "¿Desea usar una plantilla preestablecida de ataques? 0=Si, Cualquier otro entero=No"
 read(*,*)  i
 
@@ -67,16 +71,17 @@ end if
 
 ! Reset a los archivos que almacenan los datos  de la resolucion, ya que si no se añadirian a los de una ejecucion anterior
 call create_and_clean
+call leer_parametros(PARAM)
+
 
 ! ==========================
 ! RESOLUCION DEL SISTEMA DE ECUACIONES DIFERECIALES
-do i=1, ataques
-    ! Forward Euler
-    !call resolver_EDO(s_prima, z_prima, r_prima,S,Z,R,TIEMPOS(i-1),TiEMPOS(i))
+! ==========================
 
+do i=1, ataques
     ! Backward Euler
     call resolver_EDO_backward(s_prima,z_prima,r_prima,s_prima2,z_prima2,r_prima2,&
-    & S,Z,R,TIEMPOS(i-1),TiEMPOS(i))
+    & S,Z,R,TIEMPOS(i-1),TiEMPOS(i),PARAM)
 
     ! Los ataques aumentan en intensidad con el tiempo y con k
     deltaZ = k*i*Z
