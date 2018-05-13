@@ -21,7 +21,7 @@ contains
         character (len=200)   :: line
         integer :: info, i
 
-        open(unit=69,file='PARAM.dat',status='old',action='read',iostat=info)
+        open(unit=69,file='PARAM.conf',status='old',action='read',iostat=info)
         if(info==0) then
             do i=1,5
                 30 CONTINUE
