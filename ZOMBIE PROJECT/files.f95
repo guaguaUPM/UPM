@@ -33,6 +33,7 @@ contains
             end do
         else 
             write(*,*) "Ha habido un error en la lectura del archivo"
+            write(*,*) "Si se ha borrado o esta corrupto, reestablecer el original"
         end if
         close(69)
     end subroutine leer_parametros
