@@ -34,7 +34,7 @@ real*8, allocatable  :: TIEMPOS(:)
 
 ! Numero de Zombies, Susceptibles y Retirados al inicio
 S = 500.d0
-Z = 0.d0
+Z = 1.d0
 R = 0.d0
 
 ! Factor que multiplica al numero de zombies elimindaos con cada ataque
@@ -82,9 +82,15 @@ do i=1, ataques
     & S,Z,R,TIEMPOS(i-1),TiEMPOS(i),PARAM)
 
     ! Los ataques aumentan en intensidad con el tiempo y con k
-    deltaZ = k*i*Z
-    Z = Z - deltaZ
-    R = R + deltaZ
+    deltaZ = k*(S**(0.1))*i*Z
+    if ((Z-deltaZ)<0) then 
+        R = R + Z
+        Z = 0
+
+    else 
+        Z = Z - deltaZ
+        R = R + deltaZ
+    endif
 
     if(Z<0) then
         write(*,*) "Zombies negativos"
@@ -92,6 +98,6 @@ do i=1, ataques
     endif
 
 end do
-
+write(*,*) z,s,r
 deallocate(TIEMPOS)
 end program main

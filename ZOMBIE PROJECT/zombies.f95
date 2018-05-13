@@ -24,7 +24,7 @@ contains
 
     function z_prima(S,Z,R,PARAM)
         implicit none
-        real*8 :: z_prima, S,Z,R, PARAM(5)
+        real*8 :: z_prima, S,Z,R, PARAM(5) 
 
         z_prima = PARAM(2)*S*Z + PARAM(4)*R - PARAM(1)*S*Z
     end function
