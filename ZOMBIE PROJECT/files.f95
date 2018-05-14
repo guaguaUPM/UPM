@@ -4,15 +4,9 @@ contains
         implicit none
 
         ! Con status='replace' se crea el archivo si no existia, o se restea en el caso contrario.
+        open(24, file='T_SRZ.dat', status='replace')
+        close(24)
 
-        open(21, file='T_S.dat', status='replace')
-        close(21)
-
-        open(22, file='T_Z.dat', status='replace')
-        close(22)
-
-        open(23, file='T_R.dat', status='replace')
-        close(23)
     end subroutine create_and_clean
 
     subroutine leer_parametros(PARAM,K)

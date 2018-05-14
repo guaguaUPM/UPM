@@ -53,10 +53,8 @@ subroutine resolver_EDO_backward(DS,DZ,DR,DS2,DZ2,DR2,S0,Z0,R0,TInicial,TFinal,K
     tol           = 0.001d0
 
     ! Con access='append' se unen los resultados a los del ataque anterior
-    open(unit=11,file='T_S.dat',status='old',action='write',Access='append')
-    open(unit=12,file='T_Z.dat',status='old',action='write',Access='append')
-    open(unit=13,file='T_R.dat',status='old',action='write',Access='append')
-    
+    open(unit=13,file='T_SRZ.dat',status='old',action='write',Access='append')
+
     S = S0
     Z = Z0
     R = R0
@@ -66,10 +64,7 @@ subroutine resolver_EDO_backward(DS,DZ,DR,DS2,DZ2,DR2,S0,Z0,R0,TInicial,TFinal,K
 
     t = TInicial
 
-    write(11,*) t,S
-    write(12,*) t,Z
-    write(13,*) t,R
-
+    write(13,*) t,S,R,Z
 
     ! =================================
     ! ITERACIONES DE EULER
@@ -116,17 +111,13 @@ subroutine resolver_EDO_backward(DS,DZ,DR,DS2,DZ2,DR2,S0,Z0,R0,TInicial,TFinal,K
 
         t = t + incremento(1)
 
-        write(11,*) t,S
-        write(12,*) t,Z
-        write(13,*) t,R
+        write(13,*) t,S,R,Z
 
         S_prev = S
         Z_prev = Z
         R_prev = R
 
     end do
-    close(11)
-    close(12)
     close(13)
 
     ! Se almacenan los valores finales en las variables [S,Z,R]0, ya que son inout

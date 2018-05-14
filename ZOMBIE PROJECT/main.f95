@@ -83,20 +83,13 @@ do i=1, ataques
 
     ! Los ataques aumentan en intensidad con el tiempo y con k
     deltaZ = k*(S**(0.1))*i*Z
-    if ((Z-deltaZ)<0) then 
+    if ((Z-deltaZ)<0.d0) then 
         R = R + Z
         Z = 0
 
     else 
         Z = Z - deltaZ
         R = R + deltaZ
-    endif
-
-    if(Z<0) then
-        write(*,*) "Todos los zombies han sido aniquilados"
-        R = R+Z
-        Z = 0.d0
-        EXIT   
     endif
 
 end do
