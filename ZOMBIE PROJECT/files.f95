@@ -4,7 +4,7 @@ contains
         implicit none
 
         ! Con status='replace' se crea el archivo si no existia, o se restea en el caso contrario.
-        open(24, file='T_SRZ.dat', status='replace')
+        open(24, file='T_SZR.dat', status='replace')
         close(24)
 
     end subroutine create_and_clean

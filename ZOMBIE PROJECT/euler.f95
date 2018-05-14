@@ -53,7 +53,7 @@ subroutine resolver_EDO_backward(DS,DZ,DR,DS2,DZ2,DR2,S0,Z0,R0,TInicial,TFinal,K
     tol           = 0.001d0
 
     ! Con access='append' se unen los resultados a los del ataque anterior
-    open(unit=13,file='T_SRZ.dat',status='old',action='write',Access='append')
+    open(unit=13,file='T_SZR.dat',status='old',action='write',Access='append')
 
     S = S0
     Z = Z0
@@ -64,7 +64,7 @@ subroutine resolver_EDO_backward(DS,DZ,DR,DS2,DZ2,DR2,S0,Z0,R0,TInicial,TFinal,K
 
     t = TInicial
 
-    write(13,*) t,S,R,Z
+    write(13,*) t,S,Z,R
 
     ! =================================
     ! ITERACIONES DE EULER
@@ -115,7 +115,7 @@ subroutine resolver_EDO_backward(DS,DZ,DR,DS2,DZ2,DR2,S0,Z0,R0,TInicial,TFinal,K
 
         t = t + incremento(1)
 
-        write(13,*) t,S,R,Z
+        write(13,*) t,S,Z,R
 
         S_prev = S
         Z_prev = Z

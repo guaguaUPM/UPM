@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 
 T, S, R, Z = [], [], [], []
-for line in open('T_SRZ.dat', 'r'):
+for line in open('T_SZR.dat', 'r'):
   values = [float(s) for s in line.split()]
   T.append(values[0])
   S.append(values[1])
