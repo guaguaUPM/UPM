@@ -33,14 +33,15 @@ real*8, allocatable  :: TIEMPOS(:)
 ! ==========================
 
 ! Numero de Zombies, Susceptibles y Retirados al inicio
-S = 500.d0
-Z = 1.d0
-R = 0.d0
+!S = 500.d0
+!Z = 1.d0
+!R = 0.d0
 
 ! Factor que multiplica al numero de zombies elimindaos con cada ataque
 ! k = 0.25d0
 
 call leer_parametros(PARAM,k)
+call leer_condiciones_iniciales(S,Z,R)
 
 ! ==========================
 ! CONFIGUTRACION DE LOS ATAQUES

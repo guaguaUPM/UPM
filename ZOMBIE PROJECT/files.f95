@@ -35,4 +35,33 @@ contains
         end if
         close(69)
     end subroutine leer_parametros
+
+    subroutine leer_condiciones_iniciales(S,Z,R)
+        implicit none
+        real*8, intent(inout) :: S,Z,R
+        character (len=200) :: line
+        integer :: info, i
+
+        open(unit=42,file='INIT.conf',status='old',action='read',iostat=info)
+        if(info==0) then
+            51 CONTINUE
+            read(42,*) line
+            if(line(1:1) .EQ. '#') goto 51
+            read(line,*) S
+
+            52 CONTINUE
+            read(42,*) line
+            if(line(1:1) .EQ. '#') goto 52
+            read(line,*) Z
+
+            53 CONTINUE
+            read(42,*) line
+            if(line(1:1) .EQ. '#') goto 53
+            read(line,*) R
+        else 
+            write(*,*) "Ha habido un error en la lectura del archivo"
+            write(*,*) "Si se ha borrado o esta corrupto, reestablecer el original"
+        end if
+        close(69)
+    end subroutine leer_condiciones_iniciales
 end module files
