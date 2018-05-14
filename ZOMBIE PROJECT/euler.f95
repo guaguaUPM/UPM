@@ -122,12 +122,6 @@ subroutine resolver_EDO_backward(DS,DZ,DR,DS2,DZ2,DR2,S0,Z0,R0,TInicial,TFinal,K
         R_prev = R
 
     end do
-<<<<<<< HEAD
-=======
-        
-    close(11)
-    close(12)
->>>>>>> 612c6aa14f2ebd0f29ed7eb77be6b935e54e7e9c
     close(13)
 
     ! Se almacenan los valores finales en las variables [S,Z,R]0, ya que son inout
