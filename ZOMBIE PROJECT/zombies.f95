@@ -8,8 +8,8 @@ module zombies
 ! Tambien se usan cinco variables que pueden cambiarse que definen el comportamiento durante el tiempo:
 ! 1. ALPHA = Ratio de muerte de zombies eliminados por los humanos
 ! 2. BETA  = Ratio de transmision de humano a zombie
-! 3. DELTA = Ratio de muerte humana por otras causas
-! 4. CHI   = Ratio de resurrecion de muerto a zombie
+! 3. CHI   = Ratio de resurrecion de muerto a zombie
+! 4. DELTA = Ratio de muerte humana por otras causas
 ! 5. PI    = Ratio de nacimientos (0 a corto plazo)
 
 implicit none

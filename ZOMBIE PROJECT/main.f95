@@ -58,7 +58,7 @@ if (i==0) then
     TIEMPOS(3) = 120
     TIEMPOS(4) = 200
 else
-    write(*,*) "¿Cuantos ataques a los zombies quieres?"
+    write(*,*) "¿Cuantos ataques programados a los zombies desea?"
     read(*,*) ataques
     allocate(TIEMPOS(0:ataques))
 
@@ -93,7 +93,9 @@ do i=1, ataques
     endif
 
     if(Z<0) then
-        write(*,*) "Zombies negativos"
+        write(*,*) "Todos los zombies han sido aniquilados"
+        R = R+Z
+        Z = 0.d0
         EXIT   
     endif
 
