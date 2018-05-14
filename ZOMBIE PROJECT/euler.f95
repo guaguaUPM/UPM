@@ -78,6 +78,8 @@ subroutine resolver_EDO_backward(DS,DZ,DR,DS2,DZ2,DR2,S0,Z0,R0,TInicial,TFinal,K
         
         ! Metodo de Euler que resuelve G(S) = S - incremento*DS(S,Z) - S_anterior(1)
 
+        ! ITERACIONES DE EULER PARA S
+        ! vvvvvvv Al parecer poner las condiciones iniciales a 0 no afecta al resultado
         !S = 0.d0
         !S_prev(2) = S
         do j=1, max_iter
@@ -90,6 +92,7 @@ subroutine resolver_EDO_backward(DS,DZ,DR,DS2,DZ2,DR2,S0,Z0,R0,TInicial,TFinal,K
             S_prev(2) = S
         end do
 
+        ! ITERACIONES DE EULER PARA Z
         !Z = 0.d0
         !Z_prev(2) = Z
         do j=1, max_iter
@@ -102,6 +105,7 @@ subroutine resolver_EDO_backward(DS,DZ,DR,DS2,DZ2,DR2,S0,Z0,R0,TInicial,TFinal,K
             Z_prev(2) = Z
         end do
 
+        ! ITERACIONES DE EULER PARA R
         !R = 0.d0
         !R_prev(2) = R
         do j=1, max_iter
@@ -125,6 +129,7 @@ subroutine resolver_EDO_backward(DS,DZ,DR,DS2,DZ2,DR2,S0,Z0,R0,TInicial,TFinal,K
         R_prev = R
 
     end do
+        
     close(11)
     close(12)
     close(13)
