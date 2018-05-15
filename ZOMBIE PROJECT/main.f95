@@ -11,12 +11,6 @@
 ! de humanos, zombies, y muertos. Dependiendo de unos parametros, los resultados seran diferentes. CAMBIAR EN zombies.f95.
 ! Nuestra version usa grandes ataques contra zombies, que se pueden introducir manualmente o mediante una plantilla ya hecha.
 
-! NOTA
-! El TIEMPO hemos elegido medirlo en AÑOS
-! El NUMERO de zombies, humanos y retirados no tienen ningun factor de conversion, es decir S=500 son 500 humanos.
-!  Aunque esto ultimo deberia ser en numeros enteros, se conseidera esta resolucion como un promedio y una resolucion mas rigurosa deberia transformar estos resultados
-!  decimales, pero hemos decidido no contemplarlo.
-
 
 program main
 use zombies
@@ -32,14 +26,7 @@ real*8, allocatable  :: TIEMPOS(:)
 ! VALORES INICIALES
 ! ==========================
 
-! Numero de Zombies, Susceptibles y Retirados al inicio
-!S = 500.d0
-!Z = 1.d0
-!R = 0.d0
-
-! Factor que multiplica al numero de zombies elimindaos con cada ataque
-! k = 0.25d0
-
+! PARAM.conf e INIT.conf
 call leer_parametros(PARAM,k)
 call leer_condiciones_iniciales(S,Z,R)
 
@@ -82,20 +69,23 @@ do i=1, ataques
     call resolver_EDO_backward(s_prima,z_prima,r_prima,s_prima2,z_prima2,r_prima2,&
     & S,Z,R,TIEMPOS(i-1),TiEMPOS(i),PARAM)
 
-    ! Los ataques aumentan en intensidad con el tiempo y con k
+    ! Los ataques aumentan en intensidad con el tiempo, con k y con el numero de personas
     deltaZ = k*(S**(0.1))*i*Z
+
+    ! Failsafe para evitar que el numero de zombies sea negativo
     if ((Z-deltaZ)<0.d0) then 
         R = R + Z
         Z = 0
-
     else 
         Z = Z - deltaZ
         R = R + deltaZ
     endif
 
 end do
+
 write(*,*) "Zombies finales:", Z
 write(*,*) "Humanos finales:", S
 write(*,*) "Retirados finales:", R
+
 deallocate(TIEMPOS)
 end program main

@@ -16,14 +16,13 @@ contains
         integer :: info, i
 
         open(unit=69,file='PARAM.conf',status='old',action='read',iostat=info)
+        ! Bucle para saltar comentarios que empiecen con '#'
         if(info==0) then
             do i=1,5
                 30 CONTINUE
                 read(69,*) line
-                ! write(*,*) line(1:1) ! DEBUG
                 if(line(1:1) .EQ. '#') goto 30
                 read(line,*) PARAM(i)
-                ! write(*,*) PARAM(i) ! DEBUG
             end do
             40 CONTINUE
             read(69,*) line
@@ -43,6 +42,7 @@ contains
         integer :: info, i
 
         open(unit=42,file='INIT.conf',status='old',action='read',iostat=info)
+        ! Bucle para saltar comentarios que empiecen con '#'
         if(info==0) then
             51 CONTINUE
             read(42,*) line
