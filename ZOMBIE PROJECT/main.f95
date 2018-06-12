@@ -1,10 +1,10 @@
 ! Mayo 2018
 ! Trabajo hecho por el Grupo 3 de Informática del M6.
 ! Integrantes:
-!  Fernando Ayats Llamas
-!  Alejandro Cervigni Sebastián
+!  Fernando
+!  Alejandro
 !  Fran
-!  Alvaro Gonzalez Villarreal
+!  Alvaro
 !  Lucs 
 
 ! A partir de un modelo de ecuaciones diferenciales, se simula un apocalipsis zombie y el crecimiento y decrecimiento de la poblacion
